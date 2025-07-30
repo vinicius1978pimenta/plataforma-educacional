@@ -8,19 +8,26 @@ datasource db {
 }
 
 model User {
-  id            String     @id @default(uuid())
-  name          String
-  email         String     @unique
-  password      String
-  role          Role
-  materiais     Material[]
-  vocabulario   Vocabulo[]
-  filhos        User[]     @relation("PaiFilho")
-  responsavel   User?      @relation("PaiFilho", fields: [responsavelId], references: [id])
+  id          String     @id @default(uuid())
+  name        String
+  email       String     @unique
+  password    String
+  role        Role
+  materiais   Material[]
+  vocabulario Vocabulo[]
+
+  // Relação com Turmas em que o usuário é aluno
+  turmas Turma[] @relation("TurmaAlunos")
+
+  filhos        User[]  @relation("PaiFilho")
+  responsavel   User?   @relation("PaiFilho", fields: [responsavelId], references: [id])
   responsavelId String?
-  createdAt     DateTime   @default(now())
+
+  createdAt DateTime @default(now())
 
   Agenda Agenda[]
+
+  Turma Turma[]
 }
 
 model Material {
@@ -49,6 +56,20 @@ model Agenda {
   data      DateTime
   titulo    String
   descricao String
+}
+
+model Turma {
+  id   String @id @default(uuid())
+  nome String
+
+  // Professor responsável pela turma
+  professor   User   @relation(fields: [professorId], references: [id])
+  professorId String
+
+  // Alunos da turma
+  alunos User[] @relation("TurmaAlunos")
+
+  createdAt DateTime @default(now())
 }
 
 enum Role {
