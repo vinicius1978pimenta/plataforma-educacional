@@ -4,7 +4,14 @@ import { AppService } from './app.service';
 import { PrismaModule } from './Prisma/prisma/prisma.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { VocabularioModule } from './vocabulario/vocabulario.module';
+import { ProfessorModule } from './users/professor/professor.module';
+import { AlunoModule } from './users/aluno/aluno.module';
+import { ResponsavelModule } from './users/responsavel/responsavel.module';
 
+
+@Module({
+  imports: [PrismaModule,AuthModule,VocabularioModule,ProfessorModule,AlunoModule,ResponsavelModule],
   controllers: [AppController, AuthController],
   providers: [AppService],
 })
