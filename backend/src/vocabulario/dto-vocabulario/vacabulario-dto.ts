@@ -1,12 +1,15 @@
-import { IsNotEmpty, isNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsOptional, IsIn } from 'class-validator';
 
-
-export class VocabularioDto{
+export class VocabularioDto {
   @IsString()
   @IsNotEmpty()
-  palavra : string;
+  palavra: string;
 
+  @IsOptional()
   @IsString()
-  traducao : string; 
+  traducao?: string;
 
+  @IsOptional()
+  @IsIn(['en', 'es'])
+  idioma?: 'en' | 'es';
 }
