@@ -30,12 +30,16 @@ export class AlunoController {
     @Body() updateAlunoDto: UpdateAlunoDto,
     @CurrentUser() user: any,
   ) {
-    const updatedAluno = await this.alunoService.update(id, updateAlunoDto);
+    const updatedAluno = await this.alunoService.update(
+      id,
+      updateAlunoDto,
+      user,
+    );
     return updatedAluno;
   }
 
   //Atualiza senha do aluno
-  @Patch(':id/changepassword')
+  @Patch(':id/password')
   async updatePassword(
     @Param('id') id: string,
     @Body() updatePasswordDto: UpdatePasswordDto,
@@ -45,6 +49,7 @@ export class AlunoController {
       id,
       updatePasswordDto.oldPassword,
       updatePasswordDto.newPassword,
+      user,
     );
     return { message: 'Senha alterada com sucesso!' };
   }
@@ -52,13 +57,13 @@ export class AlunoController {
   //Busca um aluno em específico
   @Get(':id')
   async find(@Param('id') id: string, @CurrentUser() user: any) {
-    return this.alunoService.find(id);
+    return this.alunoService.find(id, user);
   }
 
   //Deleta acesso do aluno específico
   @Delete(':id')
   async remove(@Param('id') id: string, @CurrentUser() user: any) {
-    await this.alunoService.remove(id);
+    await this.alunoService.remove(id, user);
     return { message: 'Conta excluída com sucesso!' };
   }
 }

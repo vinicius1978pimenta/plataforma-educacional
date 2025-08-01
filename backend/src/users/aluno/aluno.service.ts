@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdateAlunoDto } from './dto/update-aluno.dto';
 import { PrismaService } from 'src/Prisma/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -7,7 +11,10 @@ import * as bcrypt from 'bcrypt';
 export class AlunoService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async update(id: string, updateAluno: UpdateAlunoDto) {
+  async update(id: string, updateAluno: UpdateAlunoDto, user: any) {
+    if (user.id !== id) {
+      throw new ForbiddenException('Acesso negado');
+    }
     const updatedAluno = await this.prismaService.user.update({
       where: { id },
       data: updateAluno,
@@ -15,7 +22,15 @@ export class AlunoService {
     return updatedAluno;
   }
 
-  async updatePassword(id: string, oldPassword: string, newPassword: string) {
+  async updatePassword(
+    id: string,
+    oldPassword: string,
+    newPassword: string,
+    user: any,
+  ) {
+    if (user.id !== id) {
+      throw new ForbiddenException('Acesso negado');
+    }
     const aluno = await this.prismaService.user.findUnique({
       where: { id },
     });
@@ -44,13 +59,20 @@ export class AlunoService {
     return true;
   }
 
-  async find(id: string) {
+  async find(id: string, user: any) {
+    if (user.id !== id) {
+      throw new ForbiddenException('Acesso negado');
+    }
     return this.prismaService.user.findUnique({
       where: { id },
     });
   }
 
-  async remove(id: string) {
+  async remove(id: string, user: any) {
+    if (user.id !== id) {
+      throw new ForbiddenException('Você não pode deletar outro aluno.');
+    }
+
     try {
       const deletedAluno = await this.prismaService.user.delete({
         where: { id },
