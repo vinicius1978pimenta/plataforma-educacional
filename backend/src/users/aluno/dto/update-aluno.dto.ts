@@ -1,22 +1,23 @@
 import {
   IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
   IsString,
   MinLength,
-  IsEnum,
-  IsOptional,
 } from 'class-validator';
 import { Role } from '@prisma/client';
 
-export class RegistrarDto {
+export class UpdateAlunoDto {
   @IsString()
-  @MinLength(2)
+  @IsNotEmpty()
   name: string;
 
   @IsEmail()
   email: string;
 
-  @IsString()
   @MinLength(6)
+  @IsNotEmpty()
   password: string;
 
   @IsEnum(Role)
@@ -24,5 +25,5 @@ export class RegistrarDto {
 
   @IsOptional()
   @IsString()
-  responsavelId?: string; // Só para alunos
+  responsavelId: string;
 }
