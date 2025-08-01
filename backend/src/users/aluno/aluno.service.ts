@@ -3,30 +3,30 @@ import { UpdateAlunoDto } from './dto/update-aluno.dto';
 import { PrismaService } from 'src/Prisma/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
-
 @Injectable()
 export class AlunoService {
   constructor(private readonly prismaService: PrismaService) {}
 
-
-  async update(id:string, updateAluno: UpdateAlunoDto){
+  async update(id: string, updateAluno: UpdateAlunoDto) {
     const updatedAluno = await this.prismaService.user.update({
-      where: {id},
+      where: { id },
       data: updateAluno,
     });
     return updatedAluno;
   }
 
-
-  async updatePassword(id: string, oldPassword: string, newPassword: string){
+  async updatePassword(id: string, oldPassword: string, newPassword: string) {
     const aluno = await this.prismaService.user.findUnique({
-      where: {id},
+      where: { id },
     });
 
-    if (!aluno){
-      throw new NotFoundException ('Aluno não encontrado')
+    if (!aluno) {
+      throw new NotFoundException('Aluno não encontrado');
     }
-    const isOldPasswordValid = await bcrypt.compare(oldPassword, aluno.password);
+    const isOldPasswordValid = await bcrypt.compare(
+      oldPassword,
+      aluno.password,
+    );
 
     if (!isOldPasswordValid) {
       throw new NotFoundException('Senha antiga incorreta');
@@ -44,14 +44,13 @@ export class AlunoService {
     return true;
   }
 
-  async find(id: string){
-    return this.prismaService.user.findMany({
+  async find(id: string) {
+    return this.prismaService.user.findUnique({
       where: { id },
-      orderBy: { createdAt: 'desc' }
-    })
+    });
   }
 
- async remove(id: string) {
+  async remove(id: string) {
     try {
       const deletedAluno = await this.prismaService.user.delete({
         where: { id },
@@ -62,5 +61,3 @@ export class AlunoService {
     }
   }
 }
- 
-
