@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id          String     @id @default(uuid())
-  name        String
-  email       String     @unique
-  password    String
-  role        Role
-  materiais   Material[]
-  vocabulario Vocabulo[]
+  id           String     @id @default(uuid())
+  name         String
+  email        String     @unique
+  password     String
+  role         Role
+  refreshToken String?
+  materiais    Material[]
+  vocabulario  Vocabulo[]
 
   // Relação com Turmas em que o usuário é aluno
   turmas Turma[] @relation("TurmaAlunos")
