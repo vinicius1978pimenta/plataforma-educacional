@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegistrarDto } from './dto/registrar.dto';
 import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto.'; // NOVO IMPORT
 import { JwtAuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/regras.guard';
 import { Roles } from './decorators/roles.decorator';
@@ -21,6 +22,19 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
+
+  // NOVAS ROTAS PARA REFRESH TOKEN
+  @Post('refresh')
+  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+    return this.authService.refreshToken(refreshTokenDto.refresh_token);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  async logout(@Request() req) {
+    return this.authService.logout(req.user.sub);
+  }
+  // FIM DAS NOVAS ROTAS
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')

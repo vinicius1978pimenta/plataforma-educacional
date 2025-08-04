@@ -23,6 +23,6 @@ export class RegistrarDto {
   role: Role;
 
   @IsOptional()
-  @IsString()
-  responsavelId?: string; // Só para alunos
+  @IsEmail()
+  responsavelEmail?: string; // Email do responsável para alunos
 }
