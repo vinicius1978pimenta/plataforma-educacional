@@ -10,6 +10,7 @@ import { AlunoModule } from './users/aluno/aluno.module';
 import { ResponsavelModule } from './users/responsavel/responsavel.module';
 import { HttpModule } from '@nestjs/axios';
 import { TranslationModule } from './traducao/translation/translation.module';
+import { MaterialModule } from './material/material.module';
 
 
 @Module({
@@ -18,9 +19,10 @@ import { TranslationModule } from './traducao/translation/translation.module';
             VocabularioModule,
             ProfessorModule,
             AlunoModule,
-            ResponsavelModule
-            ,HttpModule,
-            TranslationModule
+            ResponsavelModule,
+            HttpModule,
+            TranslationModule,
+            MaterialModule
           ],
   controllers: [AppController, AuthController],
   providers: [AppService],
