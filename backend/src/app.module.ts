@@ -11,6 +11,7 @@ import { ResponsavelModule } from './users/responsavel/responsavel.module';
 import { HttpModule } from '@nestjs/axios';
 import { TranslationModule } from './traducao/translation/translation.module';
 import { MaterialModule } from './material/material.module';
+import { AtividadeModule } from './atividades/atividade.module';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { MaterialModule } from './material/material.module';
             ResponsavelModule,
             HttpModule,
             TranslationModule,
-            MaterialModule
+            MaterialModule,
+            AtividadeModule
           ],
   controllers: [AppController, AuthController],
   providers: [AppService],

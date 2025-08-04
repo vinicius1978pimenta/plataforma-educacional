@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(uuid())
+  id           String              @id @default(uuid())
   name         String
-  email        String     @unique
+  email        String              @unique
   password     String
   role         Role
   refreshToken String?
   materiais    Material[]
   vocabulario  Vocabulo[]
+  atividades   Atividade[] // Professor pode criar atividades
+  respostas    RespostaAtividade[] // Aluno pode responder atividades
 
   // Relação com Turmas em que o usuário é aluno
   turmas Turma[] @relation("TurmaAlunos")
@@ -27,8 +29,7 @@ model User {
   createdAt DateTime @default(now())
 
   Agenda Agenda[]
-
-  Turma Turma[]
+  Turma  Turma[]
 }
 
 model Material {
@@ -70,11 +71,95 @@ model Turma {
   // Alunos da turma
   alunos User[] @relation("TurmaAlunos")
 
+  // Atividades da turma
+  atividades Atividade[]
+
   createdAt DateTime @default(now())
+}
+
+model Atividade {
+  id        String @id @default(uuid())
+  titulo    String
+  descricao String
+  conteudo  String // Conteúdo da atividade
+  materia   String // Ex: "Matemática", "Português", "Inglês"
+
+  // Campos adicionais opcionais
+  tipo          TipoAtividade    @default(EXERCICIO)
+  dificuldade   NivelDificuldade @default(MEDIO)
+  pontuacao     Int? // Pontos que a atividade vale
+  tempoEstimado Int? // Tempo estimado em minutos
+  instrucoes    String? // Instruções específicas
+
+  // Relacionamentos
+  professor   User   @relation(fields: [professorId], references: [id])
+  professorId String
+
+  turma   Turma?  @relation(fields: [turmaId], references: [id])
+  turmaId String?
+
+  // Respostas dos alunos
+  respostas RespostaAtividade[]
+
+  // Metadados
+  dataVencimento DateTime?
+  ativa          Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+// Nova tabela para respostas dos alunos
+model RespostaAtividade {
+  id String @id @default(uuid())
+
+  // Relacionamentos
+  atividade   Atividade @relation(fields: [atividadeId], references: [id], onDelete: Cascade)
+  atividadeId String
+
+  aluno   User   @relation(fields: [alunoId], references: [id])
+  alunoId String
+
+  // Conteúdo da resposta
+  resposta String
+  anexos   String[] // URLs dos arquivos anexados
+
+  // Avaliação
+  nota     Float? // Nota dada pelo professor
+  feedback String? // Comentários do professor
+  status   StatusResposta @default(ENVIADA)
+
+  // Timestamps
+  dataEnvio    DateTime  @default(now())
+  dataCorrecao DateTime?
+
+  // Constraint para evitar múltiplas respostas do mesmo aluno
+  @@unique([atividadeId, alunoId])
 }
 
 enum Role {
   ALUNO
   PROFESSOR
   RESPONSAVEL
+}
+
+enum TipoAtividade {
+  EXERCICIO
+  PROVA
+  TRABALHO
+  PROJETO
+  LEITURA
+  PESQUISA
+}
+
+enum NivelDificuldade {
+  FACIL
+  MEDIO
+  DIFICIL
+}
+
+enum StatusResposta {
+  RASCUNHO
+  ENVIADA
+  CORRIGIDA
+  DEVOLVIDA
 }
