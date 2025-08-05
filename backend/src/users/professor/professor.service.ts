@@ -81,11 +81,11 @@ export class ProfessorService {
     const professor = await this.prismaService.user.findUnique({
       where: { id },
     });
-
+/*
     if (!professor) {
       throw new Error('Professor não encontrado');
     }
-
+*/
     return professor;
   }
 
@@ -107,7 +107,7 @@ export class ProfessorService {
   }
 
   async findAllAlunos() {
-    return this.prismaService.user.findMany({
+    return await this.prismaService.user.findMany({
       where: { role: 'ALUNO' },
     });
   }

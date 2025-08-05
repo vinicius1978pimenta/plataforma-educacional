@@ -53,9 +53,17 @@ export class ProfessorController {
     return this.professorService.remove(id, user);
   }
 
+    //Buscar todos os alunos
+  @Get('alunos')
+  async findAllAlunos() {
+     console.log("Buscando todos os alunos...");
+    return this.professorService.findAllAlunos();
+  }
+
   //Buscar um professor em específico
   @Get(':id')
   async findOneProfessor(@Param('id') id: string, @CurrentUser() user: any) {
+    console.log('Buscando professor')
     return this.professorService.findOneProfessor(id, user);
   }
 
@@ -71,14 +79,9 @@ export class ProfessorController {
     return this.professorService.findOneAluno(id);
   }
 
-  //Buscar todos os alunos
-  @Get('alunos')
-  async findAllAlunos() {
-    return this.professorService.findAllAlunos();
-  }
 
   //Deleta um aluno específico
-  @Delete(':id/aluno/alunoId')
+  @Delete(':id/aluno/:alunoId')
   async removeAluno(
     @Param('id') id: string,
     @Param('alunoId') alunoId: string,
