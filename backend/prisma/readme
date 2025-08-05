@@ -1,0 +1,54 @@
+## ⚙️ Configuração e Execução do Projeto
+
+### ✅ 1. Pré-requisitos
+
+- 📦 Node.js `>= 18`
+- 🐘 PostgreSQL rodando
+- 💡 Prisma (será instalado com o projeto)
+
+### 📦 2. Instale as dependências
+
+````bash
+npm install
+```
+
+Se necessário, instale os pacotes do Prisma manualmente:
+
+```bash
+npm install prisma @prisma/client --save-dev
+```
+
+
+🧪 3. Configure o ambiente .env - crie um arquivo .env na raiz com:
+
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/meubanco"
+JWT_SECRET="your-super-secret-jwt-key-here"
+
+
+⚙️ 4. Gere o client do Prisma:
+
+```bash
+npx prisma generate
+```
+
+
+🧱 5. Crie as tabelas com migrations:
+
+```bash
+npx prisma migrate dev --name nome-da-migracao
+```
+
+
+👨‍💻 6. Inicie o servidor - modo desenvolvimento:
+
+```bash
+npm run start:dev
+````
+
+### 🔧 7. Abra o Prisma Studio (opcional)
+
+Se você deseja interagir com o banco de dados via interface gráfica:
+
+```bash
+npx prisma studio
+```
