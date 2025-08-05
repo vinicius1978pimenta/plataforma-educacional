@@ -1,0 +1,98 @@
+.container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .role-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .role-buttons button {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .role-buttons button.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .role-buttons button:hover {
+      background: #f0f0f0;
+    }
+
+    .role-buttons button.active:hover {
+      background: #0056b3;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: #218838;
+    }
+
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
