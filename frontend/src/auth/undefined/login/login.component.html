@@ -1,0 +1,73 @@
+<div class="container">
+      <h2>Login</h2>
+      
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="loginData.email" 
+            required
+            #email="ngModel">
+          <div *ngIf="email.invalid && email.touched" class="error">
+            Email é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            [(ngModel)]="loginData.password" 
+            required
+            #password="ngModel">
+          <div *ngIf="password.invalid && password.touched" class="error">
+            Senha é obrigatória
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de usuário:</label>
+          <div class="role-buttons">
+            <button 
+              type="button"
+              [class.active]="selectedRole === 'ALUNO'"
+              (click)="selectRole('ALUNO')">
+              Aluno
+            </button>
+            <button 
+              type="button"
+              [class.active]="selectedRole === 'PROFESSOR'"
+              (click)="selectRole('PROFESSOR')">
+              Professor
+            </button>
+            <button 
+              type="button"
+              [class.active]="selectedRole === 'RESPONSAVEL'"
+              (click)="selectRole('RESPONSAVEL')">
+              Responsável
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="error">
+          {{ errorMessage }}
+        </div>
+
+        <button 
+          type="submit" 
+          [disabled]="loginForm.invalid || !selectedRole || loading"
+          class="submit-btn">
+          {{ loading ? 'Entrando...' : 'Entrar' }}
+        </button>
+      </form>
+
+      <p>
+        Não tem conta? 
+        <a href="/register" (click)="goToRegister($event)">Cadastre-se aqui</a>
+      </p>
+    </div>
