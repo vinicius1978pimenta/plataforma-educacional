@@ -1,13 +1,13 @@
 <div class="dashboard">
 
    <div class="botao-sair"><button (click)="logout()">Sair</button></div>
-   
+
       <div class="dashboard-header">
         <h1>Dashboard do Professor</h1>
         <p *ngIf="currentUser">Bem-vindo, {{ currentUser.name }}!</p>
       </div>
 
-    
+
       <div class="dashboard-content">
         <div class="card">
           <h3>Materias</h3>
@@ -17,14 +17,14 @@
 
         <div class="card">
           <h3>Atividades</h3>
-          <p>Crie e gerencie atividades</p>
-          <button class="btn-primary">Criar Atividade</button>
+          <p>Gerencie atividades</p>
+          <button class="btn-primary" routerLink="/atividades">Gerenciar Atividades</button>
         </div>
 
         <div class="card">
           <h3>Criar Atividades</h3>
           <p>criação de atividades</p>
-          <button class="btn-primary">Gerenciar Atividades</button>
+          <button class="btn-primary" routerLink="/criar-atividade">Criar Atividades</button>
         </div>
 
         <div class="card">
