@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../../components-tela-inicial/navbar/navbar.component';
 
 @Component({
   standalone : true,
   selector: 'app-register',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,NavbarComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

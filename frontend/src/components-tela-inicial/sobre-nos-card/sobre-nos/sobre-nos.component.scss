@@ -1,0 +1,20 @@
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+      box-shadow: 0 5px 15px rgba(2, 40, 93, 0.3);
+    }
+    50% {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(2, 40, 93, 0.5);
+    }
+  }
+
+  .card {
+    animation: float 6s ease-in-out infinite;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 25px 40px rgba(2, 40, 93, 0.7);
+  }
+  

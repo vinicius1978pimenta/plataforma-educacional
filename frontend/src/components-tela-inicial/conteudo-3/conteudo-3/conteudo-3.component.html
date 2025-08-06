@@ -1,0 +1,81 @@
+
+
+<!-- Seção principal -->
+<section class="py-5 bg-fgv text-light" style="min-height: 100vh; display: flex; align-items: center;">
+  <!-- Particles background -->
+  <div class="particles">
+    <div class="particle" style="width: 4px; height: 4px;"></div>
+    <div class="particle" style="width: 6px; height: 6px;"></div>
+    <div class="particle" style="width: 3px; height: 3px;"></div>
+    <div class="particle" style="width: 5px; height: 5px;"></div>
+    <div class="particle" style="width: 4px; height: 4px;"></div>
+    <div class="particle" style="width: 7px; height: 7px;"></div>
+    <div class="particle" style="width: 3px; height: 3px;"></div>
+    <div class="particle" style="width: 5px; height: 5px;"></div>
+  </div>
+
+  <div class="container text-center">
+    <h2 class="section-title">Educação</h2>
+    <p class="section-subtitle">
+      A FGV oferece renomados programas educacionais, criando a nova liderança do país.<br>
+      <strong>Faça parte dessa transformação.</strong>
+    </p>
+
+    <!-- Cards -->
+    <div class="row gy-5 justify-content-center">
+      <!-- Aluno -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card hover-card floating" [routerLink]="'/login'">
+          <div class="card-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+               alt="Aluno" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Aluno</h5>
+            <p class="card-text">
+              Ambiente de aprendizagem moderno e acessível, com recursos interativos 
+              para potencializar seu desenvolvimento acadêmico.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professor -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card hover-card floating" [routerLink]="'/login'">
+          <div class="card-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=800&q=80"
+               alt="Professor" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Professor</h5>
+            <p class="card-text">
+              Ferramentas eficazes para gestão e ensino com qualidade, 
+              promovendo uma experiência educacional excepcional.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsável -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card hover-card floating" [routerLink]="'/login'">
+          <div class="card-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=800&q=80"
+               alt="Responsável" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Responsável</h5>
+            <p class="card-text">
+              Acompanhamento detalhado da evolução do aluno na plataforma,
+              com relatórios completos e insights personalizados.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
