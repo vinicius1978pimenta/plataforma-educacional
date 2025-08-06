@@ -8,14 +8,17 @@ import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
 import { MaterialListComponent } from './material/material-list/material-list';
 import { MaterialFormComponent } from './material/material-form/material-form';
+import { InicialComponent } from '../components-tela-inicial/inicial.component';
+import { SobreNosComponent } from '../components-tela-inicial/sobre-nos-card/sobre-nos/sobre-nos.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   // Rotas públicas
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
+  {path: 'home', component : InicialComponent },
+  {path: 'sobre', component : SobreNosComponent },
   // Dashboards protegidos por autenticação e role específico
   {
     path: 'dashboard-professor',
@@ -36,7 +39,7 @@ export const routes: Routes = [
     data: { role: 'RESPONSAVEL' }
   },
 
-  // Rota genérica de dashboard (você pode adaptar isso melhor depois)
+  // Rota genérica de dashboard 
   {
     path: 'dashboard',
     component: LoginComponent, // temporário — pode ser substituído por um redirecionamento inteligente
