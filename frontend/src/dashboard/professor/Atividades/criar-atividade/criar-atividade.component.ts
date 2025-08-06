@@ -24,8 +24,8 @@ export class CriarAtividadeComponent {
     ativa: true
   };
 
-  tipos = ['EXERCICIO', 'AULA', 'PROVA'];  // Tipos de atividades
-  dificuldades = ['FACIL', 'MEDIO', 'DIFICIL'];  // Níveis de dificuldade
+  tipos = ['Exercício', 'Aula', 'Prova'];  // Tipos de atividades
+  dificuldades = ['Fácil', 'Médio', 'Difícil  '];  // Níveis de dificuldade
 
   constructor(private atividadeService: AtividadeService, private router: Router) {}
 
