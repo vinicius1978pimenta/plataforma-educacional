@@ -6,6 +6,8 @@ import { DashboardAlunoComponent } from '../dashboard/aluno/dashboard-aluno.comp
 import { DahsboardResponsaveisComponent } from '../dashboard/responsaveis/dahsboard-responsaveis.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { RoleGuard } from '../guards/role.guard';
+import { MaterialListComponent } from './material/material-list/material-list';
+import { MaterialFormComponent } from './material/material-form/material-form';
 import { InicialComponent } from '../components-tela-inicial/inicial.component';
 import { SobreNosComponent } from '../components-tela-inicial/sobre-nos-card/sobre-nos/sobre-nos.component';
 
@@ -44,6 +46,27 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
+  // Rotas de materiais (protegidas para professores)
+  {
+    path: 'materiais',
+    component: MaterialListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+  {
+    path: 'materiais/novo',
+    component: MaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+  {
+    path: 'materiais/editar/:id',
+    component: MaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+
   // Rota fallback
   { path: '**', redirectTo: '/login' }
 ];
+
