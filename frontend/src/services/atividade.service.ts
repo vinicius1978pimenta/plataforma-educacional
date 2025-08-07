@@ -53,4 +53,12 @@ export class AtividadeService {
       headers: this.getAuthHeaders()
     });
   }
+
+findByMaterialId(materialId: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}?materialId=${materialId}`, {
+    headers: this.getAuthHeaders()
+  });
 }
+
+}
+

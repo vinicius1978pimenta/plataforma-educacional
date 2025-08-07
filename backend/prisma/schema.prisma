@@ -33,13 +33,14 @@ model User {
 }
 
 model Material {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   titulo      String
   conteudo    String
   traducao    String?
-  professor   User     @relation(fields: [professorId], references: [id])
+  professor   User        @relation(fields: [professorId], references: [id])
   professorId String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime    @default(now())
+  Atividade   Atividade[]
 }
 
 model Vocabulo {
@@ -83,6 +84,10 @@ model Atividade {
   descricao String
   conteudo  String // Conteúdo da atividade
   materia   String // Ex: "Matemática", "Português", "Inglês"
+
+  // Adicionando materialId e criando o relacionamento com o modelo Material
+  materialId String // Campo para a chave estrangeira
+  material   Material @relation(fields: [materialId], references: [id]) // Relacionamento com a tabela Material
 
   // Campos adicionais opcionais
   tipo          TipoAtividade    @default(EXERCICIO)

@@ -13,6 +13,8 @@ import { MaterialListComponent } from './material/material-list/material-list';
 import { MaterialFormComponent } from './material/material-form/material-form';
 import { InicialComponent } from '../components-tela-inicial/inicial.component';
 import { SobreNosComponent } from '../components-tela-inicial/sobre-nos-card/sobre-nos/sobre-nos.component';
+import { PerfilProfessorComponent } from '../dashboard/professor/perfil-professor/perfil-professor.component';
+import { MaterialAtividadesListComponent } from './material-atividades-list/material-atividades-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -76,6 +78,19 @@ export const routes: Routes = [
     data: { role: 'PROFESSOR' }
   },
 
+  {
+  path: 'perfil-professor/:id',  // Rota para o perfil do professor
+  component: PerfilProfessorComponent,  // Componente que você criou
+  canActivate: [AuthGuard, RoleGuard],  // Protege a rota com os guards
+  data: { role: 'PROFESSOR' }  // Apenas professores podem acessar
+},
+
+{
+  path: 'materiais/:id/atividades',  // Usando o ID do material
+  component: MaterialAtividadesListComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { role: 'PROFESSOR' }
+},
   // Rota fallback
   { path: '**', redirectTo: '/login' },
 

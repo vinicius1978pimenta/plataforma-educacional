@@ -16,7 +16,6 @@ export class CreateAtividadeDto {
   conteudo: string;
 
   @IsString()
-  @IsNotEmpty()
   materia: string;
 
   @IsEnum(TipoAtividade)
@@ -49,4 +48,9 @@ export class CreateAtividadeDto {
 
   @IsOptional()
   ativa?: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  materialId: string;
+
 }

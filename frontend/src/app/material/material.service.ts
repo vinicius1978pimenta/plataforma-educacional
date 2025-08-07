@@ -27,6 +27,7 @@ export interface Material {
   professorId: string;
   createdAt: string;
   updatedAt: string;
+  atividades?: any[];
 }
 
 @Injectable({
@@ -50,7 +51,7 @@ export class MaterialService {
     let params: any = {};
     if (filtros?.titulo) params.titulo = filtros.titulo;
     if (filtros?.traducao) params.traducao = filtros.traducao;
-    
+
     return this.http.get<Material[]>(this.apiUrl, { headers, params });
   }
 
@@ -63,7 +64,7 @@ export class MaterialService {
     const headers = this.getAuthHeaders();
     return this.http.post<Material>(this.apiUrl, createMaterialDto, { headers });
   }
-  
+
   update(id: string, updateMaterialDto: UpdateMaterialDto): Observable<Material> {
     const headers = this.getAuthHeaders();
     return this.http.patch<Material>(`${this.apiUrl}/${id}`, updateMaterialDto, { headers });
