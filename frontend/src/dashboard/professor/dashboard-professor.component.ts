@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-professor',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './dashboard-professor.component.html',
   styleUrl: './dashboard-professor.component.scss'
 })
@@ -20,9 +20,9 @@ export class DashboardProfessorComponent implements OnInit {
 
     logout() {
       const sair = confirm("deseja Realemte sair ?")
-      if(sair){this.authService.logout(); 
+      if(sair){this.authService.logout();
       this.router.navigate(['/login']); }
-      
+
     }
 
     irParaMateriais() {
@@ -31,7 +31,7 @@ export class DashboardProfessorComponent implements OnInit {
 
     currentUser: any;
     ngOnInit(): void { //para aprecer o boas vindas e seu nome
-    const userData = localStorage.getItem('user'); 
+    const userData = localStorage.getItem('user');
     if (userData) {
       this.currentUser = JSON.parse(userData);
     };
