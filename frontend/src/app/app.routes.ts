@@ -9,14 +9,19 @@ import { RoleGuard } from '../guards/role.guard';
 import { CriarAtividadeComponent } from '../dashboard/professor/Atividades/criar-atividade/criar-atividade.component';
 import { ListarAtividadesComponent } from '../dashboard/professor/Atividades/listar-atividades/listar-atividades.component';
 import { EditarAtividadeComponent } from '../dashboard/professor/Atividades/editar-atividade/editar-atividade.component';
+import { MaterialListComponent } from './material/material-list/material-list';
+import { MaterialFormComponent } from './material/material-form/material-form';
+import { InicialComponent } from '../components-tela-inicial/inicial.component';
+import { SobreNosComponent } from '../components-tela-inicial/sobre-nos-card/sobre-nos/sobre-nos.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   // Rotas públicas
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
+  {path: 'home', component : InicialComponent },
+  {path: 'sobre', component : SobreNosComponent },
   // Dashboards protegidos por autenticação e role específico
   {
     path: 'dashboard-professor',
@@ -37,6 +42,8 @@ export const routes: Routes = [
     data: { role: 'RESPONSAVEL' }
   },
 
+
+
   { path: 'criar-atividade', component: CriarAtividadeComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'PROFESSOR' } },
 
 { path: 'atividades', component: ListarAtividadesComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'PROFESSOR' } },
@@ -49,8 +56,29 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
+  // Rotas de materiais (protegidas para professores)
+  {
+    path: 'materiais',
+    component: MaterialListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+  {
+    path: 'materiais/novo',
+    component: MaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+  {
+    path: 'materiais/editar/:id',
+    component: MaterialFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+
   // Rota fallback
   { path: '**', redirectTo: '/login' },
 
 
 ];
+

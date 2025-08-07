@@ -25,6 +25,10 @@ export class DashboardProfessorComponent implements OnInit {
 
     }
 
+    irParaMateriais() {
+      this.router.navigate(['/materiais']);
+    }
+
     currentUser: any;
     ngOnInit(): void { //para aprecer o boas vindas e seu nome
     const userData = localStorage.getItem('user');

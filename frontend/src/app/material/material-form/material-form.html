@@ -1,0 +1,99 @@
+<div class="form-container">
+  <!-- Header -->
+  <div class="form-header">
+    <h2>{{ isEditMode ? 'Editar Material' : 'Novo Material' }}</h2>
+    <p>{{ isEditMode ? 'Atualize as informações do material' : 'Preencha os dados para criar um novo material' }}</p>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">
+    <p>{{ isEditMode ? 'Carregando dados do material...' : 'Salvando material...' }}</p>
+  </div>
+
+  <!-- Formulário -->
+  <div *ngIf="!loading" class="form-card">
+    <form #materialForm="ngForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Título -->
+      <div class="form-group">
+        <label for="titulo">
+          Título <span class="required">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="titulo"
+          name="titulo"
+          class="form-control"
+          [(ngModel)]="material.titulo"
+          #titulo="ngModel"
+          required
+          maxlength="100"
+          placeholder="Digite o título do material">
+        <div class="form-help">Máximo de 100 caracteres</div>
+        <div *ngIf="titulo.invalid && titulo.touched" class="error-message">
+          <div *ngIf="titulo.errors?.['required']">O título é obrigatório</div>
+          <div *ngIf="titulo.errors?.['maxlength']">O título deve ter no máximo 100 caracteres</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">
+          Descrição <span class="required">*</span>
+        </label>
+        <textarea 
+          id="descricao"
+          name="descricao"
+          class="form-control"
+          [(ngModel)]="material.conteudo"
+          #descricao="ngModel"
+          required
+          maxlength="500"
+          placeholder="Descreva o conteúdo e objetivos do material"></textarea>
+        <div class="form-help">Máximo de 500 caracteres</div>
+        <div *ngIf="descricao.invalid && descricao.touched" class="error-message">
+          <div *ngIf="descricao.errors?.['required']">A descrição é obrigatória</div>
+          <div *ngIf="descricao.errors?.['maxlength']">A descrição deve ter no máximo 500 caracteres</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="traducao">
+          Tradução <span class="required">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="traducao"
+          name="traducao"
+          class="form-control"
+          [(ngModel)]="material.traducao"
+          #traducao="ngModel"
+          required
+          maxlength="50"
+          placeholder="Ex: Português, Inglês, Espanhol">
+        <div class="form-help">Idioma ou versão do material</div>
+        <div *ngIf="traducao.invalid && traducao.touched" class="error-message">
+          <div *ngIf="traducao.errors?.['required']">A tradução é obrigatória</div>
+          <div *ngIf="traducao.errors?.['maxlength']">A tradução deve ter no máximo 50 caracteres</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn-secondary" 
+          (click)="cancelar()">
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn-primary"
+          [disabled]="materialForm.invalid || salvando">
+          {{ salvando ? 'Salvando...' : (isEditMode ? 'Atualizar' : 'Criar Material') }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+ 
