@@ -19,7 +19,7 @@ export class DashboardProfessorComponent implements OnInit {
 
 
     logout() {
-      const sair = confirm("deseja Realemte sair ?")
+      const sair = confirm("deseja realmente sair ?")
       if(sair){this.authService.logout();
       this.router.navigate(['/login']); }
 

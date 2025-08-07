@@ -22,6 +22,8 @@
         <th>Matéria</th>
         <th>Tipo</th>
         <th>Dificuldade</th>
+        <th>Pontuação</th>
+        <th>Data de Vencimento</th>
         <th>Ativa</th>
         <th>Ações</th>
       </tr>
@@ -32,6 +34,8 @@
         <td>{{ atividade.materia }}</td>
         <td>{{ atividade.tipo }}</td>
         <td>{{ atividade.dificuldade }}</td>
+        <td>{{ atividade.pontuacao }}</td>
+        <td>{{ atividade.dataVencimento | date: 'dd/MM/yyyy' }}</td>
         <td>{{ atividade.ativa ? 'Sim' : 'Não' }}</td>
         <td>
           <button class="btn btn-sm btn-warning me-2" (click)="editar(atividade.id)">Editar</button>

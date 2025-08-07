@@ -75,11 +75,9 @@ export class MaterialListComponent implements OnInit {
     }
   }
 
-  abrirMaterial(id: string): void {
-    //  função para navegar para a lista de atividades que o Paulo ta criando
-    alert(`Em breve você poderá ver as atividades deste material.`);
-    //  this.router.navigate(['rota que o Paulo ta criando']);
-  }
+abrirMaterial(id: string): void {
+  this.router.navigate(['/materiais', id, 'atividades']);
+}
 
   formatarData(dataString: string): string {
     const data = new Date(dataString);

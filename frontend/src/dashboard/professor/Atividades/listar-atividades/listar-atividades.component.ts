@@ -28,6 +28,7 @@ export class ListarAtividadesComponent implements OnInit {
   carregarAtividades() {
     this.atividadeService.getAtividades().subscribe({
       next: (res) => {
+        console.log('Atividades carregadas:', res)
         this.atividades = res;
         this.filtrar();
       },

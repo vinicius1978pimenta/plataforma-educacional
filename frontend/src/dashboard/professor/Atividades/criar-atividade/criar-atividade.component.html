@@ -2,6 +2,7 @@
   <h2 class="mb-4">Criar Atividade</h2>
 
   <form (ngSubmit)="criarAtividade()" #atividadeForm="ngForm">
+    <!-- Campos existentes -->
     <div class="form-group">
       <label for="titulo">Título</label>
       <input
@@ -32,15 +33,25 @@
         required></textarea>
     </div>
 
-    <div class="form-group">
-      <label for="materia">Matéria</label>
-      <input
-        id="materia"
-        name="materia"
-        [(ngModel)]="atividade.materia"
-        class="form-control"
-        required />
-    </div>
+<div class="form-group">
+  <label for="materia">Matéria (Vincular a Material)</label>
+  <select
+    id="materia"
+    name="materia"
+    [(ngModel)]="atividade.materia"
+    class="form-control"
+    required
+    [disabled]="loadingMateriais">
+    <option value="" disabled selected>
+      {{ loadingMateriais ? 'Carregando materiais...' : 'Selecione um material' }}
+    </option>
+    <option *ngFor="let material of materiais" [ngValue]="material">
+      {{ material.titulo }} <span *ngIf="material.traducao">({{ material.traducao }})</span>
+    </option>
+  </select>
+</div>
+
+
 
     <div class="form-group">
       <label for="tipo">Tipo</label>
@@ -49,7 +60,7 @@
         name="tipo"
         [(ngModel)]="atividade.tipo"
         class="form-control">
-        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo | titlecase }}</option>
       </select>
     </div>
 
@@ -60,8 +71,51 @@
         name="dificuldade"
         [(ngModel)]="atividade.dificuldade"
         class="form-control">
-        <option *ngFor="let dificuldade of dificuldades" [value]="dificuldade">{{ dificuldade }}</option>
+        <option *ngFor="let dificuldade of dificuldades" [value]="dificuldade">{{ dificuldade | titlecase }}</option>
       </select>
+    </div>
+
+    <!-- Novos campos adicionados -->
+    <div class="form-group">
+      <label for="pontuacao">Pontuação</label>
+      <input
+        type="number"
+        id="pontuacao"
+        name="pontuacao"
+        [(ngModel)]="atividade.pontuacao"
+        class="form-control"
+        min="0" />
+    </div>
+
+    <div class="form-group">
+      <label for="tempoEstimado">Tempo Estimado (minutos)</label>
+      <input
+        type="number"
+        id="tempoEstimado"
+        name="tempoEstimado"
+        [(ngModel)]="atividade.tempoEstimado"
+        class="form-control"
+        min="1" />
+    </div>
+
+    <div class="form-group">
+      <label for="instrucoes">Instruções</label>
+      <textarea
+        id="instrucoes"
+        name="instrucoes"
+        [(ngModel)]="atividade.instrucoes"
+        class="form-control"></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label for="dataVencimento">Data de Vencimento</label>
+      <input
+        type="date"
+        id="dataVencimento"
+        name="dataVencimento"
+        [(ngModel)]="atividade.dataVencimento"
+        class="form-control" />
     </div>
 
     <div class="form-group form-check mt-3">
@@ -74,16 +128,14 @@
       <label for="ativa" class="form-check-label">Ativa</label>
     </div>
 
-  </form>
-
     <div class="d-flex justify-content-between gap-3 mt-2">
-    <button type="submit" class="btn btn-primary w-100 mt-4">
-      Criar
-    </button>
+      <button type="submit" class="btn btn-primary w-100 mt-4" [disabled]="!atividadeForm.valid">
+        Criar
+      </button>
 
-    <button type="submit" class="btn btn-secondary w-100 mt-4" routerLink="/dashboard-professor">
-      Voltar
-    </button>
-
-  </div>
+      <button type="button" class="btn btn-secondary w-100 mt-4" routerLink="/dashboard-professor">
+        Voltar
+      </button>
+    </div>
+  </form>
 </div>
