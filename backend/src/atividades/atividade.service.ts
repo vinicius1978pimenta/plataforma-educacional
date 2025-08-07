@@ -45,6 +45,7 @@ export class AtividadesService {
 
   // Criar atividade (somente professor)
   async create(createAtividadeDto: CreateAtividadeDto, professorId: string): Promise<AtividadeResponseDto> {
+    console.log('Dados recebidos para criação de atividade:', createAtividadeDto); 
     try {
       const usuario = await this.prisma.user.findUnique({
         where: { id: professorId },
@@ -72,6 +73,7 @@ export class AtividadesService {
         data: {
           ...createAtividadeDto,
           professorId,
+          materialId: createAtividadeDto.materialId, // <-- Adicione esta linha
           dataVencimento: createAtividadeDto.dataVencimento ? new Date(createAtividadeDto.dataVencimento) : null,
         },
         include: {
@@ -101,18 +103,23 @@ export class AtividadesService {
   }
 
   // Listar atividades
-   async findAll(userId: string, userRole: string): Promise<AtividadeResponseDto[]> {
-    let whereClause: any = {};
+async findAll(userId: string, userRole: string, materialId?: string): Promise<AtividadeResponseDto[]> {
+  let whereClause: any = {};
 
-    if (userRole === 'PROFESSOR') {
-      whereClause = { professorId: userId };
-    } else if (userRole === 'ALUNO') {
-      // Agora aluno vê todas as atividades ativas, sem checar turma
-      whereClause = { ativa: true };
-    } else {
-      throw new ForbiddenException('Acesso negado');
-    }
+  if (userRole === 'PROFESSOR') {
+    whereClause = { professorId: userId };
+  } else if (userRole === 'ALUNO') {
+    whereClause = { ativa: true };
+  } else {
+    throw new ForbiddenException('Acesso negado');
+  }
 
+  // Agora filtramos pelo materialId corretamente
+  if (materialId) {
+    whereClause.materialId = materialId;
+  }
+
+  try {
     const atividades = await this.prisma.atividade.findMany({
       where: whereClause,
       include: {
@@ -135,8 +142,14 @@ export class AtividadesService {
       },
     });
 
+    console.log('Atividades encontradas:', atividades);
     return this.normalizeAtividades(atividades);
+  } catch (error) {
+    console.error('Erro ao buscar atividades:', error);
+    throw new Error('Erro ao buscar atividades.');
   }
+}
+
 
 
   // Buscar atividade por ID

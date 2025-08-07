@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Request,
+  Query,
 } from '@nestjs/common';
 import { AtividadesService } from './atividade.service';
 import { CreateAtividadeDto } from './dto/create-atividade.dto';
@@ -30,10 +31,13 @@ export class AtividadesController {
     return this.atividadesService.create(createAtividadeDto, req.user.id);
   }
 
-  @Get()
-  async findAll(@Request() req) {
-    return this.atividadesService.findAll(req.user.id, req.user.role);
-  }
+@Get()
+async findAll(
+  @Request() req,
+  @Query('materialId') materialId: string,
+) {
+  return this.atividadesService.findAll(req.user.id, req.user.role, materialId);
+}
 
   @Get('turma/:turmaId')
   @UseGuards(RolesGuard)
