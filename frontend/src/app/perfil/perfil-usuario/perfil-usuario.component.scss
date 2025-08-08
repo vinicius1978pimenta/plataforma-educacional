@@ -1,0 +1,144 @@
+.user-profile {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .profile-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .profile-button:hover {
+    background: #0056b3;
+  }
+  
+  .user-name {
+    font-size: 14px;
+  }
+  
+  .dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-button:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 999;
+  }
+  
+  .profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    z-index: 1000;
+  }
+  
+  .dropdown-content {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 250px;
+    overflow: hidden;
+  }
+  
+  .user-info {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+  
+  .user-info h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .user-email {
+    margin: 0 0 4px 0;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .user-role {
+    margin: 0;
+    color: #007bff;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .dropdown-actions {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .btn-profile,
+  .btn-logout {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-profile {
+    background: #f8f9fa;
+    color: #0C56B3;
+    text-align: center;
+  }
+  
+  .btn-profile small {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  
+  .btn-logout {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .btn-logout:hover {
+    background: #c82333;
+  }
+  
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .dropdown-content {
+      min-width: 200px;
+    }
+    
+    .profile-button {
+      padding: 6px 12px;
+    }
+    
+    .user-name {
+      font-size: 13px;
+    }
+  }
+  

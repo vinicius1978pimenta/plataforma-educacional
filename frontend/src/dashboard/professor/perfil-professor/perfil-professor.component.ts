@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PerfilProfessorService } from '../../../services/perfil-professor.service';
@@ -9,7 +7,7 @@ import { PerfilProfessorService } from '../../../services/perfil-professor.servi
 @Component({
   selector: 'app-perfil-professor',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule], // Ajuste conforme necessário
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './perfil-professor.component.html',
   styleUrls: ['./perfil-professor.component.scss'],
 })
@@ -27,7 +25,7 @@ export class PerfilProfessorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private perfilProfessorService: PerfilProfessorService // Serviço atualizado
+    private perfilProfessorService: PerfilProfessorService
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +61,7 @@ salvarAlteracoes() {
     console.error('E-mail inválido ou vazio');
   }
 
-  console.log('Dados a serem enviados:', professorAtualizado);  // Verifique os dados aqui
+  console.log('Dados a serem enviados:', professorAtualizado);
 
   this.perfilProfessorService.atualizarPerfil(this.professorId, professorAtualizado).subscribe({
     next: () => {
@@ -86,7 +84,7 @@ salvarAlteracoes() {
     this.perfilProfessorService.atualizarSenha(this.professorId, senhaAtualizada).subscribe({
       next: () => {
         alert('Senha atualizada com sucesso!');
-        this.router.navigate(['/perfil']); // redireciona para a página de perfil
+        this.router.navigate(['/perfil']);
       },
       error: (err: any) => {
         console.error('Erro ao atualizar senha', err);
