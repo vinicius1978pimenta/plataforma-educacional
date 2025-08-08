@@ -3,8 +3,8 @@
    <div class="botao-sair"><button (click)="logout()">Sair</button></div>
 
       <div class="dashboard-header">
-        <h1>Dashboard do Professor</h1>
-        <p *ngIf="currentUser">Bem-vindo, {{ currentUser.name }}!</p>
+        <h1>Bem-vindo, professor.</h1>
+        <app-user-profile></app-user-profile>
       </div>
 
 
@@ -27,10 +27,5 @@
           <button class="btn-primary" routerLink="/criar-atividade">Criar Atividades</button>
         </div>
 
-        <div class="card">
-          <h3>Meu perfil</h3>
-          <p>Editar minhas Informaçoes</p>
-          <button class="btn-primary" routerLink="/perfil-professor/{{ currentUser.id }}">Ver Perfil</button>
-        </div>
       </div>
-    </div>
+  </div>

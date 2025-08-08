@@ -1,0 +1,25 @@
+<div class="user-profile" *ngIf="currentUser">
+    <div class="profile-button" (click)="toggleDropdown()">
+      <span class="user-name">{{ currentUser.name }}</span>
+      <span class="dropdown-arrow">▼</span>
+    </div>
+    
+    <div class="profile-dropdown" *ngIf="showDropdown" (click)="closeDropdown()">
+      <div class="dropdown-content" (click)="$event.stopPropagation()">
+        <div class="user-info">
+          <h4>{{ currentUser.name }}</h4>
+          <p class="user-email">{{ currentUser.email }}</p>
+          <p class="user-role">{{ getRoleDisplayName(currentUser.role) }}</p>
+        </div>
+        
+        <div class="dropdown-actions">
+          <a class="btn-profile" [routerLink]="['/perfil-professor', currentUser.id]">
+            Editar Perfil
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dropdown-overlay" *ngIf="showDropdown" (click)="closeDropdown()"></div>
+  </div>
+  

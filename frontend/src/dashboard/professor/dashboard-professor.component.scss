@@ -5,12 +5,24 @@
     }
 
     .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 30px;
+      padding: 0 20px;
     }
-
+    
     .dashboard-header h1 {
+      margin: 0;
       color: #333;
-      margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
     }
 
     .dashboard-content {
