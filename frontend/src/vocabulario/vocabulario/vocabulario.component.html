@@ -1,0 +1,107 @@
+<button class="btn btn-warning" routerLink="/dashboard-aluno">
+  voltar
+</button>
+
+<div class="vocabulario-container">
+      <header class="header">
+        <h1>Meu Vocabulário</h1>
+        <p class="subtitle">Gerencie suas palavras e traduções</p>
+      </header>
+
+      <!-- Formulário para adicionar nova palavra -->
+      <div class="form-section">
+        <h2>Adicionar Nova Palavra</h2>
+        <form [formGroup]="vocabularioForm" (ngSubmit)="adicionarPalavra()" class="vocabulario-form">
+          <div class="form-group">
+            <label for="palavra">Palavra *</label>
+            <input 
+              type="text" 
+              id="palavra"
+              formControlName="palavra" 
+              placeholder="Digite a palavra..."
+              [class.error]="vocabularioForm.get('palavra')?.invalid && vocabularioForm.get('palavra')?.touched"
+            />
+            <div class="error-message" *ngIf="vocabularioForm.get('palavra')?.invalid && vocabularioForm.get('palavra')?.touched">
+              Palavra é obrigatória
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="traducao">Tradução (opcional)</label>
+            <input 
+              type="text" 
+              id="traducao"
+              formControlName="traducao" 
+              placeholder="Deixe vazio para traduzir automaticamente..."
+            />
+            <small class="help-text">Se não informar, será traduzido automaticamente</small>
+          </div>
+
+          <div class="form-group">
+            <label for="idioma">Idioma</label>
+            <select id="idioma" formControlName="idioma">
+              <option value="es">Espanhol</option>
+              <option value="en">Inglês</option>
+              <option value="fr">Francês</option>
+              <option value="de">Alemão</option>
+              <option value="it">Italiano</option>
+            </select>
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="vocabularioForm.invalid || carregando"
+          >
+            <span *ngIf="carregando" class="loading-spinner"></span>
+            {{ carregando ? 'Adicionando...' : 'Adicionar Palavra' }}
+          </button>
+        </form>
+      </div>
+
+      <!-- Lista de vocabulários -->
+      <div class="lista-section">
+        <div class="lista-header">
+          <h2>Minhas Palavras</h2>
+          <span class="contador">{{ (vocabularios$ | async)?.length || 0 }} palavras</span>
+        </div>
+
+        <div *ngIf="carregandoLista" class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Carregando vocabulários...</p>
+        </div>
+
+        <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length === 0" class="empty-state">
+          <div class="empty-icon">📚</div>
+          <h3>Nenhuma palavra ainda</h3>
+          <p>Adicione sua primeira palavra para começar a construir seu vocabulário!</p>
+        </div>
+
+        <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length! > 0" class="vocabularios-grid">
+          <div 
+            *ngFor="let vocab of vocabularios$ | async; trackBy: trackByVocabulario" 
+            class="vocabulario-card"
+          >
+            <div class="card-content">
+              <div class="palavra">{{ vocab.palavra }}</div>
+              <div class="traducao">{{ vocab.traducao }}</div>
+              <div class="data">{{ formatarData(vocab.criadoEm) }}</div>
+            </div>
+            <button 
+              class="btn-excluir" 
+              (click)="excluirPalavra(vocab.id, vocab.palavra)"
+              [disabled]="excluindo === vocab.id"
+              title="Excluir palavra"
+            >
+              <span *ngIf="excluindo === vocab.id" class="loading-spinner small"></span>
+              <span *ngIf="excluindo !== vocab.id">🗑️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensagens de feedback -->
+      <div *ngIf="mensagem" class="mensagem" [ngClass]="tipoMensagem">
+        {{ mensagem }}
+      </div>
+    </div>
