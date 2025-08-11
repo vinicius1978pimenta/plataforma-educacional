@@ -1,18 +1,19 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PerfilProfessorService } from '../../../services/perfil-professor.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-perfil-professor',
+  selector: 'app-perfil-aluno',
   standalone: true,
   imports: [CommonModule, FormsModule,RouterModule],
-  templateUrl: './perfil-professor.component.html',
-  styleUrls: ['./perfil-professor.component.scss'],
+  templateUrl: './perfil-aluno.component.html',
+  styleUrls: ['./perfil-aluno.component.scss'],
 })
-export class PerfilProfessorComponent implements OnInit {
-  professor: any = {
+export class PerfilAlunoComponent implements OnInit {
+  aluno: any = {
     nome: '',
     email: '',
     senha: '',
@@ -20,23 +21,23 @@ export class PerfilProfessorComponent implements OnInit {
     senhaNova: ''
   };
 
-  professorId: string = '';
+  alunoId: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private perfilProfessorService: PerfilProfessorService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.professorId = this.route.snapshot.paramMap.get('id')!;
+    this.alunoId = this.route.snapshot.paramMap.get('id')!;
     this.carregarPerfil();
   }
 
   carregarPerfil() {
-    this.perfilProfessorService.getProfessorById(this.professorId).subscribe({
+    this.userService.getUserById(this.alunoId, 'ALUNO').subscribe({
       next: (res: any) => {
-        this.professor = res;
+        this.aluno = res;
       },
       error: (err: any) => {
         console.error('Erro ao carregar perfil', err);
@@ -46,29 +47,28 @@ export class PerfilProfessorComponent implements OnInit {
   }
 
 salvarAlteracoes() {
-  const professorAtualizado: any = {};
+  const alunoAtualizado: any = {};
 
-  // Verifica se o nome e o email não estão vazios ou indefinidos
-  if (this.professor.name && this.professor.name.trim() !== '') {
-    professorAtualizado.name = this.professor.name;
+  if (this.aluno.name && this.aluno.name.trim() !== '') {
+    alunoAtualizado.name = this.aluno.name;
   } else {
     console.error('Nome inválido ou vazio');
   }
 
-  if (this.professor.email && this.professor.email.trim() !== '') {
-    professorAtualizado.email = this.professor.email;
+  if (this.aluno.email && this.aluno.email.trim() !== '') {
+  alunoAtualizado.email = this.aluno.email;
   } else {
     console.error('E-mail inválido ou vazio');
   }
 
-  console.log('Dados a serem enviados:', professorAtualizado);
+  console.log('Dados a serem enviados:', alunoAtualizado);
 
-  this.perfilProfessorService.atualizarPerfil(this.professorId, professorAtualizado).subscribe({
+  this.userService.updateUser(this.alunoId, 'ALUNO', alunoAtualizado).subscribe({
     next: () => {
       alert('Perfil atualizado com sucesso!');
       this.router.navigate(['/perfil']);
     },
-    error: (err) => {
+    error: (err: any) => {
       console.error('Erro ao atualizar perfil', err);
       alert('Erro ao atualizar perfil');
     }
@@ -77,11 +77,11 @@ salvarAlteracoes() {
 
   salvarAlteracaoSenha() {
     const senhaAtualizada = {
-      oldPassword: this.professor.senhaAntiga,
-      newPassword: this.professor.senhaNova
+      oldPassword: this.aluno.senhaAntiga,
+      newPassword: this.aluno.senhaNova
     };
 
-    this.perfilProfessorService.atualizarSenha(this.professorId, senhaAtualizada).subscribe({
+    this.userService.updatePassword(this.alunoId, 'ALUNO', senhaAtualizada).subscribe({
       next: () => {
         alert('Senha atualizada com sucesso!');
         this.router.navigate(['/perfil']);

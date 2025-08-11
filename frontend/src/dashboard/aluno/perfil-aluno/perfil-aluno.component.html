@@ -1,0 +1,71 @@
+
+<div class="container">
+  <h2 class="mb-4">Editar Perfil</h2>
+  <div class="d-flex gap-4 align-items-stretch"> 
+
+    
+    <form (ngSubmit)="salvarAlteracoes()" #alunoForm="ngForm" class="w-100">
+      <h3 class="mt-0">Atualizar Dados</h3>
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="aluno.name"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          name="email"
+          [(ngModel)]="aluno.email"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-success w-50 mt-4">
+        Salvar Alterações
+      </button>
+    </form>
+
+    <form (ngSubmit)="salvarAlteracaoSenha()" #senhaForm="ngForm" class="w-100">
+      <h3 class="mt-0">Alterar Senha</h3> 
+      <div class="form-group">
+        <label for="senhaAntiga">Senha Antiga</label>
+        <input
+          id="senhaAntiga"
+          name="senhaAntiga"
+          type="password"
+          [(ngModel)]="aluno.senhaAntiga"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="senhaNova">Nova Senha</label>
+        <input
+          id="senhaNova"
+          name="senhaNova"
+          type="password"
+          [(ngModel)]="aluno.senhaNova"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-warning w-50 mt-4">
+        Atualizar Senha
+      </button>
+    </form>
+  </div>
+
+  <button type="submit" class="btn btn-secondary w-100 mt-3" routerLink="/dashboard-aluno">
+    Voltar
+  </button>
+</div>

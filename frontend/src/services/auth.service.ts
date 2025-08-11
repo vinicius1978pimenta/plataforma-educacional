@@ -3,24 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { AuthResponse, LoginData, RegisterData, User } from './interfaces/interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn: 'root'} )
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth'; 
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private apiUrl = 'http://localhost:3000/auth';
+  private currentUserSubject = new BehaviorSubject<User | null>(null );
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient ) {
     this.loadUserFromStorage();
   }
 
   register(data: RegisterData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data);
+    return this.http.post(`${this.apiUrl}/register`, data );
   }
 
   login(data: LoginData): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data)
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data )
       .pipe(
         tap(response => {
           this.setTokens(response.access_token, response.refresh_token);
@@ -36,7 +34,7 @@ export class AuthService {
       throw new Error('No refresh token available');
     }
 
-    return this.http.post(`${this.apiUrl}/refresh`, { refresh_token: refreshToken })
+    return this.http.post(`${this.apiUrl}/refresh`, { refresh_token: refreshToken } )
       .pipe(
         tap((response: any) => {
           this.setTokens(response.access_token, response.refresh_token);
@@ -45,7 +43,7 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {})
+    return this.http.post(`${this.apiUrl}/logout`, {} )
       .pipe(
         tap(() => {
           this.clearTokens();
@@ -89,18 +87,28 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  // Método para obter a rota do dashboard baseada no role
+  updateCurrentUser(updatedData: { name?: string; email?: string }): void {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) {
+      return;
+    }
+
+    const newUser = { ...currentUser, ...updatedData };
+
+    localStorage.setItem('user', JSON.stringify(newUser));
+    this.currentUserSubject.next(newUser);
+  }
+
   getDashboardRoute(role: 'ALUNO' | 'PROFESSOR' | 'RESPONSAVEL'): string {
     const dashboardRoutes = {
       'PROFESSOR': '/dashboard-professor',
       'ALUNO': '/dashboard-aluno',
       'RESPONSAVEL': '/dashboard-responsaveis'
     };
-    
+
     return dashboardRoutes[role];
   }
 
-  // Método para redirecionar para o dashboard correto
   redirectToUserDashboard(): string | null {
     const user = this.getCurrentUser();
     if (user) {
