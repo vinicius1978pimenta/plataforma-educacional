@@ -1,0 +1,83 @@
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px); /* começa 20px abaixo */
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* Fundo com gradiente + partículas sutis */
+.bg-fgv {
+  background: linear-gradient(135deg, #02285d 0%, #f8f8f8 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-fgv::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,800 1000,1000"/><polygon fill="rgba(255,255,255,0.03)" points="0,800 1000,600 1000,800 0,1000"/></svg>');
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Container para conteúdo ficar acima do bg */
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Container principal com gradiente */
+.container-principal {
+  background: linear-gradient(to right, #ffffff, #02285f);
+}
+
+/* Animação fade + slide suave de cima para baixo para títulos */
+.fade-down {
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeDown 1s ease-out forwards;
+}
+
+@keyframes fadeDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Skeleton básico para carregamento com efeito shimmer */
+.skeleton-placeholder {
+  width: 100%;
+  min-height: 200px; /* ajuste conforme necessário */
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.1) 25%, 
+    rgba(255,255,255,0.2) 50%, 
+    rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  border-radius: 12px;
+  animation: shimmer 1.8s infinite;
+  margin: 1rem 0;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.conteudo3 {
+  min-height: 870px; // ou o tamanho aproximado do seu Conteudo3
+}
