@@ -1,76 +1,124 @@
-<div><app-navbar></app-navbar></div>
-<div class="container">
-      <div class="logo-sistema"><h1><strong>Interlinguas</strong></h1></div>
-      
-      <h2>Login</h2>
-      
+
+<div class="login-wrapper">
+  <div class="login-form-section">
+    <div class="logo-sistema">
+      <h1><strong>Interlinguas</strong></h1>
+    </div>
+    
+    <div class="welcome-section">
+      <h2>Olá, Bem Vindo De Volta</h2>
+      <p>Acesse sua plataforma educacional</p>
+    </div>
+    
+    <div class="login-form">
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="email">Email </label>
           <input 
             type="email" 
             id="email" 
             name="email" 
             [(ngModel)]="loginData.email" 
-            required
-            #email="ngModel">
+            required 
+            #email="ngModel"
+            placeholder="usuario">
           <div *ngIf="email.invalid && email.touched" class="error">
             Email é obrigatório
           </div>
         </div>
 
         <div class="form-group">
-          <label for="password">Senha:</label>
+          <label for="password">Senha</label>
           <input 
             type="password" 
             id="password" 
             name="password" 
             [(ngModel)]="loginData.password" 
-            required
-            #password="ngModel">
+            required 
+            #password="ngModel"
+            placeholder="Digite sua senha">
           <div *ngIf="password.invalid && password.touched" class="error">
             Senha é obrigatória
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Tipo de usuário:</label>
+        <div class="role-selection">
+          <label>Perfil de Acesso</label>
           <div class="role-buttons">
             <button 
-              type="button"
-              [class.active]="selectedRole === 'ALUNO'"
+              type="button" 
+              [class.active]="selectedRole === 'ALUNO'" 
               (click)="selectRole('ALUNO')">
-              Aluno
+              Estudante
             </button>
             <button 
-              type="button"
-              [class.active]="selectedRole === 'PROFESSOR'"
+              type="button" 
+              [class.active]="selectedRole === 'PROFESSOR'" 
               (click)="selectRole('PROFESSOR')">
               Professor
             </button>
             <button 
-              type="button"
-              [class.active]="selectedRole === 'RESPONSAVEL'"
+              type="button" 
+              [class.active]="selectedRole === 'RESPONSAVEL'" 
               (click)="selectRole('RESPONSAVEL')">
               Responsável
             </button>
           </div>
         </div>
 
-        <div *ngIf="errorMessage" class="error">
+      
+
+        <div *ngIf="errorMessage" class="error" style="text-align: center; margin-bottom: 20px;">
           {{ errorMessage }}
         </div>
 
         <button 
           type="submit" 
-          [disabled]="loginForm.invalid || !selectedRole || loading"
+          [disabled]="loginForm.invalid || !selectedRole || loading" 
           class="submit-btn">
-          {{ loading ? 'Entrando...' : 'Entrar' }}
+          {{ loading ? 'Autenticando...' : 'Acessar Plataforma' }}
         </button>
       </form>
+      <div class="navigation-section">
+                    <div class="nav-buttons">
+                        <a href="/home" class="nav-btn btn-home">
+                            🏠 Início
+                        </a>
+                        <a href="/register" class="nav-btn btn-register">
+                            ✨ Cadastrar
+                        </a>
+                    </div>
+                </div>
 
-      <p>
-        Não tem conta? 
-        <a href="/register" (click)="goToRegister($event)">Cadastre-se aqui</a>
-      </p>
+      <div class="register-section">
+        <p>Novo na plataforma? 
+          <a href="/register" (click)="goToRegister($event)">Cadastrar</a>
+        </p>
+      </div>
     </div>
+  </div>
+
+  <div class="hero-section">
+    <div class="background-pattern">
+      <div class="pattern-grid"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="desktop-illustration">
+        <div class="monitor-frame">
+          <div class="login-icon"></div>
+        </div>
+        <div class="security-badges">
+          <div class="security-badge">🔐</div>
+          <div class="security-badge">✓</div>
+          <div class="security-badge">🛡️</div>
+        </div>
+      </div>
+      
+      <div class="hero-text">
+        <h3>Ambiente Acadêmico Seguro</h3>
+        <p>Plataforma educacional integrada com os mais altos padrões de segurança e usabilidade para a comunidade.</p>
+      </div>
+    </div>
+  </div>
+</div>

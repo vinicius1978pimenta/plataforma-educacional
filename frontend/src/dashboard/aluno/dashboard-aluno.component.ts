@@ -1,5 +1,6 @@
+
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule} from '@angular/router';
 import { UserProfileComponent } from '../../app/perfil/perfil-usuario/perfil-usuario.component';
@@ -7,6 +8,15 @@ import { UserProfileComponent } from '../../app/perfil/perfil-usuario/perfil-usu
 @Component({
   selector: 'app-dashboard-aluno',
   imports: [CommonModule, RouterModule, UserProfileComponent],
+
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+
+@Component({
+  selector: 'app-dashboard-aluno',
+  imports: [RouterModule],
+
   templateUrl: './dashboard-aluno.component.html',
   styleUrl: './dashboard-aluno.component.scss'
 })

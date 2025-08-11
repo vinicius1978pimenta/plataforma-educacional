@@ -15,6 +15,7 @@ import { InicialComponent } from '../components-tela-inicial/inicial.component';
 import { SobreNosComponent } from '../components-tela-inicial/sobre-nos-card/sobre-nos/sobre-nos.component';
 import { PerfilEditarComponent } from '../dashboard/professor/perfil-editar/perfil-editar.component';
 import { MaterialAtividadesListComponent } from './material-atividades-list/material-atividades-list.component';
+import { VocabularioComponent } from '../vocabulario/vocabulario/vocabulario.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -44,7 +45,10 @@ export const routes: Routes = [
     data: { role: 'RESPONSAVEL' }
   },
 
-
+  {path: 'vocabulario', 
+  component:VocabularioComponent,
+  canActivate :[AuthGuard,RoleGuard],
+  data : {role : 'ALUNO'}},
 
   { path: 'criar-atividade', component: CriarAtividadeComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'PROFESSOR' } },
 

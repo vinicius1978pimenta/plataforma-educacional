@@ -1,36 +1,77 @@
-
 <app-navbar></app-navbar>
 
-<div class="cotainer-principal">
-    <div class="p-3 text-white text-center" style="background: linear-gradient(to right, #ffffff, #02285f);">
-  <h5 class="mb-0">Descubra uma nova forma de aprender  com o InterLinguas</h5>
-</div>
+<div class="container-principal">
 
-  <div class="carrosel"><app-carrosel></app-carrosel></div>
+  <div class="p-3 text-white text-center" style="background: linear-gradient(to right, #ffffff, #02285f);">
+    <!-- Texto inicial -->
+    <div
+      class="p-3 text-white text-center"
+      style="background: linear-gradient(to right, #ffffff, #02285f);"
+      appLazyLoad
+      rootMargin="100px"
+      threshold="0.2"
+      (appear)="loadTitulo()"
+      (disappear)="unloadTitulo()"
+    >
+      <h5 class="mb-0 fade-up" *ngIf="showTitulo">Descubra uma nova forma de aprender com o InterLinguas</h5>
+    </div>
+  </div>
+
+  <!-- Carrossel -->
+  <div class="carrosel">
+    <app-carrosel></app-carrosel>
+  </div>
 
   <div class="cor-1">
     <div class="p-3 text-white text-center" style="background: linear-gradient(to right, #ffffff, #02285f);">
-  <h5 class="mb-0"></h5>
-</div>
-  
-  <div class="conteudo3"><app-conteudo-3></app-conteudo-3></div>
+      <h5 class="mb-0"></h5>
+    </div>
+
+    <!-- Conteúdo 3 -->
+    <div
+      class="conteudo3"
+      appLazyLoad
+      rootMargin="100px"
+      threshold="0.2"
+      (appear)="loadConteudo3()"
+      (disappear)="unloadConteudo3()"
+    >
+      <div *ngIf="!showConteudo3" class="skeleton-placeholder"></div>
+      <app-conteudo-3 *ngIf="showConteudo3"></app-conteudo-3>
+    </div>
+  </div>
+
+  <div class="cor-2">
+    <div class="p-0 text-white text-center" style="background: linear-gradient(to right, #ffffff, #02285f);">
+      <h5 class="mb-0"></h5>
+    </div>
+
+    <!-- Conteúdo 2 -->
+    <div
+      class="conteudo-principal-2"
+      appLazyLoad
+      rootMargin="100px"
+      threshold="0.2"
+      (appear)="loadConteudo2()"
+      (disappear)="unloadConteudo2()"
+    >
+      <app-conteudo-2 *ngIf="showConteudo2"></app-conteudo-2>
+    </div>
+  </div>
 
   <div class="cor-2">
     <div class="p-3 text-white text-center" style="background: linear-gradient(to right, #ffffff, #02285f);">
-  <h5 class="mb-0"></h5>
-</div>
+      <h5 class="mb-0"></h5>
+    </div>
 
-  <div class="conteudo-principal-2"><app-conteudo-2></app-conteudo-2></div>
+    <!-- Conteúdo 1 -->
+    <div class="conteudo-prinpal-1">
+     <app-conteudo></app-conteudo>
+    </div>
 
-  
-  <div class="cor-2">
-    <div class="p-3 text-white text-center" style="background: linear-gradient(to right, #ffffff, #02285f);">
-  <h5 class="mb-0"></h5>
-</div>
-  
-  <div class="conteudo-prinpal-1"><app-conteudo></app-conteudo></div>
-
-  
-
-  <div class="rodape"><app-sobre-nos></app-sobre-nos></div>
+    <div class="rodape">
+      <app-sobre-nos></app-sobre-nos>
+    </div>
+  </div>
+ 
 </div>
