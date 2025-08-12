@@ -1,109 +1,149 @@
-<app-navbar></app-navbar>
 <div class="container">
-      <h2>Cadastro</h2>
-      
-      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-        <div class="form-group">
-          <label for="name">Nome:</label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
-            [(ngModel)]="registerData.name" 
-            required
-            #name="ngModel">
-          <div *ngIf="name.invalid && name.touched" class="error">
-            Nome é obrigatório
-          </div>
+    <!-- Seção do formulário -->
+    <div class="register-form-section">
+        <div class="logo-sistema">
+            <h2>Cadastro</h2>
         </div>
 
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            [(ngModel)]="registerData.email" 
-            required
-            #email="ngModel">
-          <div *ngIf="email.invalid && email.touched" class="error">
-            Email é obrigatório
-          </div>
+        <div class="welcome-section">
+            <h3>Criar Nova Conta</h3>
+            <p>Preencha os dados para se cadastrar</p>
         </div>
 
-        <div class="form-group">
-          <label for="password">Senha:</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            [(ngModel)]="registerData.password" 
-            required
-            minlength="6"
-            #password="ngModel">
-          <div *ngIf="password.invalid && password.touched" class="error">
-            <div *ngIf="password.errors?.['required']">Senha é obrigatória</div>
-            <div *ngIf="password.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</div>
-          </div>
-        </div>
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="register-form">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    [(ngModel)]="registerData.name" 
+                    required 
+                    #name="ngModel">
+                <div *ngIf="name.invalid && name.touched" class="error">
+                    Nome é obrigatório
+                </div>
+            </div>
 
-        <div class="form-group">
-          <label>Tipo de usuário:</label>
-          <div class="role-buttons">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    [(ngModel)]="registerData.email" 
+                    required 
+                    #email="ngModel">
+                <div *ngIf="email.invalid && email.touched" class="error">
+                    Email é obrigatório
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    [(ngModel)]="registerData.password" 
+                    required 
+                    minlength="6" 
+                    #password="ngModel">
+                <div *ngIf="password.invalid && password.touched" class="error">
+                    <div *ngIf="password.errors?.['required']">Senha é obrigatória</div>
+                    <div *ngIf="password.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</div>
+                </div>
+            </div>
+
+            <div class="role-selection">
+                <label>Tipo de usuário:</label>
+                <div class="role-buttons">
+                    <button 
+                        type="button" 
+                        [class.active]="registerData.role === 'ALUNO'" 
+                        (click)="selectRole('ALUNO')">
+                        Aluno
+                    </button>
+                    <button 
+                        type="button" 
+                        [class.active]="registerData.role === 'PROFESSOR'" 
+                        (click)="selectRole('PROFESSOR')">
+                        Professor
+                    </button>
+                    <button 
+                        type="button" 
+                        [class.active]="registerData.role === 'RESPONSAVEL'" 
+                        (click)="selectRole('RESPONSAVEL')">
+                        Responsável
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="registerData.role === 'ALUNO'" class="form-group">
+                <label for="responsavelEmail">Email do Responsável:</label>
+                <input 
+                    type="email" 
+                    id="responsavelEmail" 
+                    name="responsavelEmail" 
+                    [(ngModel)]="registerData.responsavelEmail" 
+                    required 
+                    #responsavelEmail="ngModel">
+                <div *ngIf="responsavelEmail.invalid && responsavelEmail.touched" class="error">
+                    Email do responsável é obrigatório para alunos
+                </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="error">
+                {{ errorMessage }}
+            </div>
+
+            <div *ngIf="successMessage" class="success">
+                {{ successMessage }}
+            </div>
+
             <button 
-              type="button"
-              [class.active]="registerData.role === 'ALUNO'"
-              (click)="selectRole('ALUNO')">
-              Aluno
+                type="submit" 
+                [disabled]="registerForm.invalid || !registerData.role || loading" 
+                class="submit-btn">
+                {{ loading ? 'Cadastrando...' : 'Cadastrar' }}
             </button>
-            <button 
-              type="button"
-              [class.active]="registerData.role === 'PROFESSOR'"
-              (click)="selectRole('PROFESSOR')">
-              Professor
-            </button>
-            <button 
-              type="button"
-              [class.active]="registerData.role === 'RESPONSAVEL'"
-              (click)="selectRole('RESPONSAVEL')">
-              Responsável
-            </button>
-          </div>
+        </form>
+
+        <div class="navigation-section">
+            <div class="nav-buttons">
+                <a href="/login" (click)="goToLogin($event)" class="nav-btn btn-login">Login</a>
+                <a routerLink="/home" class="nav-btn btn-home">Início</a>
+            </div>
+
+            <div class="login-link-section">
+                <p>
+                    Já tem conta? <a routerLink="/login" (click)="goToLogin($event)">Faça login aqui</a>
+                </p>
+            </div>
         </div>
-
-        <!-- Campo adicional para alunos -->
-        <div *ngIf="registerData.role === 'ALUNO'" class="form-group">
-          <label for="responsavelEmail">Email do Responsável:</label>
-          <input 
-            type="email" 
-            id="responsavelEmail" 
-            name="responsavelEmail" 
-            [(ngModel)]="registerData.responsavelEmail" 
-            required
-            #responsavelEmail="ngModel">
-          <div *ngIf="responsavelEmail.invalid && responsavelEmail.touched" class="error">
-            Email do responsável é obrigatório para alunos
-          </div>
-        </div>
-
-        <div *ngIf="errorMessage" class="error">
-          {{ errorMessage }}
-        </div>
-
-        <div *ngIf="successMessage" class="success">
-          {{ successMessage }}
-        </div>
-
-        <button 
-          type="submit" 
-          [disabled]="registerForm.invalid || !registerData.role || loading"
-          class="submit-btn">
-          {{ loading ? 'Cadastrando...' : 'Cadastrar' }}
-        </button>
-      </form>
-
-      <p>
-        Já tem conta? 
-        <a href="/login" (click)="goToLogin($event)">Faça login aqui</a>
-      </p>
     </div>
+
+    <!-- Seção hero ilustrativa -->
+    <div class="hero-section">
+        <div class="background-pattern">
+            <div class="pattern-grid"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="desktop-illustration">
+                <div class="monitor-frame">
+                    <div class="register-icon"></div>
+                </div>
+                <div class="security-badges">
+                    <div class="security-badge">🔒</div>
+                    <div class="security-badge">✓</div>
+                    <div class="security-badge">👥</div>
+                </div>
+            </div>
+            <div class="hero-text">
+                <h3>Cadastro Seguro</h3>
+                <p>Crie sua conta com total segurança e comece a usar nossa plataforma educacional.</p>
+            </div>
+        </div>
+    </div>
+</div>

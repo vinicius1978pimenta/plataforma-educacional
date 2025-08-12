@@ -22,11 +22,11 @@ import { LazyLoadDirective } from './lazy-load.directive';
     LazyLoadDirective
   ],
   templateUrl: './inicial.component.html',
-  styleUrls: ['./inicial.component.scss']  // corrigido para styleUrls
+  styleUrls: ['./inicial.component.scss']  
 })
 export class InicialComponent {
 
-
+  
 
   showConteudo3 = false;
   private timeoutId3?: any;
