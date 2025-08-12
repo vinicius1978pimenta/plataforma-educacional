@@ -12,7 +12,7 @@ body {
 .container {
    width: 100%;
     max-width: 1400px;
-    height: 125vh;
+    height: 135vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     background: linear-gradient(135deg, #02285f 0%, #102f5b 50%, #02285f 100%);
@@ -415,4 +415,10 @@ body {
   .register-form-section {
     padding: 30px 20px;
   }
+}
+.logo {
+  border-radius: 10px;
+  overflow: hidden; /* para cortar cantos da imagem */
+  display: inline-block; /* para ajustar tamanho ao conteúdo */
+  border: 1px solid #ccc; /* opcional */
 }
