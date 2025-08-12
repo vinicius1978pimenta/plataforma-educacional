@@ -16,6 +16,8 @@ import { SobreNosComponent } from '../components-tela-inicial/sobre-nos-card/sob
 import { PerfilProfessorComponent } from '../dashboard/professor/perfil-professor/perfil-professor.component';
 import { MaterialAtividadesListComponent } from './material-atividades-list/material-atividades-list.component';
 import { VocabularioComponent } from '../vocabulario/vocabulario/vocabulario.component';
+import { AlunoMaterialListComponent } from '../dashboard/aluno/aluno-material-list/aluno-material-list.component';
+import { AlunoMaterialAtividadesListComponent } from '../dashboard/aluno/aluno-material-atividades-list/aluno-material-atividades-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -95,6 +97,17 @@ export const routes: Routes = [
   canActivate: [AuthGuard, RoleGuard],
   data: { role: 'PROFESSOR' }
 },
+   { path: 'aluno/materiais', component: AlunoMaterialListComponent 
+    , canActivate: [AuthGuard, RoleGuard], data: { role: 'ALUNO' }
+   },
+
+  { 
+  path: 'aluno/materiais/:id/atividades',
+  component: AlunoMaterialAtividadesListComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { role: 'ALUNO' }
+},
+
   // Rota fallback
   { path: '**', redirectTo: '/login' },
 

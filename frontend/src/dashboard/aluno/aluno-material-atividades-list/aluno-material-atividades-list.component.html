@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Atividades do Material</h2>
+
+  <div *ngIf="loading" class="alert alert-info">Carregando atividades...</div>
+
+  <div *ngIf="!loading && atividades.length === 0" class="alert alert-warning">
+    Nenhuma atividade vinculada a este material.
+  </div>
+
+  <div *ngIf="!loading && atividades.length > 0">
+    <div *ngFor="let atividade of atividades" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ atividade.titulo }}</h5>
+        <p class="card-text"><strong>Descrição:</strong> {{ atividade.descricao }}</p>
+        <p class="card-text"><strong>Matéria:</strong> {{ atividade.materia }}</p>
+        <p class="card-text"><strong>Tipo:</strong> {{ atividade.tipo }}</p>
+        <p class="card-text"><strong>Pontuação:</strong> {{ atividade.pontuacao }}</p>
+        <p class="card-text"><strong>Data de Vencimento:</strong> {{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</p>
+
+        <!-- Campo de resposta -->
+      <div class="mt-3">
+        <label for="resposta-{{ atividade.id }}">Sua resposta:</label>
+        <textarea id="resposta-{{ atividade.id }}"
+                  [(ngModel)]="atividade.resposta"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Digite sua resposta aqui..."></textarea>
+      </div>
+
+      <!-- Botão enviar -->
+      <button class="btn btn-primary mt-2"
+              (click)="enviarResposta(atividade)">
+        Enviar Resposta
+      </button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-secondary w-100 mt-2 mb-4" (click)="voltar()">
+    Voltar
+  </button>
+</div>
