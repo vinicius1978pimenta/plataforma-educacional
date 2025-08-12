@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ListarAtividadesComponent implements OnInit {
   atividades: any[] = [];
+  respostas: any[] = [];
   atividadesFiltradas: any[] = [];
   filtro = '';
 
@@ -56,4 +57,33 @@ export class ListarAtividadesComponent implements OnInit {
       });
     }
   }
+
+  carregarRespostas(atividadeId: string): void {
+  this.atividadeService.getRespostas(atividadeId).subscribe({
+    next: (respostas) => {
+      this.respostas = respostas; // Guardamos as respostas na variável
+    },
+    error: (err) => {
+      console.error('Erro ao carregar respostas:', err);
+    }
+  });
+}
+
+registrarAvaliacao(resposta: any): void {
+  const avaliacao = {
+    respostaId: resposta.id,
+    nota: resposta.nota,
+    feedback: resposta.feedback,
+  };
+
+  this.atividadeService.registrarAvaliacao(avaliacao).subscribe({
+    next: () => {
+      alert('Avaliação registrada com sucesso!');
+    },
+    error: (err) => {
+      console.error('Erro ao registrar avaliação:', err);
+      alert('Erro ao registrar avaliação.');
+    }
+  });
+}
 }

@@ -5,6 +5,7 @@ import { UpdateAtividadeDto } from './dto/update-atividade.dto';
 import { AtividadeResponseDto } from './dto/atividade-response.dto';
 import { TranslationService } from 'src/traducao/translation/translation.service';
 import { TranslateAtividadeDto } from './dto/translate-atividade.dto';
+import { StatusResposta } from '@prisma/client';
 
 @Injectable()
 export class AtividadesService {
@@ -318,5 +319,61 @@ async findAll(userId: string, userRole: string, materialId?: string): Promise<At
   }
 
  
+
+async registrarAvaliacao(respostaId: string, avaliacaoDto: any, professorId: string): Promise<any> {
+  const resposta = await this.prisma.respostaAtividade.update({
+    where: { id: respostaId },
+    data: {
+      nota: avaliacaoDto.nota,
+      feedback: avaliacaoDto.feedback,
+      status: 'CORRIGIDA', // Status alterado para 'corrigida'
+    },
+  });
+
+  return resposta;
+}
+
+async registrarResposta(
+  atividadeId: string,
+  alunoId: string,
+  resposta: string,
+  anexos: string[] = [],
+) {
+  // valida se a atividade existe
+  const atividade = await this.prisma.atividade.findUnique({ where: { id: atividadeId } });
+  if (!atividade) throw new NotFoundException('Atividade não encontrada');
+
+  // (opcional) validar se o aluno pertence à turma da atividade, se houver turmaId
+  if (atividade.turmaId) {
+    const alunoNaTurma = await this.prisma.turma.findFirst({
+      where: { id: atividade.turmaId, alunos: { some: { id: alunoId } } },
+      select: { id: true },
+    });
+    if (!alunoNaTurma) {
+      throw new ForbiddenException('Você não pertence à turma desta atividade');
+    }
+  }
+
+  // cria ou atualiza (se quiser permitir reenvio)
+  // Se quiser bloquear múltiplas respostas, apenas create(); se quiser sobrescrever, use upsert:
+  const respostaCriada = await this.prisma.respostaAtividade.upsert({
+    where: { atividadeId_alunoId: { atividadeId, alunoId } }, // pela @@unique
+    create: {
+      atividadeId,
+      alunoId,
+      resposta,
+      anexos,
+      status: StatusResposta.ENVIADA,
+    },
+    update: {
+      resposta,
+      anexos,
+      status: StatusResposta.ENVIADA,
+      dataEnvio: new Date(),
+    },
+  });
+
+  return respostaCriada;
+}
 
 }

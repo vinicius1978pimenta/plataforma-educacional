@@ -41,6 +41,24 @@
           <button class="btn btn-sm btn-warning me-2" (click)="editar(atividade.id)">Editar</button>
           <button class="btn btn-sm btn-danger" (click)="excluir(atividade.id)">Excluir</button>
         </td>
+          <!-- Dentro do loop de atividades -->
+<div *ngIf="atividade.respostas.length > 0">
+  <div *ngFor="let resposta of atividade.respostas">
+    <div>
+      <strong>Resposta do Aluno:</strong>
+      <p>{{ resposta.resposta }}</p>
+    </div>
+    <div>
+      <label for="nota-{{ resposta.id }}">Nota:</label>
+      <input id="nota-{{ resposta.id }}" type="number" [(ngModel)]="resposta.nota" class="form-control" />
+    </div>
+    <div>
+      <label for="feedback-{{ resposta.id }}">Feedback:</label>
+      <textarea id="feedback-{{ resposta.id }}" [(ngModel)]="resposta.feedback" class="form-control" rows="3"></textarea>
+    </div>
+    <button class="btn btn-success mt-2" (click)="registrarAvaliacao(resposta)">Registrar Avaliação</button>
+  </div>
+</div>
       </tr>
     </tbody>
   </table>

@@ -44,7 +44,28 @@ export class AlunoMaterialAtividadesListComponent implements OnInit {
     this.router.navigate(['/aluno/materiais']);
   }
 
-  enviarResposta(atividade: any) {
-    return alert('Funcionalidade de envio de resposta ainda não implementada.');
+enviarResposta(atividade: any): void {
+  if (!atividade.resposta?.trim()) {
+    alert('Por favor, insira uma resposta!');
+    return;
   }
+
+  const payload = {
+    atividadeId: atividade.id,
+    resposta: atividade.resposta.trim(),
+    anexos: [] as string[], // se quiser anexos no futuro
+  };
+
+  this.atividadeService.enviarResposta(payload).subscribe({
+    next: () => {
+      alert('Resposta enviada com sucesso!');
+      atividade.resposta = '';
+    },
+    error: (err) => {
+      console.error('Erro ao enviar resposta:', err);
+      alert('Erro ao enviar resposta.');
+    },
+  });
+}
+
 }

@@ -18,6 +18,7 @@ import { RolesGuard } from '../auth/guards/regras.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { TranslateAtividadeDto } from './dto/translate-atividade.dto';
+import { CreateRespostaDto } from './dto/create-resposta.dto';
 
 @Controller('atividades')
 @UseGuards(JwtAuthGuard)
@@ -77,4 +78,25 @@ async findAll(
   ) {
     return this.atividadesService.translateAtividade(dto, user);
   }
+
+  @Post('resposta')
+  @UseGuards(JwtAuthGuard)
+  async enviarResposta(@Body() respostaDto: any, @Request() req) {
+  const { atividadeId, alunoId, resposta } = respostaDto;
+  return this.atividadesService.registrarResposta(atividadeId, alunoId, resposta, req.user.id);
+}
+@Patch('resposta/:id')
+@UseGuards(JwtAuthGuard)
+async registrarAvaliacao(@Param('id') id: string, @Body() avaliacaoDto: any, @Request() req) {
+  return this.atividadesService.registrarAvaliacao(id, avaliacaoDto, req.user.id);
+}
+
+@Post('respostas')
+@UseGuards(JwtAuthGuard)
+async criarResposta(
+  @Body() dto: CreateRespostaDto,
+  @CurrentUser() user: any,
+) {
+  return this.atividadesService.registrarResposta(dto.atividadeId, user.id, dto.resposta, dto.anexos ?? []);
+}
 }
