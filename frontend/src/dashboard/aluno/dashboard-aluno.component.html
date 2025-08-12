@@ -1,29 +1,5 @@
 <div class="dashboard">
 
-    <div class="botao-sair"><button (click)="logout()">Sair</button></div>
- 
-       <div class="dashboard-header">
-         <h1>Bem-vindo, aluno.</h1>
-         <app-user-profile></app-user-profile>
-       </div>
- 
- 
-       <div class="dashboard-content">
-         <div class="card">
-           <h3>Materias</h3>
-           <p>Acesse aqui suas atividades</p>
-           <button class="btn-primary" (click)="irParaMateriais()">Ver Materias</button>
-         </div>
- 
-         <div class="card">
-           <h3>Chat</h3>
-           <p>Tire suas duvidas com seu professor aqui</p>
-           <button class="btn-primary" routerLink="/atividades">Chat</button>
-         </div>
- 
-       </div>
-   </div>
- 
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">Vocabulário</h5>
@@ -33,3 +9,11 @@
     </button>
   </div>
 </div>
+
+        <div class="dashboard-content">
+        <div class="card">
+          <h3>Materias</h3>
+          <p>Gerencie suas Materias</p>
+          <button class="btn-primary" routerLink="/aluno/materiais">Ver Matérias</button>
+        </div>
+        </div>

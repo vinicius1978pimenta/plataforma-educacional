@@ -1,0 +1,38 @@
+<div class="material-header">
+  <h2>Materiais</h2>
+  <div class="header-actions">
+    <button class="btn-secondary" (click)="irParaDashboard()">Voltar</button>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filter-row">
+    <div class="form-group">
+      <label for="filtroTitulo">Filtrar por Título:</label>
+      <input id="filtroTitulo" class="form-control"
+             type="text" [(ngModel)]="filtros.titulo"
+             (input)="aplicarFiltros()" placeholder="Digite o título...">
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">
+  <p>Carregando materiais...</p>
+</div>
+
+<div *ngIf="!loading && materiais.length > 0" class="material-grid">
+  <div *ngFor="let material of materiais" class="material-card">
+    <h3 (click)="abrirMaterial(material.id)">{{ material.titulo }}</h3>
+    <p>{{ material.conteudo }}</p>
+    <div class="material-meta">
+      <strong>Tradução:</strong> {{ material.traducao }}<br>
+      <strong>Criado em:</strong> {{ formatarData(material.createdAt) }}
+    </div>
+    <!-- Sem ações de edição/exclusão -->
+  </div>
+</div>
+
+<div *ngIf="!loading && materiais.length === 0" class="empty-state">
+  <h3>Nenhum material encontrado</h3>
+  <p>Use o filtro acima para procurar.</p>
+</div>

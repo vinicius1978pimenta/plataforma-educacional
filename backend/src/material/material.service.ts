@@ -28,35 +28,36 @@ export class MaterialService {
     });
   }
 
-  async findAll(filterDto: FiltroMaterialDto, userId: string, userRole: Role) {
-    const where: any = {};
+async findAll(filterDto: FiltroMaterialDto, userId: string, userRole: Role) {
+  const where: any = {};
 
-    if (filterDto.titulo) {
-      where.titulo = { contains: filterDto.titulo, mode: 'insensitive' };
-    }
-    if (filterDto.traducao) {
-      where.idioma = { equals: filterDto.traducao };
-    }
-
-    if (userRole === Role.PROFESSOR) {
-      return this.prisma.material.findMany({
-        where,
-        include: { professor: { select: { id: true, name: true, email: true } } },
-      });
-    } else if (userRole === Role.ALUNO) {
-      where.alunos = {
-        some: {
-          alunoId: userId,
-        },
-      };
-      return this.prisma.material.findMany({
-        where,
-        include: { professor: { select: { id: true, name: true, email: true } } },
-      });
-    } else {
-      throw new ForbiddenException('Você não tem permissão para listar materiais.');
-    }
+  // (bug) aqui estava "idioma" — seu DTO usa "traducao" e o modelo também
+  if (filterDto.titulo) {
+    where.titulo = { contains: filterDto.titulo, mode: 'insensitive' };
   }
+  if (filterDto.traducao) {
+    where.traducao = { equals: filterDto.traducao }; // <- corrigido
+  }
+
+  if (userRole === Role.PROFESSOR) {
+    return this.prisma.material.findMany({
+      where,
+      include: { professor: { select: { id: true, name: true, email: true } } },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  if (userRole === Role.ALUNO) {
+    // TODOS os alunos veem a mesma lista (sem filtrar por alunoId)
+    return this.prisma.material.findMany({
+      where,
+      include: { professor: { select: { id: true, name: true, email: true } } },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  throw new ForbiddenException('Você não tem permissão para listar materiais.');
+}
 
   async findOne(id: string, user: { id: string, role: Role }) {
     const material = await this.prisma.material.findUnique({
