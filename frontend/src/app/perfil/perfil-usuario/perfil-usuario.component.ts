@@ -40,6 +40,15 @@ export class UserProfileComponent implements OnInit {
       });
     }
   }
+  getProfileEditRoute(): string[] {
+    if (!this.currentUser || !this.currentUser.id) {
+      return ['/login']; 
+    }
+
+    const userId = this.currentUser.id;
+
+    return ['/perfil-editar', userId];
+  }
 
   getRoleDisplayName(role: string): string {
     const roles = {

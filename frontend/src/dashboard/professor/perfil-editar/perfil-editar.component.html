@@ -1,16 +1,15 @@
 <div class="container">
   <h2 class="mb-4">Editar Perfil</h2>
-  <div class="d-flex gap-4 align-items-stretch"> <!-- Alinhamento com stretch para altura uniforme -->
+  <div class="d-flex gap-4 align-items-stretch">
 
-    <!-- Formulário para editar dados do perfil -->
-    <form (ngSubmit)="salvarAlteracoes()" #professorForm="ngForm" class="w-100">
+    <form (ngSubmit)="salvarAlteracoes()" #usuarioForm="ngForm" class="w-100">
       <h3 class="mt-0">Atualizar Dados</h3>
       <div class="form-group">
         <label for="name">Nome</label>
         <input
           id="name"
           name="name"
-          [(ngModel)]="professor.name"
+          [(ngModel)]="usuario.name"
           class="form-control"
           required
         />
@@ -21,7 +20,7 @@
         <input
           id="email"
           name="email"
-          [(ngModel)]="professor.email"
+          [(ngModel)]="usuario.email"
           class="form-control"
           required
         />
@@ -32,16 +31,15 @@
       </button>
     </form>
 
-    <!-- Formulário para alterar a senha -->
     <form (ngSubmit)="salvarAlteracaoSenha()" #senhaForm="ngForm" class="w-100">
-      <h3 class="mt-0">Alterar Senha</h3> <!-- Remover a margem do título -->
+      <h3 class="mt-0">Alterar Senha</h3>
       <div class="form-group">
         <label for="senhaAntiga">Senha Antiga</label>
         <input
           id="senhaAntiga"
           name="senhaAntiga"
           type="password"
-          [(ngModel)]="professor.senhaAntiga"
+          [(ngModel)]="usuario.senhaAntiga"
           class="form-control"
           required
         />
@@ -53,7 +51,7 @@
           id="senhaNova"
           name="senhaNova"
           type="password"
-          [(ngModel)]="professor.senhaNova"
+          [(ngModel)]="usuario.senhaNova"
           class="form-control"
           required
         />
@@ -65,7 +63,7 @@
     </form>
   </div>
 
-  <button type="submit" class="btn btn-secondary w-100 mt-3" routerLink="/dashboard-professor">
+  <button type="button" class="btn btn-secondary w-100 mt-3" (click)="voltar()">
     Voltar
   </button>
 </div>
