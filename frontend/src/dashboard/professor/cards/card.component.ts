@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-card',
@@ -9,10 +10,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-router: any;
-irParaMateriais() {
-this.router.navigate(['/materiais']);
-}
-cardData: any;
+  
+  
 
 }

@@ -1,6 +1,6 @@
 .navbar {
   height: 60px;
-  background: rgba(2, 40, 93, 0.95);
+  background: linear-gradient(135deg,#a5c7ec 0%, #02285d  100%);
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
@@ -10,28 +10,49 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   z-index: 1000;
+  
 }
 
 .welcome-msg {
-  color: #f8f8f8;
+  color: #ffffff;
   margin: 0;
   font-size: 1.1rem;
   font-weight: 500;
   text-align: center;
   flex: 1;
+
+  opacity: 0;                 /* começa invisível */
+  transform: translateY(20px); /* começa abaixo */
+  animation: slideUp 1.2s ease forwards; /* mais lenta */
 }
 
 .user-name {
   color: #4fc3f7;
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(79, 195, 247, 0.3);
+  
+  /* Animação */
+  opacity: 0;                 /* começa invisível */
+  transform: translateY(20px); /* começa abaixo */
+  animation: slideUp 1.2s ease forwards; /* mais lenta */
+}
+//animação
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* posição inicial abaixo */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* termina na posição normal */
+  }
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: #f8f8f8;
+  color: #ffffff;
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -81,7 +102,7 @@
 }
 
 .logout-btn {
-  background: linear-gradient(45deg, #ff4757, #ff6b7d);
+  background: linear-gradient(45deg, #e30719, #f7455a);
   border: none;
   color: white;
   padding: 0.5rem 1rem;
@@ -121,4 +142,12 @@
   .welcome-msg {
     display: none;
   }
+}
+.navbar-brand img {
+  width: 40px;        
+  height: 40px;       
+  object-fit: contain; 
+  margin-right: 8px;   
+  vertical-align: middle; 
+  border-radius: 10px;
 }
