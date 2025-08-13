@@ -1,31 +1,14 @@
-<div class="dashboard">
-
-   <div class="botao-sair"><button (click)="logout()">Sair</button></div>
-
-      <div class="dashboard-header">
-        <h1>Bem-vindo, professor.</h1>
-        <app-user-profile></app-user-profile>
-      </div>
-
-
+<div class="dashboard-container">
+  <app-navbar></app-navbar>
+  
+  <div class="main-content">
+    <app-sidebar></app-sidebar>
+    
+    <div class="content-area">
       <div class="dashboard-content">
-        <div class="card">
-          <h3>Materias</h3>
-          <p>Gerencie suas Materias</p>
-          <button class="btn-primary" (click)="irParaMateriais()">Ver Materias</button>
-        </div>
-
-        <div class="card">
-          <h3>Atividades</h3>
-          <p>Gerencie atividades</p>
-          <button class="btn-primary" routerLink="/atividades">Gerenciar Atividades</button>
-        </div>
-
-        <div class="card">
-          <h3>Criar Atividades</h3>
-          <p>criação de atividades</p>
-          <button class="btn-primary" routerLink="/criar-atividade">Criar Atividades</button>
-        </div>
-
+        <app-card></app-card>
       </div>
+    </div>
   </div>
+</div>
+<router-outlet></router-outlet>

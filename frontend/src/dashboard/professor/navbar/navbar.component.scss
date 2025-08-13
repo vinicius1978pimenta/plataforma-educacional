@@ -1,0 +1,124 @@
+.navbar {
+  height: 60px;
+  background: rgba(2, 40, 93, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  box-shadow: 0 4px 20px rgba(2, 40, 93, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1000;
+}
+
+.welcome-msg {
+  color: #f8f8f8;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
+}
+
+.user-name {
+  color: #4fc3f7;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(79, 195, 247, 0.3);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #f8f8f8;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.navbar-brand i {
+  font-size: 1.8rem;
+  color: #4fc3f7;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notification-btn {
+  position: relative;
+  background: none;
+  border: none;
+  color: #f8f8f8;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.notification-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4757;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn {
+  background: linear-gradient(45deg, #ff4757, #ff6b7d);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+  
+  .navbar-brand span {
+    display: none;
+  }
+  
+  .welcome-msg {
+    font-size: 0.9rem;
+  }
+  
+  .logout-btn span {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-msg {
+    display: none;
+  }
+}
