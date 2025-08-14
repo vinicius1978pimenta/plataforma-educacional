@@ -1,31 +1,65 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right,  #ffffff, #02285d);">
   <div class="container-fluid">
-    
-   <a class="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4" href="#">
-  <img src="/logo-inter-azul.png" alt="Logo InterLinguas" class="logo-img">
-  <div class="logo">InterLinguas</div>
-</a>
-
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4" href="#">
+      <img src="/logo-inter-azul.png" alt="Logo InterLinguas" class="logo-img">
+      <div class="logo">InterLinguas</div>
+    </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
+  <!-- botoes idiomas  -->
+<div class="lang-selector">
+  <button class="lang-btn" [class.active]="getCurrentLang() === 'pt-BR'" (click)="changeLanguage('pt-BR')">
+    <svg class="flag-icon" viewBox="0 0 16 12">
+      <rect width="16" height="12" fill="#009639"/>
+      <polygon points="0,0 8,6 0,12" fill="#fedf00"/>
+      <circle cx="8" cy="6" r="2" fill="#002776"/>
+    </svg>
+    <span class="d-none d-sm-inline">PT</span>
+  </button>
+  <button class="lang-btn" [class.active]="getCurrentLang() === 'en'" (click)="changeLanguage('en')">
+    <svg class="flag-icon" viewBox="0 0 16 12">
+      <rect width="16" height="12" fill="#B22234"/>
+      <rect y="1" width="16" height="1" fill="white"/>
+      <rect y="3" width="16" height="1" fill="white"/>
+      <rect y="5" width="16" height="1" fill="white"/>
+      <rect y="7" width="16" height="1" fill="white"/>
+      <rect y="9" width="16" height="1" fill="white"/>
+      <rect y="11" width="16" height="1" fill="white"/>
+      <rect width="7" height="6" fill="#3C3B6E"/>
+    </svg>
+      <span class="d-none d-sm-inline">EN</span>
+    </button>
+    <button class="lang-btn" [class.active]="getCurrentLang() === 'es'" (click)="changeLanguage('es')">
+      <svg class="flag-icon" viewBox="0 0 16 12">
+        <rect width="16" height="12" fill="#AA151B"/>
+        <rect y="3" width="16" height="6" fill="#F1BF00"/>
+      </svg>
+      <span class="d-none d-sm-inline">ES</span>
+    </button>
+  </div>
+
+  <!-- botoes de inicio e login  -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto d-flex align-items-center gap-2">
+       
         <li class="nav-item">
-          <a class="btn btn-outline-light" routerLink="/home">Início</a>
+          <a class="btn btn-outline-light" routerLink="/home">{{ 'inicio' | transloco }}</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-warning" routerLink="/sobre">Sobre</a>
+          <a class="btn btn-warning" routerLink="/sobre">{{ 'sobre' | transloco }}</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-primary" routerLink="/login">Entrar</a>
+          <a class="btn btn-primary" routerLink="/login">{{ 'entrar' | transloco }}</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-success" routerLink="/register">Cadastrar</a>
+          <a class="btn btn-success" routerLink="/register">{{ 'cadastrar' | transloco }}</a>
         </li>
+
       </ul>
     </div>
   </div>
