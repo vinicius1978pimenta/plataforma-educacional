@@ -52,6 +52,13 @@ async findAll(
     return this.atividadesService.findOne(id, req.user.id, req.user.role);
   }
 
+  @Get(':id/respostas')
+@UseGuards(RolesGuard)
+@Roles('PROFESSOR')
+async listarRespostas(@Param('id') id: string, @Request() req) {
+  return this.atividadesService.listarRespostas(id, req.user.id);
+}
+
   @Patch(':id')
   @UseGuards(RolesGuard)
   @Roles('PROFESSOR')

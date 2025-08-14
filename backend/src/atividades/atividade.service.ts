@@ -376,4 +376,26 @@ async registrarResposta(
   return respostaCriada;
 }
 
+//teste
+async listarRespostas(atividadeId: string, professorId: string) {
+  const atividade = await this.prisma.atividade.findUnique({
+    where: { id: atividadeId },
+    select: { professorId: true },
+  });
+
+  if (!atividade) {
+    throw new NotFoundException('Atividade não encontrada');
+  }
+  if (atividade.professorId !== professorId) {
+    throw new ForbiddenException('Você não tem permissão para ver as respostas desta atividade');
+  }
+
+  return this.prisma.respostaAtividade.findMany({
+    where: { atividadeId },
+    include: {
+      aluno: { select: { id: true, name: true, email: true } },
+    },
+    orderBy: { dataEnvio: 'desc' },
+  });
+}
 }
