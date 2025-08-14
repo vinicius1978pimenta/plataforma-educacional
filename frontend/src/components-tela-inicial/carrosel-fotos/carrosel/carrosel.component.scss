@@ -10,3 +10,12 @@
     transform: translateY(0);
   }
 }
+.carousel-inner {
+  border-radius: 15px; /* arredonda todo o bloco do carousel */
+  overflow: hidden; /* mantém a imagem dentro do raio */
+}
+
+.carousel-image {
+  object-fit: cover;
+  border-radius: 15px; /* garante arredondamento na imagem também */
+}

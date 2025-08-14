@@ -7,6 +7,7 @@ import { ConteudoComponent } from './conteudo-principal/conteudo/conteudo.compon
 import { Conteudo2Component } from './conteudo-2/conteudo-2/conteudo-2.component';
 import { Conteudo3Component } from './conteudo-3/conteudo-3/conteudo-3.component';
 import { LazyLoadDirective } from './lazy-load.directive';
+import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   standalone: true,
@@ -19,14 +20,24 @@ import { LazyLoadDirective } from './lazy-load.directive';
     ConteudoComponent,
     Conteudo2Component,
     Conteudo3Component,
-    LazyLoadDirective
-  ],
+    LazyLoadDirective,
+    TranslocoModule,
+    TranslocoPipe,
+],
   templateUrl: './inicial.component.html',
   styleUrls: ['./inicial.component.scss']  
 })
 export class InicialComponent {
 
-  
+  constructor(private translocoService: TranslocoService) {}
+
+  changeLanguage(lang: string) {
+    this.translocoService.setActiveLang(lang);
+  }
+
+  getCurrentLang() {
+    return this.translocoService.getActiveLang();
+  }
 
   showConteudo3 = false;
   private timeoutId3?: any;
