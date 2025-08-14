@@ -5,6 +5,7 @@ import { UpdateAtividadeDto } from './dto/update-atividade.dto';
 import { AtividadeResponseDto } from './dto/atividade-response.dto';
 import { TranslationService } from 'src/traducao/translation/translation.service';
 import { TranslateAtividadeDto } from './dto/translate-atividade.dto';
+import { StatusResposta } from '@prisma/client';
 
 @Injectable()
 export class AtividadesService {
@@ -319,4 +320,119 @@ async findAll(userId: string, userRole: string, materialId?: string): Promise<At
 
  
 
+
+
+async registrarAvaliacao(respostaId: string, avaliacaoDto: any, professorId: string) {
+  // valida que a resposta existe e pertence a uma atividade do professor
+  const respostaExistente = await this.prisma.respostaAtividade.findUnique({
+    where: { id: respostaId },
+    include: { atividade: { select: { professorId: true } } }
+  });
+
+  if (!respostaExistente) {
+    throw new NotFoundException('Resposta não encontrada');
+  }
+  if (respostaExistente.atividade.professorId !== professorId) {
+    throw new ForbiddenException('Você não tem permissão para avaliar esta resposta');
+  }
+
+  // atualiza e já marca como corrigida com dataCorrecao
+  const resposta = await this.prisma.respostaAtividade.update({
+    where: { id: respostaId },
+    data: {
+      nota: avaliacaoDto.nota,
+      feedback: avaliacaoDto.feedback,
+      status: StatusResposta.CORRIGIDA,
+      dataCorrecao: new Date(),
+    },
+    include: {
+      aluno: { select: { id: true, name: true, email: true } },
+      atividade: { select: { id: true, titulo: true } },
+    },
+  });
+
+  return resposta;
+}
+
+//teste
+async listarRespostas(atividadeId: string, professorId: string) {
+  const atividade = await this.prisma.atividade.findUnique({
+    where: { id: atividadeId },
+    select: { professorId: true },
+  });
+
+  if (!atividade) {
+    throw new NotFoundException('Atividade não encontrada');
+  }
+  if (atividade.professorId !== professorId) {
+    throw new ForbiddenException('Você não tem permissão para ver as respostas desta atividade');
+  }
+
+  return this.prisma.respostaAtividade.findMany({
+    where: { atividadeId },
+    include: {
+      aluno: { select: { id: true, name: true, email: true } },
+    },
+    orderBy: { dataEnvio: 'desc' },
+  });
+}
+
+async obterMinhaResposta(atividadeId: string, alunoId: string) {
+  const resposta = await this.prisma.respostaAtividade.findUnique({
+    where: { atividadeId_alunoId: { atividadeId, alunoId } },
+    select: {
+      id: true,
+      status: true,
+      nota: true,
+      feedback: true,
+      dataEnvio: true,
+      dataCorrecao: true,
+    },
+  });
+  return resposta ?? null;
+}
+async registrarResposta(
+  atividadeId: string,
+  alunoId: string,
+  resposta: string,
+  anexos: string[] = [],
+) {
+  // valida existência da atividade
+  const atividade = await this.prisma.atividade.findUnique({ where: { id: atividadeId } });
+  if (!atividade) {
+    throw new NotFoundException('Atividade não encontrada');
+  }
+
+  // valida se o aluno pertence à turma da atividade
+  if (atividade.turmaId) {
+    const alunoNaTurma = await this.prisma.turma.findFirst({
+      where: { id: atividade.turmaId, alunos: { some: { id: alunoId } } },
+      select: { id: true },
+    });
+    if (!alunoNaTurma) {
+      throw new ForbiddenException('Você não pertence à turma desta atividade');
+    }
+  }
+
+  //cria ou atualiza (permite reenvio)
+  const respostaCriada = await this.prisma.respostaAtividade.upsert({
+    where: { atividadeId_alunoId: { atividadeId, alunoId } }, // pela @@unique do schema
+    create: {
+      atividadeId,
+      alunoId,
+      resposta,
+      anexos,
+      status: StatusResposta.ENVIADA,
+    },
+    update: {
+      resposta,
+      anexos,
+      status: StatusResposta.ENVIADA,
+      dataEnvio: new Date(),
+    },
+  });
+
+  return respostaCriada;
+
+}
 }

@@ -7,7 +7,7 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './perfil-usuario.component.html',
   styleUrl: './perfil-usuario.component.scss'
 })

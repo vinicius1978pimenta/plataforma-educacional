@@ -18,6 +18,7 @@ import { RolesGuard } from '../auth/guards/regras.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { TranslateAtividadeDto } from './dto/translate-atividade.dto';
+import { CreateRespostaDto } from './dto/create-resposta.dto';
 
 @Controller('atividades')
 @UseGuards(JwtAuthGuard)
@@ -51,6 +52,13 @@ async findAll(
     return this.atividadesService.findOne(id, req.user.id, req.user.role);
   }
 
+  @Get(':id/respostas')
+@UseGuards(RolesGuard)
+@Roles('PROFESSOR')
+async listarRespostas(@Param('id') id: string, @Request() req) {
+  return this.atividadesService.listarRespostas(id, req.user.id);
+}
+
   @Patch(':id')
   @UseGuards(RolesGuard)
   @Roles('PROFESSOR')
@@ -77,4 +85,27 @@ async findAll(
   ) {
     return this.atividadesService.translateAtividade(dto, user);
   }
+
+  
+@Patch('resposta/:id')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('PROFESSOR')
+async registrarAvaliacao(@Param('id') id: string, @Body() avaliacaoDto: any, @Request() req) {
+  return this.atividadesService.registrarAvaliacao(id, avaliacaoDto, req.user.id);
+}
+
+@Post('respostas')
+@UseGuards(JwtAuthGuard)
+async criarResposta(
+  @Body() dto: CreateRespostaDto,
+  @CurrentUser() user: any,
+) {
+  return this.atividadesService.registrarResposta(dto.atividadeId, user.id, dto.resposta, dto.anexos ?? []);
+}
+
+@Get(':id/minha-resposta')
+@UseGuards(JwtAuthGuard)
+async minhaResposta(@Param('id') id: string, @CurrentUser() user: any) {
+  return this.atividadesService.obterMinhaResposta(id, user.id);
+}
 }

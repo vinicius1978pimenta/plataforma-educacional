@@ -28,23 +28,64 @@
         <th>Ações</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let atividade of atividadesFiltradas">
-        <td>{{ atividade.titulo }}</td>
-        <td>{{ atividade.materia }}</td>
-        <td>{{ atividade.tipo }}</td>
-        <td>{{ atividade.dificuldade }}</td>
-        <td>{{ atividade.pontuacao }}</td>
-        <td>{{ atividade.dataVencimento | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ atividade.ativa ? 'Sim' : 'Não' }}</td>
-        <td>
-          <button class="btn btn-sm btn-warning me-2" (click)="editar(atividade.id)">Editar</button>
-          <button class="btn btn-sm btn-danger" (click)="excluir(atividade.id)">Excluir</button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let atividade of atividadesFiltradas">
+        <!-- LINHA PRINCIPAL -->
+        <tr>
+          <td>{{ atividade.titulo }}</td>
+          <td>{{ atividade.materia }}</td>
+          <td>{{ atividade.tipo }}</td>
+          <td>{{ atividade.dificuldade }}</td>
+          <td>{{ atividade.pontuacao }}</td>
+          <td>{{ atividade.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ atividade.ativa ? 'Sim' : 'Não' }}</td>
+          <td>
+            <button class="btn btn-sm btn-info me-2" (click)="carregarRespostas(atividade.id)">
+              Ver respostas
+            </button>
+            <button class="btn btn-sm btn-warning me-2" (click)="editar(atividade.id)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="excluir(atividade.id)">Excluir</button>
+          </td>
+        </tr>
+
+        <!-- CARREGANDO RESPOSTAS -->
+        <tr *ngIf="carregandoRespostas && carregandoRespostas[atividade.id]">
+          <td colspan="8">Carregando respostas...</td>
+        </tr>
+
+        <!-- LISTA DE RESPOSTAS -->
+        <tr *ngIf="respostasPorAtividade && respostasPorAtividade[atividade.id]?.length">
+          <td colspan="8">
+            <div *ngFor="let resposta of respostasPorAtividade[atividade.id]" class="border rounded p-3 mb-3">
+              <div class="mb-2">
+                <strong>Aluno:</strong> {{ resposta.aluno?.name || '—' }}<br />
+                <strong>Resposta:</strong>
+                <div class="mt-1">{{ resposta.resposta }}</div>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-12 col-md-2">
+                  <label class="form-label">Nota</label>
+                  <input type="number" [(ngModel)]="resposta.nota" class="form-control" />
+                </div>
+                <div class="col-12 col-md-10">
+                  <label class="form-label">Feedback</label>
+                  <textarea [(ngModel)]="resposta.feedback" class="form-control" rows="2"></textarea>
+                </div>
+              </div>
+
+              <button class="btn btn-success mt-2" (click)="registrarAvaliacao(resposta)">
+                Registrar Avaliação
+              </button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
-   <button type="submit" class="btn btn-secondary w-100 mt-3 " routerLink="/dashboard-professor">
-      Voltar
-    </button>
+
+  <button type="submit" class="btn btn-secondary w-100 mt-3" routerLink="/dashboard-professor">
+    Voltar
+  </button>
 </div>

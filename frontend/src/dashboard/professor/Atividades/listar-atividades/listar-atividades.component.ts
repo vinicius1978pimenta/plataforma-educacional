@@ -15,6 +15,8 @@ export class ListarAtividadesComponent implements OnInit {
   atividades: any[] = [];
   atividadesFiltradas: any[] = [];
   filtro = '';
+  respostasPorAtividade: Record<string, any[]> = {};
+carregandoRespostas: Record<string, boolean> = {};
 
   constructor(
     private atividadeService: AtividadeService,
@@ -56,4 +58,41 @@ export class ListarAtividadesComponent implements OnInit {
       });
     }
   }
+
+carregarRespostas(atividadeId: string): void {
+  this.carregandoRespostas[atividadeId] = true;
+  this.atividadeService.getRespostas(atividadeId).subscribe({
+    next: (respostas) => {
+      this.respostasPorAtividade[atividadeId] = respostas;
+      this.carregandoRespostas[atividadeId] = false;
+    },
+    error: (err) => {
+      console.error('Erro ao carregar respostas:', err);
+      this.carregandoRespostas[atividadeId] = false;
+      alert('Erro ao carregar respostas.');
+    }
+  });
+}
+
+registrarAvaliacao(resposta: any): void {
+  const avaliacao = {
+    respostaId: resposta.id,
+    nota: resposta.nota,
+    feedback: resposta.feedback,
+  };
+
+  this.atividadeService.registrarAvaliacao(avaliacao).subscribe({
+    next: () => {
+      alert('Avaliação registrada com sucesso!');
+      // opcional: marcar como corrigida localmente
+      resposta.status = 'CORRIGIDA';
+      resposta.dataCorrecao = new Date().toISOString();
+    },
+    error: (err) => {
+      console.error('Erro ao registrar avaliação:', err);
+      alert('Erro ao registrar avaliação.');
+    }
+  });
+}
+
 }

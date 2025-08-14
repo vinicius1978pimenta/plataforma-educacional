@@ -60,5 +60,28 @@ findByMaterialId(materialId: string): Observable<any[]> {
   });
 }
 
+enviarResposta(body: { atividadeId: string; resposta: string; anexos?: string[] }) {
+  return this.http.post('http://localhost:3000/atividades/respostas', body, {
+    headers: this.getAuthHeaders(),
+  });
+}
+
+getRespostas(atividadeId: string): Observable<any[]> {
+  return this.http.get<any[]>(`http://localhost:3000/atividades/${atividadeId}/respostas`, {
+    headers: this.getAuthHeaders()
+  });
+}
+
+registrarAvaliacao(avaliacao: any): Observable<any> {
+  return this.http.patch<any>(`http://localhost:3000/atividades/resposta/${avaliacao.respostaId}`, avaliacao, {
+    headers: this.getAuthHeaders()
+  });
+}
+
+getMinhaResposta(atividadeId: string) {
+  return this.http.get<any>(`http://localhost:3000/atividades/${atividadeId}/minha-resposta`, {
+    headers: this.getAuthHeaders()
+  });
+}
 }
 

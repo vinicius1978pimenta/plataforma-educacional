@@ -28,23 +28,62 @@ export class AlunoMaterialAtividadesListComponent implements OnInit {
     this.carregarAtividades();
   }
 
-  carregarAtividades(): void {
-    this.loading = true;
-    this.atividadeService.findByMaterialId(this.materialId).subscribe({
-      next: (atividades) => { this.atividades = atividades; this.loading = false; },
-      error: (err) => {
-        console.error('Erro ao carregar atividades:', err);
-        this.loading = false;
-        alert('Erro ao carregar atividades vinculadas.');
-      }
-    });
+ carregarAtividades(): void {
+  this.loading = true;
+  this.atividadeService.findByMaterialId(this.materialId).subscribe({
+    next: (atividades) => { 
+      this.atividades = atividades;
+
+      // Checar status de cada atividade
+      this.atividades.forEach((atividade) => {
+        this.atividadeService.getMinhaResposta(atividade.id).subscribe({
+          next: (resposta) => {
+            if (resposta && resposta.status) {
+              atividade.status = resposta.status;
+              atividade.nota = resposta.nota;
+              atividade.feedback = resposta.feedback;
+            }
+          },
+          error: (err) => console.error('Erro ao obter status da resposta:', err)
+        });
+      });
+
+      this.loading = false; 
+    },
+    error: (err) => {
+      console.error('Erro ao carregar atividades:', err);
+      this.loading = false;
+      alert('Erro ao carregar atividades vinculadas.');
+    }
+  });
+}
+
+enviarResposta(atividade: any): void {
+  if (!atividade.resposta?.trim()) {
+    alert('Por favor, insira uma resposta!');
+    return;
   }
 
-  voltar(): void {
-    this.router.navigate(['/aluno/materiais']);
-  }
+  const payload = {
+    atividadeId: atividade.id,
+    resposta: atividade.resposta.trim(),
+    anexos: [] as string[],
+  };
 
-  enviarResposta(atividade: any) {
-    return alert('Funcionalidade de envio de resposta ainda não implementada.');
-  }
+  this.atividadeService.enviarResposta(payload).subscribe({
+    next: () => {
+      alert('Resposta enviada com sucesso!');
+      atividade.resposta = '';
+      atividade.status = 'ENVIADA'; // <-- para esconder o textarea e mostrar o status
+    },
+    error: (err) => {
+      console.error('Erro ao enviar resposta:', err);
+      alert('Erro ao enviar resposta.');
+    },
+  });
+}
+
+voltar(): void {
+  this.router.navigate(['/aluno/materiais']);
+}
 }
