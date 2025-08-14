@@ -86,14 +86,10 @@ async listarRespostas(@Param('id') id: string, @Request() req) {
     return this.atividadesService.translateAtividade(dto, user);
   }
 
-  @Post('resposta')
-  @UseGuards(JwtAuthGuard)
-  async enviarResposta(@Body() respostaDto: any, @Request() req) {
-  const { atividadeId, alunoId, resposta } = respostaDto;
-  return this.atividadesService.registrarResposta(atividadeId, alunoId, resposta, req.user.id);
-}
+  
 @Patch('resposta/:id')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('PROFESSOR')
 async registrarAvaliacao(@Param('id') id: string, @Body() avaliacaoDto: any, @Request() req) {
   return this.atividadesService.registrarAvaliacao(id, avaliacaoDto, req.user.id);
 }
@@ -105,5 +101,11 @@ async criarResposta(
   @CurrentUser() user: any,
 ) {
   return this.atividadesService.registrarResposta(dto.atividadeId, user.id, dto.resposta, dto.anexos ?? []);
+}
+
+@Get(':id/minha-resposta')
+@UseGuards(JwtAuthGuard)
+async minhaResposta(@Param('id') id: string, @CurrentUser() user: any) {
+  return this.atividadesService.obterMinhaResposta(id, user.id);
 }
 }

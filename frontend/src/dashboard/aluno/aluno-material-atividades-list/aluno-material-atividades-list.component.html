@@ -17,21 +17,33 @@
         <p class="card-text"><strong>Pontuação:</strong> {{ atividade.pontuacao }}</p>
         <p class="card-text"><strong>Data de Vencimento:</strong> {{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</p>
 
-        <!-- Campo de resposta -->
-      <div class="mt-3">
-        <label for="resposta-{{ atividade.id }}">Sua resposta:</label>
-        <textarea id="resposta-{{ atividade.id }}"
-                  [(ngModel)]="atividade.resposta"
-                  class="form-control"
-                  rows="3"
-                  placeholder="Digite sua resposta aqui..."></textarea>
-      </div>
+        <!-- Campo de resposta OU status -->
+        <ng-container *ngIf="atividade.status !== 'ENVIADA' && atividade.status !== 'CORRIGIDA'; else statusTpl">
+          <div class="mt-3">
+            <label for="resposta-{{ atividade.id }}">Sua resposta:</label>
+            <textarea id="resposta-{{ atividade.id }}"
+                      [(ngModel)]="atividade.resposta"
+                      class="form-control"
+                      rows="3"
+                      placeholder="Digite sua resposta aqui..."></textarea>
+          </div>
 
-      <!-- Botão enviar -->
-      <button class="btn btn-primary mt-2"
-              (click)="enviarResposta(atividade)">
-        Enviar Resposta
-      </button>
+          <button class="btn btn-primary mt-2" (click)="enviarResposta(atividade)">
+            Enviar Resposta
+          </button>
+        </ng-container>
+
+        <!-- Status -->
+        <ng-template #statusTpl>
+          <div class="mt-3 alert alert-success mb-0">
+            ✅ Resposta enviada
+            <div *ngIf="atividade.status === 'CORRIGIDA'">
+              <hr />
+              <strong>Nota:</strong> {{ atividade.nota }}<br />
+              <strong>Feedback:</strong> {{ atividade.feedback || '—' }}
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

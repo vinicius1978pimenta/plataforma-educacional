@@ -77,5 +77,11 @@ registrarAvaliacao(avaliacao: any): Observable<any> {
     headers: this.getAuthHeaders()
   });
 }
+
+getMinhaResposta(atividadeId: string) {
+  return this.http.get<any>(`http://localhost:3000/atividades/${atividadeId}/minha-resposta`, {
+    headers: this.getAuthHeaders()
+  });
+}
 }
 

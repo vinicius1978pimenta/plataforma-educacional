@@ -320,60 +320,38 @@ async findAll(userId: string, userRole: string, materialId?: string): Promise<At
 
  
 
-async registrarAvaliacao(respostaId: string, avaliacaoDto: any, professorId: string): Promise<any> {
+
+
+async registrarAvaliacao(respostaId: string, avaliacaoDto: any, professorId: string) {
+  // valida que a resposta existe e pertence a uma atividade do professor
+  const respostaExistente = await this.prisma.respostaAtividade.findUnique({
+    where: { id: respostaId },
+    include: { atividade: { select: { professorId: true } } }
+  });
+
+  if (!respostaExistente) {
+    throw new NotFoundException('Resposta não encontrada');
+  }
+  if (respostaExistente.atividade.professorId !== professorId) {
+    throw new ForbiddenException('Você não tem permissão para avaliar esta resposta');
+  }
+
+  // atualiza e já marca como corrigida com dataCorrecao
   const resposta = await this.prisma.respostaAtividade.update({
     where: { id: respostaId },
     data: {
       nota: avaliacaoDto.nota,
       feedback: avaliacaoDto.feedback,
-      status: 'CORRIGIDA', // Status alterado para 'corrigida'
+      status: StatusResposta.CORRIGIDA,
+      dataCorrecao: new Date(),
+    },
+    include: {
+      aluno: { select: { id: true, name: true, email: true } },
+      atividade: { select: { id: true, titulo: true } },
     },
   });
 
   return resposta;
-}
-
-async registrarResposta(
-  atividadeId: string,
-  alunoId: string,
-  resposta: string,
-  anexos: string[] = [],
-) {
-  // valida se a atividade existe
-  const atividade = await this.prisma.atividade.findUnique({ where: { id: atividadeId } });
-  if (!atividade) throw new NotFoundException('Atividade não encontrada');
-
-  // (opcional) validar se o aluno pertence à turma da atividade, se houver turmaId
-  if (atividade.turmaId) {
-    const alunoNaTurma = await this.prisma.turma.findFirst({
-      where: { id: atividade.turmaId, alunos: { some: { id: alunoId } } },
-      select: { id: true },
-    });
-    if (!alunoNaTurma) {
-      throw new ForbiddenException('Você não pertence à turma desta atividade');
-    }
-  }
-
-  // cria ou atualiza (se quiser permitir reenvio)
-  // Se quiser bloquear múltiplas respostas, apenas create(); se quiser sobrescrever, use upsert:
-  const respostaCriada = await this.prisma.respostaAtividade.upsert({
-    where: { atividadeId_alunoId: { atividadeId, alunoId } }, // pela @@unique
-    create: {
-      atividadeId,
-      alunoId,
-      resposta,
-      anexos,
-      status: StatusResposta.ENVIADA,
-    },
-    update: {
-      resposta,
-      anexos,
-      status: StatusResposta.ENVIADA,
-      dataEnvio: new Date(),
-    },
-  });
-
-  return respostaCriada;
 }
 
 //teste
@@ -397,5 +375,64 @@ async listarRespostas(atividadeId: string, professorId: string) {
     },
     orderBy: { dataEnvio: 'desc' },
   });
+}
+
+async obterMinhaResposta(atividadeId: string, alunoId: string) {
+  const resposta = await this.prisma.respostaAtividade.findUnique({
+    where: { atividadeId_alunoId: { atividadeId, alunoId } },
+    select: {
+      id: true,
+      status: true,
+      nota: true,
+      feedback: true,
+      dataEnvio: true,
+      dataCorrecao: true,
+    },
+  });
+  return resposta ?? null;
+}
+async registrarResposta(
+  atividadeId: string,
+  alunoId: string,
+  resposta: string,
+  anexos: string[] = [],
+) {
+  // valida existência da atividade
+  const atividade = await this.prisma.atividade.findUnique({ where: { id: atividadeId } });
+  if (!atividade) {
+    throw new NotFoundException('Atividade não encontrada');
+  }
+
+  // valida se o aluno pertence à turma da atividade
+  if (atividade.turmaId) {
+    const alunoNaTurma = await this.prisma.turma.findFirst({
+      where: { id: atividade.turmaId, alunos: { some: { id: alunoId } } },
+      select: { id: true },
+    });
+    if (!alunoNaTurma) {
+      throw new ForbiddenException('Você não pertence à turma desta atividade');
+    }
+  }
+
+  //cria ou atualiza (permite reenvio)
+  const respostaCriada = await this.prisma.respostaAtividade.upsert({
+    where: { atividadeId_alunoId: { atividadeId, alunoId } }, // pela @@unique do schema
+    create: {
+      atividadeId,
+      alunoId,
+      resposta,
+      anexos,
+      status: StatusResposta.ENVIADA,
+    },
+    update: {
+      resposta,
+      anexos,
+      status: StatusResposta.ENVIADA,
+      dataEnvio: new Date(),
+    },
+  });
+
+  return respostaCriada;
+
 }
 }
