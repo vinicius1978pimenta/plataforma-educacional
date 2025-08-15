@@ -42,12 +42,19 @@ export class UserProfileComponent implements OnInit {
   }
   getProfileEditRoute(): string[] {
     if (!this.currentUser || !this.currentUser.id) {
-      return ['/login']; 
+      return ["/login"]; 
     }
 
     const userId = this.currentUser.id;
+    // ADICIONAR: Obtenha o role do usuário
+    const userRole = this.currentUser.role;
 
-    return ['/perfil-editar', userId];
+    // EDITAR: Adicione a lógica condicional para redirecionar com base no role
+    if (userRole === 'RESPONSAVEL') {
+      return ['/perfil-responsavel-editar', userId];
+    } else {
+      return ['/perfil-editar', userId];
+    }
   }
 
   getRoleDisplayName(role: string): string {

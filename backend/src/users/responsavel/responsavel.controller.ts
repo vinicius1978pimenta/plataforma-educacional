@@ -16,7 +16,7 @@ import { UpdateResponsavelDto } from './dto/update-responsavel.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { UpdateResponsavelPasswordDto } from './dto/update-responsavel-password.dto';
 
-@Controller('responsavel')
+@Controller('responsaveis')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.RESPONSAVEL)
 export class ResponsavelController {
@@ -61,4 +61,13 @@ export class ResponsavelController {
   async findOneAluno(@Param('id') id: string) {
     return this.responsavelService.findOneAluno(id);
   }
+
+  @Get(':id/filhos')
+  async findFilhosByResponsavelId(@Param('id') id: string) {
+    return this.responsavelService.findFilhosByResponsavelId(id);
+  }
+  @Get(':id')
+async findOne(@Param('id') id: string) {
+  return this.responsavelService.findOne(id);
+}
 }

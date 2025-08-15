@@ -18,6 +18,8 @@ import { MaterialAtividadesListComponent } from './material-atividades-list/mate
 import { VocabularioComponent } from '../vocabulario/vocabulario/vocabulario.component';
 import { AlunoMaterialListComponent } from '../dashboard/aluno/aluno-material-list/aluno-material-list.component';
 import { AlunoMaterialAtividadesListComponent } from '../dashboard/aluno/aluno-material-atividades-list/aluno-material-atividades-list.component';
+import { AcompanhamentoFilhosComponent } from '../dashboard/responsaveis/acompanhamento-filhos/acompanhamento-filhos.component';
+import { PerfilResponsavelComponent } from '../dashboard/responsaveis/perfil-responsavel/perfil-responsavel.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -43,6 +45,13 @@ export const routes: Routes = [
   {
     path: 'dashboard-responsaveis',
     component: DahsboardResponsaveisComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'RESPONSAVEL' }
+    
+  },
+  {
+  path: 'dashboard-responsaveis/acompanhamento-filhos',
+    component: AcompanhamentoFilhosComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'RESPONSAVEL' }
   },
@@ -85,6 +94,7 @@ export const routes: Routes = [
   },
 
   { path: 'perfil-editar/:id', component: PerfilEditarComponent },
+  { path: 'perfil-responsavel-editar/:id', component: PerfilResponsavelComponent },
 
 {
   path: 'materiais/:id/atividades',  // Usando o ID do material

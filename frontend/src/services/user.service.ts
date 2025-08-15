@@ -37,4 +37,8 @@ export class UserService {
     const apiUrl = this.getApiUrl(userRole);
     return this.http.patch<any>(`${apiUrl}/${userId}/password`, passwordData );
   }
+
+  getFilhosByResponsavelId(responsavelId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/responsaveis/${responsavelId}/filhos`);
+  }
 }

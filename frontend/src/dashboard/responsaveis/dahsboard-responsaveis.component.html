@@ -1,19 +1,18 @@
 <div class="dashboard">
 
-   <div class="botao-sair"><button (click)="logout()">Sair</button></div>
+  <div class="botao-sair"><button (click)="logout()">Sair</button></div>
 
       <div class="dashboard-header">
-        <h1>Bem-vindo, responsável.</h1>
+        <h1>Bem-vindo, {{ currentUser.name }}</h1>
         <app-user-profile></app-user-profile>
       </div>
 
 
-      <div class="dashboard-content">
-        <div class="card">
-          <h3>Acompanhamento do aluno</h3>
-          <p>Visualizar histórico do do aluno</p>
-          <button class="btn-primary">Ver Histórico</button>
-        </div>
+      <div class="card">
+        <h3>Acompanhe seu filho</h3>
+        <p>Visualizar o acompanhamento do seu filho(a)</p>
+        <button class="btn-primary" routerLink="/dashboard-responsaveis/acompanhamento-filhos">Acompanhe seu filho</button>
+      </div>
 
         <div class="card">
           <h3>Atividades em andamento</h3>
@@ -24,4 +23,3 @@
 
 
       </div>
-  </div>
