@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+      <img src="/logo-inter-azul.png" alt="">
+    <span>Interlinguas</span>
+  </div>
+  
+  <h4 class="welcome-msg">
+    Bem Vindo, <span class="user-name">{{currentUser?.name}}</span>!
+  </h4>
+  
+  <div class="navbar-actions">
+    <button class="notification-btn">
+      <i class="fas fa-bell"></i>
+      <span class="notification-badge">3</span>
+    </button>
+    
+    <button class="logout-btn" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Sair</span>
+    </button>
+  </div>
+</nav>
