@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Meus Filhos</h2>
+    <div *ngIf="filhos && filhos.length > 0; else noChildren">
+      <div *ngFor="let filho of filhos" class="child-card">
+        <h3>{{ filho.name }}</h3>
+        <p>Email: {{ filho.email }}</p>
+      </div>
+    </div>
+    <ng-template #noChildren>
+      <p>Nenhum filho vinculado a esta conta.</p>
+    </ng-template>
+    <button class="btn-back" (click)="voltar()">Voltar</button>
+  </div>

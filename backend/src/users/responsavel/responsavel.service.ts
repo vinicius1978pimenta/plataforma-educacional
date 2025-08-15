@@ -98,4 +98,22 @@ export class ResponsavelService {
     }
     return aluno;
   }
+
+  async findFilhosByResponsavelId(responsavelId: string) {
+    const responsavel = await this.prismaService.user.findUnique({
+      where: { id: responsavelId, role: 'RESPONSAVEL' },
+      include: { filhos: true }, // Inclui os filhos relacionados
+    });
+
+    if (!responsavel) {
+      throw new NotFoundException('Responsável não encontrado');
+    }
+
+    return responsavel.filhos;
+  }
+  async findOne(id: string) {
+    return this.prismaService.user.findUnique({
+      where: { id, role: 'RESPONSAVEL' },
+    });
+  }
 }

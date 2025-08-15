@@ -2,7 +2,7 @@
   color: rgb(66, 63, 63);
 }
 .logo-img {
-  width: 48px; /* aumenta o tamanho */
+  width: 80px; /* aumenta o tamanho */
   height: auto; /* mantém a proporção */
   border-radius: 10px;
 }
@@ -13,7 +13,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.284);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 25px;
   padding: 6px 10px;
@@ -22,7 +22,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(255, 176, 176, 0.15);
+    background: rgba(0, 0, 0, 0.422);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);

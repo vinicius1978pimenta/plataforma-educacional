@@ -12,9 +12,13 @@
   .card {
     animation: float 6s ease-in-out infinite;
     transition: box-shadow 0.3s ease;
+    background: rgba(255 255 255 / 0.1);
   }
 
   .card:hover {
     box-shadow: 0 25px 40px rgba(2, 40, 93, 0.7);
+  }
+  .card-body {
+    color: white;
   }
   
