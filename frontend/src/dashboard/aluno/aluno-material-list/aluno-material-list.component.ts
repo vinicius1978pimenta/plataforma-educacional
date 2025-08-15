@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FiltroMaterialDto, Material, MaterialService } from '../../../app/material/material.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 
 
 @Component({
   selector: 'app-aluno-material-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule,NavbarComponent,],
   templateUrl: './aluno-material-list.component.html',
   styleUrls: ['./aluno-material-list.component.scss']
 })
