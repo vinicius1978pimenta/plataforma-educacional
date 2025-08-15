@@ -12,6 +12,30 @@
       <div class="card-body">
         <h5 class="card-title">{{ atividade.titulo }}</h5>
         <p class="card-text"><strong>Descrição:</strong> {{ atividade.descricao }}</p>
+
+        <!-- Botões de tradução -->
+        <div class="mb-2">
+          <button class="btn btn-sm btn-primary me-2"
+                  (click)="traduzirAtividade(atividade, 'en')"
+                  [disabled]="atividade.traduzindo">
+            {{ atividade.traduzindo ? 'Traduzindo...' : 'Traduzir para Inglês' }}
+          </button>
+
+          <button class="btn btn-sm btn-warning"
+                  (click)="traduzirAtividade(atividade, 'es')"
+                  [disabled]="atividade.traduzindo">
+            {{ atividade.traduzindo ? 'Traduzindo...' : 'Traduzir para Espanhol' }}
+          </button>
+        </div>
+
+        <!-- Traduções exibidas -->
+        <div *ngIf="atividade.traducaoIngles" class="mt-2">
+          <strong>Inglês:</strong> {{ atividade.traducaoIngles }}
+        </div>
+        <div *ngIf="atividade.traducaoEspanhol" class="mt-2">
+          <strong>Espanhol:</strong> {{ atividade.traducaoEspanhol }}
+        </div>
+
         <p class="card-text"><strong>Matéria:</strong> {{ atividade.materia }}</p>
         <p class="card-text"><strong>Tipo:</strong> {{ atividade.tipo }}</p>
         <p class="card-text"><strong>Pontuação:</strong> {{ atividade.pontuacao }}</p>
