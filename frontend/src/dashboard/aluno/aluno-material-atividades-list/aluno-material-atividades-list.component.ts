@@ -16,6 +16,7 @@ export class AlunoMaterialAtividadesListComponent implements OnInit {
   atividades: any[] = [];
   loading = false;
   materialId = '';
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -86,4 +87,26 @@ enviarResposta(atividade: any): void {
 voltar(): void {
   this.router.navigate(['/aluno/materiais']);
 }
+
+  traduzirAtividade(atividade: any, targetLang: string): void {
+  atividade.traduzindo = true;
+
+  this.atividadeService.traduzirAtividade(atividade.descricao, targetLang).subscribe({
+    next: (res) => {
+      if (targetLang === 'en') {
+        atividade.traducaoIngles = res.traduzido;
+      } else if (targetLang === 'es') {
+        atividade.traducaoEspanhol = res.traduzido;
+      }
+      atividade.traduzindo = false;
+    },
+    error: (err) => {
+      console.error('Erro ao traduzir atividade:', err);
+      alert('Erro ao traduzir atividade.');
+      atividade.traduzindo = false;
+    }
+  });
+}
+
+  
 }

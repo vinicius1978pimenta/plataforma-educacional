@@ -83,5 +83,16 @@ getMinhaResposta(atividadeId: string) {
     headers: this.getAuthHeaders()
   });
 }
+
+  // AtividadeService
+traduzirAtividade(text: string, targetLang: string): Observable<any> {
+  const payload = { text, targetLang }; 
+  return this.http.post<any>(`${this.apiUrl}/translate`, payload); 
+}
+
+
+
+
+
 }
 
