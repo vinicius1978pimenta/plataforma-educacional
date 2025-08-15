@@ -91,7 +91,7 @@ voltar(): void {
   traduzirAtividade(atividade: any, targetLang: string): void {
   atividade.traduzindo = true;
 
-  this.atividadeService.traduzirAtividade(atividade.descricao, targetLang).subscribe({
+  this.atividadeService.traduzirAtividade(atividade.conteudo, targetLang).subscribe({
     next: (res) => {
       if (targetLang === 'en') {
         atividade.traducaoIngles = res.traduzido;

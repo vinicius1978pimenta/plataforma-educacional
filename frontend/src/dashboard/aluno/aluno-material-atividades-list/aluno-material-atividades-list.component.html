@@ -12,8 +12,17 @@
       <div class="card-body">
         <h5 class="card-title">{{ atividade.titulo }}</h5>
         <p class="card-text"><strong>Descrição:</strong> {{ atividade.descricao }}</p>
+    
+        </div>
 
-        <!-- Botões de tradução -->
+
+        <p class="card-text"><strong>Matéria:</strong> {{ atividade.materia }}</p>
+        <p class="card-text"><strong>Tipo:</strong> {{ atividade.tipo }}</p>
+        <p class="card-text"><strong>Pontuação:</strong> {{ atividade.pontuacao }}</p>
+        <p class="card-text"><strong>Data de Vencimento:</strong> {{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</p>
+        <p class="card-text"><strong>Conteúdo:</strong> {{ atividade.conteudo }}</p>
+
+           <!-- Botões de tradução -->
         <div class="mb-2">
           <button class="btn btn-sm btn-primary me-2"
                   (click)="traduzirAtividade(atividade, 'en')"
@@ -21,14 +30,13 @@
             {{ atividade.traduzindo ? 'Traduzindo...' : 'Traduzir para Inglês' }}
           </button>
 
-          <button class="btn btn-sm btn-warning"
+            <button class="btn btn-sm btn-warning"
                   (click)="traduzirAtividade(atividade, 'es')"
                   [disabled]="atividade.traduzindo">
             {{ atividade.traduzindo ? 'Traduzindo...' : 'Traduzir para Espanhol' }}
           </button>
-        </div>
 
-        <!-- Traduções exibidas -->
+             <!-- Traduções exibidas -->
         <div *ngIf="atividade.traducaoIngles" class="mt-2">
           <strong>Inglês:</strong> {{ atividade.traducaoIngles }}
         </div>
@@ -36,10 +44,6 @@
           <strong>Espanhol:</strong> {{ atividade.traducaoEspanhol }}
         </div>
 
-        <p class="card-text"><strong>Matéria:</strong> {{ atividade.materia }}</p>
-        <p class="card-text"><strong>Tipo:</strong> {{ atividade.tipo }}</p>
-        <p class="card-text"><strong>Pontuação:</strong> {{ atividade.pontuacao }}</p>
-        <p class="card-text"><strong>Data de Vencimento:</strong> {{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</p>
 
         <!-- Campo de resposta OU status -->
         <ng-container *ngIf="atividade.status !== 'ENVIADA' && atividade.status !== 'CORRIGIDA'; else statusTpl">
