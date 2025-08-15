@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<aside class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="sidebar-toggle" (click)="toggleSidebar()">
+    <i class="fas" [class.fa-chevron-left]="!isCollapsed" [class.fa-chevron-right]="isCollapsed"></i>
+  </div>
+   
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a routerLink="/dashboard-aluno" routerLinkActive="active" class="nav-link" data-tooltip="Dashboard">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+           
+      <li class="nav-item">
+        <a routerLink="/aluno/materiais" routerLinkActive="active" class="nav-link" data-tooltip="Matérias">
+          <i class="fas fa-book-open"></i>
+          <span>Matérias</span>
+        </a>
+      </li>
+           
+      <li class="nav-item">
+        <a routerLink="/aluno/materiais" routerLinkActive="active" class="nav-link" data-tooltip="Atividades">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Atividades</span>
+        </a>
+      </li>
+           
+      <li class="nav-item">
+        <a routerLink="/vocabulario" routerLinkActive="active" class="nav-link" data-tooltip="Criar Atividade">
+          <i class="fas fa-plus-square"></i>
+          <span>Vocábulario</span>
+        </a>
+      </li>
+           
+      <li class="nav-item">
+        <a routerLinkActive="active" class="nav-link" data-tooltip="Alunos">
+          <i class="fas fa-user-graduate"></i>
+          <span>Alunos</span>
+        </a>
+      </li>
+           
+      <li class="nav-item">
+        <a routerLinkActive="active" class="nav-link" data-tooltip="Relatórios">
+          <i class="fas fa-chart-line"></i>
+          <span>Progresso</span>
+        </a>
+      </li>
+           
+      <li class="nav-item">
+        <a  routerLinkActive="active" class="nav-link" data-tooltip="Configurações">
+          <i class="fas fa-cogs"></i>
+          <span>Editar Perfil</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</aside>

@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core'
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule} from '@angular/router';
-import { UserProfileComponent } from '../../app/perfil/perfil-usuario/perfil-usuario.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { CardComponent } from './cards/card.component';
 
 @Component({
   selector: 'app-dashboard-aluno',
-  imports: [CommonModule, RouterModule, UserProfileComponent],
+  imports: [CommonModule, 
+            RouterModule,
+            NavbarComponent,
+            SidebarComponent, 
+            CardComponent],
 
   templateUrl: './dashboard-aluno.component.html',
   styleUrl: './dashboard-aluno.component.scss'
