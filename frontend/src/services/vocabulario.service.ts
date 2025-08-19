@@ -1,8 +1,8 @@
-// src/services/vocabulario.service.ts
+
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { Vocabulario, VocabularioDto } from '../services/interfaces/vocabulario.interface';
 
 @Injectable({
@@ -92,4 +92,9 @@ export class VocabularioService {
       })
     );
   }
+
+  public totalPalavras$ = this.vocabularios$.pipe(
+  map(vocabularios => vocabularios.length)
+);
+ 
 }
