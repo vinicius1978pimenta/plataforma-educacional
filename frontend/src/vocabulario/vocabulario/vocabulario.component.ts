@@ -4,10 +4,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { VocabularioService } from '../../services/vocabulario.service';
 import { Vocabulario, VocabularioDto } from '../../services/interfaces/vocabulario.interface';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../dashboard/aluno/navbar/navbar.component';
 
 @Component({
   selector: 'app-vocabulario',
-  imports: [CommonModule, ReactiveFormsModule,RouterModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterModule,NavbarComponent],
   templateUrl: './vocabulario.component.html',
   styleUrl: './vocabulario.component.scss'
 })
