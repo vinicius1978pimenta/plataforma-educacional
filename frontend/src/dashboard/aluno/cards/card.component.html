@@ -2,7 +2,7 @@
     <div class="dashboard-cards">
       <!-- Card Vocabulário -->
       <div class="dashboard-card">
-        <div class="badge">Ativo</div>
+        <div class="badge">{{ totalPalavras }} Palavras</div>
         <div class="card-icon">
           <i class="fas fa-book-open"></i>
         </div>
@@ -10,11 +10,11 @@
         <p class="card-description">Acesse a lista de vocabulário para estudar e gerenciar termos importantes.</p>
         <div class="card-stats">
           <div class="stat-item">
-            <span class="stat-number">127</span>
+            <span class="stat-number">{{ totalPalavras }}</span>
             <span class="stat-label">Palavras</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">85%</span>
+            <span class="stat-number">...</span>
             <span class="stat-label">Progresso</span>
           </div>
         </div>
@@ -29,7 +29,7 @@
 
       <!-- Card Matérias -->
       <div class="dashboard-card">
-        <div class="badge">5 Matérias</div>
+        <div class="badge">{{totalMateria}} Matérias</div>
         <div class="card-icon">
           <i class="fas fa-graduation-cap"></i>
         </div>
@@ -37,11 +37,11 @@
         <p class="card-description">Gerencie suas matérias, acompanhe o progresso e acesse materiais de estudo.</p>
         <div class="card-stats">
           <div class="stat-item">
-            <span class="stat-number">5</span>
+            <span class="stat-number">{{totalMateria}}</span>
             <span class="stat-label">Ativas</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">92%</span>
+            <span class="stat-number">...</span>
             <span class="stat-label">Média</span>
           </div>
         </div>
@@ -56,7 +56,7 @@
 
       <!-- Card Exercícios -->
       <div class="dashboard-card">
-        <div class="badge">12 Novos</div>
+        <div class="badge"> {{ quantidadeAtividades }} Atividades</div>
         <div class="card-icon">
           <i class="fas fa-pencil-alt"></i>
         </div>
@@ -64,11 +64,11 @@
         <p class="card-description">Pratique com exercícios interativos e acompanhe seu desempenho.</p>
         <div class="card-stats">
           <div class="stat-item">
-            <span class="stat-number">48</span>
-            <span class="stat-label">Completos</span>
+            <span class="stat-number"> {{ quantidadeAtividades }}</span>
+            <span class="stat-label">Atividades</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">78%</span>
+            <span class="stat-number">...</span>
             <span class="stat-label">Acertos</span>
           </div>
         </div>
