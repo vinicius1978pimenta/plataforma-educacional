@@ -30,6 +30,12 @@ model User {
 
   Agenda Agenda[]
   Turma  Turma[]
+
+  // Conteúdos criados pelo professor
+  conteudosCriados Conteudo[] @relation("ProfessorConteudos")
+
+  // Conteúdos que o aluno pode acessar
+  conteudosAcessados Conteudo[] @relation("AlunoConteudos")
 }
 
 model Material {
@@ -41,6 +47,7 @@ model Material {
   professorId String
   createdAt   DateTime    @default(now())
   Atividade   Atividade[]
+  Conteudo    Conteudo[]
 }
 
 model Vocabulo {
@@ -86,15 +93,15 @@ model Atividade {
   materia   String // Ex: "Matemática", "Português", "Inglês"
 
   // Adicionando materialId e criando o relacionamento com o modelo Material
-  materialId String // Campo para a chave estrangeira
-  material   Material @relation(fields: [materialId], references: [id]) // Relacionamento com a tabela Material
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id])
 
   // Campos adicionais opcionais
   tipo          TipoAtividade    @default(EXERCICIO)
   dificuldade   NivelDificuldade @default(MEDIO)
-  pontuacao     Int? // Pontos que a atividade vale
-  tempoEstimado Int? // Tempo estimado em minutos
-  instrucoes    String? // Instruções específicas
+  pontuacao     Int?
+  tempoEstimado Int?
+  instrucoes    String?
 
   // Relacionamentos
   professor   User   @relation(fields: [professorId], references: [id])
@@ -113,7 +120,6 @@ model Atividade {
   updatedAt      DateTime  @updatedAt
 }
 
-// Nova tabela para respostas dos alunos
 model RespostaAtividade {
   id String @id @default(uuid())
 
@@ -126,19 +132,35 @@ model RespostaAtividade {
 
   // Conteúdo da resposta
   resposta String
-  anexos   String[] // URLs dos arquivos anexados
+  anexos   String[]
 
   // Avaliação
-  nota     Float? // Nota dada pelo professor
-  feedback String? // Comentários do professor
+  nota     Float?
+  feedback String?
   status   StatusResposta @default(ENVIADA)
 
   // Timestamps
   dataEnvio    DateTime  @default(now())
   dataCorrecao DateTime?
 
-  // Constraint para evitar múltiplas respostas do mesmo aluno
   @@unique([atividadeId, alunoId])
+}
+
+model Conteudo {
+  id          String @id @default(uuid())
+  titulo      String
+  descricao   String
+  texto       String
+  professor   User   @relation("ProfessorConteudos", fields: [professorId], references: [id])
+  professorId String
+  alunos      User[] @relation("AlunoConteudos")
+
+  // Relacionamento com Material
+  material   Material @relation(fields: [materialId], references: [id])
+  materialId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {

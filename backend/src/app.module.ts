@@ -12,6 +12,7 @@ import { HttpModule } from '@nestjs/axios';
 import { TranslationModule } from './traducao/translation/translation.module';
 import { MaterialModule } from './material/material.module';
 import { AtividadeModule } from './atividades/atividade.module';
+import { ConteudoModule } from './conteudos/conteudo.module';
 
 
 @Module({
@@ -24,7 +25,9 @@ import { AtividadeModule } from './atividades/atividade.module';
             HttpModule,
             TranslationModule,
             MaterialModule,
-            AtividadeModule
+            AtividadeModule,
+            ConteudoModule,
+            
           ],
   controllers: [AppController, AuthController],
   providers: [AppService],
