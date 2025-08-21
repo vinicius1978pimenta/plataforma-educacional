@@ -1,0 +1,50 @@
+<div class="container mt-4">
+ 
+
+ <div class="header-actions">
+  <h1>Progresso do Aluno</h1>
+  
+  <button type="button" class="btn btn-secondary" (click)="voltar()">Voltar</button>
+</div>
+
+  <div *ngIf="loading" class="alert alert-info">Carregando...</div>
+  <div *ngIf="erro" class="alert alert-danger">{{ erro }}</div>
+
+  <div class="row" *ngIf="!loading && !erro">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Atividades</h5>
+          <ul class="mb-3">
+            <li>Total: <strong>{{ totalAtividades }}</strong></li>
+            <li>A fazer: <strong>{{ pendentes }}</strong></li>
+            <li>Aguardando correção: <strong>{{ aguardandoCorrecao }}</strong></li>
+            <li>Corrigidas: <strong>{{ corrigidas }}</strong></li>
+          </ul>
+          <div class="chart-box"><canvas #chartStatus></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Notas</h5>
+          <p class="mb-2">
+            Distribuída: <strong>{{ pontuacaoDistribuida }}</strong> <br>
+            Obtida: <strong>{{ notaObtida }}</strong>
+          </p>
+          <div class="chart-box"><canvas #chartNotas></canvas></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-3">
+  <div class="card h-100">
+    <div class="card-body">
+      <h5 class="card-title">Notas por matéria</h5>
+      <div class="chart-box"><canvas #chartMaterias></canvas></div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
