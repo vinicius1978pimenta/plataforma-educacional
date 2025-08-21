@@ -20,7 +20,11 @@ import { AlunoMaterialListComponent } from '../dashboard/aluno/aluno-material-li
 import { AlunoMaterialAtividadesListComponent } from '../dashboard/aluno/aluno-material-atividades-list/aluno-material-atividades-list.component';
 import { AcompanhamentoFilhosComponent } from '../dashboard/responsaveis/acompanhamento-filhos/acompanhamento-filhos.component';
 import { PerfilResponsavelComponent } from '../dashboard/responsaveis/perfil-responsavel/perfil-responsavel.component';
+
+import { CriarConteudoComponent } from '../dashboard/professor/conteudo/criar-conteudo/criar-conteudo.component';
+
 import { RelatoriosAlunoComponent } from '../dashboard/aluno/relatorios-aluno/relatorios-aluno.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -73,6 +77,9 @@ export const routes: Routes = [
     component: LoginComponent, // temporário — pode ser substituído por um redirecionamento inteligente
     canActivate: [AuthGuard]
   },
+
+  {path : 'criar-conteudo', component : CriarConteudoComponent,canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }},
 
   // Rotas de materiais (protegidas para professores)
   {
