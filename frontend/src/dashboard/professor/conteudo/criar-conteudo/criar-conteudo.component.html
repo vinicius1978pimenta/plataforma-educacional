@@ -1,0 +1,112 @@
+<button routerLink="/dashboard-professor" class="btn-voltar">
+  ← Voltar
+</button>
+
+<div class="conteudo-page">
+
+  <!-- Formulário de criação / edição -->
+  <div class="conteudo-form">
+    <h3>{{ editId ? 'Editar Conteúdo' : 'Criar Conteúdo' }}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="editId ? concluirEdicao() : criarConteudo()">
+
+      <!-- Título -->
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input id="titulo" formControlName="titulo" />
+      </div>
+
+      <!-- Descrição -->
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" formControlName="descricao"></textarea>
+      </div>
+
+      <!-- Texto -->
+      <div class="form-group">
+        <label for="texto">Texto</label>
+        <textarea id="texto" formControlName="texto"></textarea>
+      </div>
+
+      <!-- Tipo -->
+      <div class="form-group">
+        <label for="tipo">Tipo</label>
+        <select id="tipo" formControlName="tipo">
+          <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </div>
+
+      <!-- PDF -->
+      <div class="form-group">
+        <label>PDF</label>
+        <div class="pdf-upload">
+          <button type="button" (click)="pdfInput.click()" class="pdf-btn">
+            Selecionar PDF
+          </button>
+          <input
+            #pdfInput
+            type="file"
+            accept=".pdf"
+            style="display: none"
+            (change)="onPdfSelected($event)"
+          />
+          <span *ngIf="selectedPdf">{{ selectedPdf.name }}</span>
+        </div>
+      </div>
+
+      <!-- Matéria -->
+      <div class="form-group">
+        <label for="materialId">Matéria</label>
+        <select id="materialId" formControlName="materialId">
+          <option *ngFor="let material of materias" [value]="material.id">
+            {{ material.titulo }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Botões -->
+      <div class="btn-group">
+        <button 
+          type="submit" 
+          class="btn-salvar" 
+          [ngClass]="{'btn-editar': editId}">
+          {{ editId ? 'Concluir Edição' : 'Salvar' }}
+        </button>
+
+        <button 
+          *ngIf="editId" 
+          type="button" 
+          (click)="cancelarEdicao()" 
+          class="btn-cancelar">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Lista de conteúdos -->
+  <div class="conteudos-container">
+    <h3>📚 Conteúdos Criados</h3>
+
+    <div *ngIf="conteudos.length === 0" class="mensagem-vazia">
+      Nenhum conteúdo cadastrado ainda...
+    </div>
+
+    <ul class="conteudo-lista">
+      <li *ngFor="let c of conteudos" class="conteudo-item">
+        <h4>{{ c.titulo }}</h4>
+        <p><strong>Descrição:</strong> {{ c.descricao }}</p>
+        <p><strong>Texto:</strong> {{ c.texto }}</p>
+        <p><strong>Matéria:</strong> {{ c.materialNome }}</p>
+
+        <!-- Botões de ação -->
+        <div class="btn-group">
+          <button (click)="iniciarEdicao(c)" class="btn-att">✏️ Atualizar</button>
+          <button (click)="deletarConteudo(c.id)" class="btn-del">🗑️ Deletar</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
