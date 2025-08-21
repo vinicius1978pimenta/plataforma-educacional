@@ -111,6 +111,17 @@ export class AtividadeService {
   });
 }
 
+  getAtividadesRelatorio(materialId?: string) {
+    const url = materialId
+      ? `${this.apiUrl}?materialId=${encodeURIComponent(materialId)}`
+      : this.apiUrl;
+    return this.http.get<any[]>(url, { headers: this.getAuthHeaders() });
+  }
+
+  getMinhaRespostaRelatorio(atividadeId: string) {
+    return this.http.get<any>(`${this.apiUrl}/${atividadeId}/minha-resposta`, { headers: this.getAuthHeaders() });
+  }
+
 
 }
 

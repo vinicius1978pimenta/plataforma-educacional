@@ -1,0 +1,21 @@
+
+.card { border-radius: 12px; }
+
+.chart-box { height: 360px; }
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: auto;
+}
+
+
+.mb-2 {
+  padding-bottom: 55px;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between; 
+  padding-bottom: 5px;
+}
