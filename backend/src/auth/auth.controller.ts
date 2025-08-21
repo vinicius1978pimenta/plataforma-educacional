@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Get, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegistrarDto } from './dto/registrar.dto';
 import { LoginDto } from './dto/login.dto';
@@ -32,7 +39,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Post('logout')
   async logout(@Request() req) {
-    return this.authService.logout(req.user.sub);
+    const userId = req.user?.id || req.user?.sub;
+    return this.authService.logout(userId);
   }
   // FIM DAS NOVAS ROTAS
 

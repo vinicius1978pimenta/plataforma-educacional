@@ -13,22 +13,23 @@ import { TranslationModule } from './traducao/translation/translation.module';
 import { MaterialModule } from './material/material.module';
 import { AtividadeModule } from './atividades/atividade.module';
 import { ConteudoModule } from './conteudos/conteudo.module';
-
+import { AvisosModule } from './avisos/avisos.module';
 
 @Module({
-  imports: [PrismaModule,
-            AuthModule,
-            VocabularioModule,
-            ProfessorModule,
-            AlunoModule,
-            ResponsavelModule,
-            HttpModule,
-            TranslationModule,
-            MaterialModule,
-            AtividadeModule,
-            ConteudoModule,
-            
-          ],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    VocabularioModule,
+    ProfessorModule,
+    AlunoModule,
+    ResponsavelModule,
+    HttpModule,
+    TranslationModule,
+    MaterialModule,
+    AtividadeModule,
+    ConteudoModule,
+    AvisosModule,
+  ],
   controllers: [AppController, AuthController],
   providers: [AppService],
 })
