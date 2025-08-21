@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <div class="container">
   <h2 class="mb-4">Criar Atividade</h2>
 
@@ -9,16 +11,6 @@
         id="titulo"
         name="titulo"
         [(ngModel)]="atividade.titulo"
-        class="form-control"
-        required />
-    </div>
-
-    <div class="form-group">
-      <label for="descricao">Descrição</label>
-      <input
-        id="descricao"
-        name="descricao"
-        [(ngModel)]="atividade.descricao"
         class="form-control"
         required />
     </div>
@@ -85,26 +77,6 @@
         [(ngModel)]="atividade.pontuacao"
         class="form-control"
         min="0" />
-    </div>
-
-    <div class="form-group">
-      <label for="tempoEstimado">Tempo Estimado (minutos)</label>
-      <input
-        type="number"
-        id="tempoEstimado"
-        name="tempoEstimado"
-        [(ngModel)]="atividade.tempoEstimado"
-        class="form-control"
-        min="1" />
-    </div>
-
-    <div class="form-group">
-      <label for="instrucoes">Instruções</label>
-      <textarea
-        id="instrucoes"
-        name="instrucoes"
-        [(ngModel)]="atividade.instrucoes"
-        class="form-control"></textarea>
     </div>
 
 
