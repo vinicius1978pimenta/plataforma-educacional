@@ -3,11 +3,12 @@ import { Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 @Component({
   selector: 'app-listar-atividades',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent  ],
   templateUrl: './listar-atividades.component.html',
   styleUrls: ['./listar-atividades.component.scss']
 })
@@ -60,6 +61,7 @@ carregandoRespostas: Record<string, boolean> = {};
   }
 
 carregarRespostas(atividadeId: string): void {
+  console.log('Carregando respostas para atividade:', atividadeId);
   this.carregandoRespostas[atividadeId] = true;
   this.atividadeService.getRespostas(atividadeId).subscribe({
     next: (respostas) => {
@@ -94,5 +96,9 @@ registrarAvaliacao(resposta: any): void {
     }
   });
 }
+
+  voltar() {
+    this.router.navigate(['/dashboard-aluno']);
+  }
 
 }

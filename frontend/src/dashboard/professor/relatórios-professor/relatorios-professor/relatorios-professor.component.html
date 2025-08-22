@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+
+ <div class="header-actions">
+    <h2 class="mb-3">Relatórios do Professor</h2>
+    <button type="button" class="btn btn-secondary" (click)="voltar()">Voltar</button>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">Carregando...</div>
+  <div *ngIf="erro" class="alert alert-danger">{{ erro }}</div>
+
+  <div class="row" *ngIf="!loading && !erro">
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card h-100"><div class="card-body">
+        <h5 class="card-title">Status das atividades</h5>
+        <ul class="mb-3">
+          <li>Total de atividades: <strong>{{ totalAtividades }}</strong></li>
+          <li>Sem respostas: <strong>{{ semRespostas }}</strong></li>
+          <li>Aguardando correção: <strong>{{ aguardandoCorrecao }}</strong></li>
+          <li>Corrigidas: <strong>{{ corrigidas }}</strong></li>
+        </ul>
+        <div class="chart-box"><canvas #chartStatus></canvas></div>
+      </div></div>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card h-100"><div class="card-body">
+        <h5 class="card-title">Pontos por matéria</h5>
+        <p class="mb-2">Pontuação máxima a ser distribuída por matéria: <strong>100</strong> pontos</p>
+        <div class="chart-box"><canvas #chartMaterias></canvas></div>
+      </div></div>
+    </div>
+  </div>
+</div>

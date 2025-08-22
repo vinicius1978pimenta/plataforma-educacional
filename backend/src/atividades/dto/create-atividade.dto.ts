@@ -8,7 +8,7 @@ export class CreateAtividadeDto {
   titulo: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   descricao: string;
 
   @IsString()

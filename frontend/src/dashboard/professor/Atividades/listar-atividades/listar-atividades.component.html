@@ -1,5 +1,11 @@
+<app-navbar></app-navbar>
+
 <div class="container mt-5">
-  <h2 class="mb-4">Atividades</h2>
+  <!-- Header com título e botão Voltar alinhados -->
+  <div class="header-actions">
+    <h2 class="mb-4">Atividades</h2>
+    <button type="button" class="btn btn-secondary" (click)="voltar()"> Voltar</button>
+  </div>
 
   <div class="form-group mb-3">
     <input
@@ -28,7 +34,6 @@
         <th>Ações</th>
       </tr>
     </thead>
-
     <tbody>
       <ng-container *ngFor="let atividade of atividadesFiltradas">
         <!-- LINHA PRINCIPAL -->
@@ -48,12 +53,10 @@
             <button class="btn btn-sm btn-danger" (click)="excluir(atividade.id)">Excluir</button>
           </td>
         </tr>
-
         <!-- CARREGANDO RESPOSTAS -->
         <tr *ngIf="carregandoRespostas && carregandoRespostas[atividade.id]">
           <td colspan="8">Carregando respostas...</td>
         </tr>
-
         <!-- LISTA DE RESPOSTAS -->
         <tr *ngIf="respostasPorAtividade && respostasPorAtividade[atividade.id]?.length">
           <td colspan="8">
@@ -63,7 +66,6 @@
                 <strong>Resposta:</strong>
                 <div class="mt-1">{{ resposta.resposta }}</div>
               </div>
-
               <div class="row g-2">
                 <div class="col-12 col-md-2">
                   <label class="form-label">Nota</label>
@@ -74,7 +76,6 @@
                   <textarea [(ngModel)]="resposta.feedback" class="form-control" rows="2"></textarea>
                 </div>
               </div>
-
               <button class="btn btn-success mt-2" (click)="registrarAvaliacao(resposta)">
                 Registrar Avaliação
               </button>
@@ -84,8 +85,6 @@
       </ng-container>
     </tbody>
   </table>
-
-  <button type="submit" class="btn btn-secondary w-100 mt-3" routerLink="/dashboard-professor">
-    Voltar
-  </button>
+  
+  
 </div>
