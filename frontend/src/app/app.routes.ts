@@ -114,7 +114,7 @@ export const routes: Routes = [
   component: AlunoMaterialAtividadesListComponent,
   canActivate: [AuthGuard, RoleGuard],
   data: { role: 'ALUNO' }
-},
+  },
 
   // Rotas de avisos
   {
@@ -138,6 +138,5 @@ export const routes: Routes = [
 
   // Rota fallback
   { path: '**', redirectTo: '/login' },
-
 
 ];
