@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsString, IsOptional, IsUrl } from "class-validator";
 
 export class ConteudoDTO {
   @IsString()
@@ -8,7 +8,7 @@ export class ConteudoDTO {
   descricao: string;
 
   @IsString()
-  texto: string; 
+  texto: string;
 
   @IsString()
   materialId: string;
