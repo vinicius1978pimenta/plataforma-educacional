@@ -147,10 +147,18 @@ model RespostaAtividade {
 }
 
 model Conteudo {
-  id          String @id @default(uuid())
-  titulo      String
-  descricao   String
-  texto       String
+  id        String @id @default(uuid())
+  titulo    String
+  descricao String
+  texto     String
+
+  // Campos adicionados para PDF e links
+  tipo           TipoConteudo? // PDF ou LINK
+  url            String? // Para links
+  nomeArquivo    String? // Nome original do arquivo
+  caminhoArquivo String? // Caminho do arquivo no sistema
+  tamanho        Int? // Tamanho em bytes
+
   professor   User   @relation("ProfessorConteudos", fields: [professorId], references: [id])
   professorId String
   alunos      User[] @relation("AlunoConteudos")
@@ -189,4 +197,10 @@ enum StatusResposta {
   ENVIADA
   CORRIGIDA
   DEVOLVIDA
+}
+
+enum TipoConteudo {
+  TEXTO
+  PDF
+  LINK
 }

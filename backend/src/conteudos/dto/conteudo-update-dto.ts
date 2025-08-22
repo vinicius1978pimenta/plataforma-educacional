@@ -1,3 +1,19 @@
-import { ConteudoDTO } from "./conteudo-dto";
+import { IsString, IsOptional, IsUrl } from "class-validator";
 
-export class ConteudoUpdateDto extends ConteudoDTO{}
+export class ConteudoUpdateDto {
+  @IsOptional()
+  @IsString()
+  titulo?: string;
+
+  @IsOptional()
+  @IsString()
+  descricao?: string;
+
+  @IsOptional()
+  @IsString()
+  texto?: string;
+
+  @IsOptional()
+  @IsUrl()
+  url?: string;
+}
