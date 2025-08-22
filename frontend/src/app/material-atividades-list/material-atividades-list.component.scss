@@ -16,6 +16,44 @@
   margin: 0 0 10px;
 }
 
+/* ===== Alinhamento do Título e Botão ===== */
+.header-actions {
+  display: flex;
+  justify-content: space-between; /* Alinha o título à esquerda e o botão à direita */
+  align-items: center;
+  margin-bottom: 20px; /* Espaço entre o botão e o restante do conteúdo */
+}
+
+.header-actions h2 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 0; /* Remove o espaço abaixo do título */
+}
+
+/* ===== Botão Voltar ===== */
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 141, 229, 0.25);
+}
+
 /* ===== Alerts & Empty State ===== */
 .custom-alert {
   border-radius: 10px;
@@ -103,7 +141,6 @@
   max-height: 4.6em;          /* ~3 linhas */
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;       /* clamp */
   -webkit-box-orient: vertical;
 }
 

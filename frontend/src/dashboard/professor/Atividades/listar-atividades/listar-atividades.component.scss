@@ -10,15 +10,42 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* ===== Título da Página ===== */
-h2 {
-  font-size: 2em;
-  font-weight: 700;
-  color: #003366;  /* Azul FGV */
+/* ===== Alinhamento do Título e Botão ===== */
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
-  text-align: center;
 }
 
+.header-actions h2 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #003366; /* Azul FGV */
+  margin-bottom: 0;
+}
+
+.header-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-actions .btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.header-actions .btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 141, 229, 0.25);
+}
 
 /* ===== Filtro de Busca ===== */
 .form-group {
@@ -75,7 +102,7 @@ input.form-control:focus {
 
 /* ===== Botões ===== */
 .btn-sm {
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 0.9em;
   border-radius: 8px;
   cursor: pointer;
@@ -137,45 +164,68 @@ input.form-control:focus {
   font-size: 1em;
 }
 
-/* ===== Estilo para Carregar Respostas ===== */
-.border {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
-
-.p-3 {
+/* ===== Estilo de Respostas e Status ===== */
+.resposta-section {
+  background-color: #f8f9fa;
   padding: 16px;
-}
-
-.mb-3 {
-  margin-bottom: 16px;
-}
-
-/* Estilo de Respostas com Inputs */
-textarea.form-control {
-  resize: vertical;
-  min-height: 80px;
-}
-
-input.form-control {
-  margin-bottom: 10px;
-}
-
-/* ===== Estilo para a Ação de Voltar ===== */
-button[type="submit"] {
-  padding: 12px 20px;
-  font-size: 1.1em;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  border-radius: 10px;
   margin-top: 20px;
 }
 
-button[type="submit"].btn-secondary {
-  background-color: #6c757d;
-  color: #ffffff;
+.resposta-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
 }
 
-button[type="submit"].btn-secondary:hover {
-  background-color: #5a6268;
+.resposta-textarea:focus {
+  outline: none;
+  border-color: #0095e5;
+}
+
+.btn-enviar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #218838;
+}
+
+.status-enviado {
+  background-color: #28a745;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* ===== Loading Spinner ===== */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

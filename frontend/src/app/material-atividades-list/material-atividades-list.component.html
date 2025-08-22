@@ -1,5 +1,10 @@
 <div class="container atividades-vinculadas mt-4">
-  <h2 class="page-title mb-4">Atividades Vinculadas</h2>
+<div class="header-actions">
+    <h2 class="page-title mb-4">Atividades Vinculadas</h2>
+    <button type="button" class="btn btn-secondary" routerLink="/dashboard-professor">
+      Voltar
+    </button>
+  </div>
 
   <div *ngIf="loading" class="alert alert-info custom-alert">
     Carregando atividades...
@@ -29,7 +34,4 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-secondary w-100 mt-3 mb-4" routerLink="/dashboard-professor">
-    Voltar
-  </button>
 </div>

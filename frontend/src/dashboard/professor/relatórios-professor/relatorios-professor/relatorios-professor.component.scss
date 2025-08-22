@@ -1,18 +1,11 @@
-
 .card { border-radius: 12px; }
-
 .chart-box { height: 360px; }
-
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  image-rendering: auto;
-}
-
+canvas { width: 100% !important; height: 100% !important; }
 
 .mb-2 {
-  padding-bottom: 83px;
+  padding-bottom: 105px;
 }
+
 
 /* ===== Container Principal ===== */
 .container {
@@ -22,19 +15,17 @@ canvas {
   background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid #e6e8eb;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
   font-family: 'Inter', sans-serif;
 }
 
-
 /* ===== Título da Página ===== */
-h1 {
-  font-size: 2.4em;
+h2 {
+  font-size: 2.2em;
   font-weight: 700;
   color: #003366;
   margin-bottom: 30px;
 }
-
 
 /* ===== Alertas ===== */
 .alert {
@@ -54,47 +45,8 @@ h1 {
   border: 1px solid #f5c6cb;
 }
 
-/* ===== Header e Botão ===== */
-.header-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
 
-
-h1 {
-  font-size: 2.4em;
-  font-weight: 700;
-  color: #003366;
-  margin-bottom: 0;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: #ffffff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 0;
-  align-self: flex-start;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-  transform: translateY(-2px);
-}
-
-.btn-secondary:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 141, 229, 0.25);
-}
-
-
-/* ===== Card Container ===== */
+/* Card Container */
 .card {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -135,6 +87,7 @@ ul {
   padding: 0;
 }
 
+
 ul li {
   font-size: 1em;
   color: #495057;
@@ -160,11 +113,56 @@ ul li strong {
     height: 280px;
   }
 
-  h1 {
+  h2 {
     font-size: 1.8em;
   }
 
   .card-title {
     font-size: 1.1em;
   }
+}
+/* ===== Botão Voltar ===== */
+.header-actions {
+  display: flex;
+  justify-content: space-between; /* Garante que o título e o botão se alinhem ao longo do eixo principal */
+  align-items: center; /* Alinha o título e o botão verticalmente */
+  margin-bottom: 30px; /* Espaçamento inferior entre a seção de título e a parte de conteúdo */
+}
+
+h2 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 0; /* Remove o espaçamento inferior */
+  margin-right: 15px; /* Garante um pequeno espaçamento entre o título e o botão */
+}
+
+/* Estilo do botão de Voltar */
+.btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 0; /* Remove a margem superior para alinhá-lo ao título */
+  align-self: flex-start; /* Alinha o botão ao topo do contêiner */
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 141, 229, 0.25);
+}
+
+/* Alinhamento do botão à esquerda */
+.header-actions .btn-secondary {
+  margin-left: 0;  /* Coloca o botão à esquerda */
+  align-self: center; /* Alinha verticalmente no centro em relação ao título */
 }

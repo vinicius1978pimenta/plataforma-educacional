@@ -61,6 +61,7 @@ carregandoRespostas: Record<string, boolean> = {};
   }
 
 carregarRespostas(atividadeId: string): void {
+  console.log('Carregando respostas para atividade:', atividadeId);
   this.carregandoRespostas[atividadeId] = true;
   this.atividadeService.getRespostas(atividadeId).subscribe({
     next: (respostas) => {
@@ -95,5 +96,9 @@ registrarAvaliacao(resposta: any): void {
     }
   });
 }
+
+  voltar() {
+    this.router.navigate(['/dashboard-aluno']);
+  }
 
 }

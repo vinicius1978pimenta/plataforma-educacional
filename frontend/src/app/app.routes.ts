@@ -21,6 +21,7 @@ import { AlunoMaterialAtividadesListComponent } from '../dashboard/aluno/aluno-m
 import { AcompanhamentoFilhosComponent } from '../dashboard/responsaveis/acompanhamento-filhos/acompanhamento-filhos.component';
 import { PerfilResponsavelComponent } from '../dashboard/responsaveis/perfil-responsavel/perfil-responsavel.component';
 import { RelatoriosAlunoComponent } from '../dashboard/aluno/relatorios-aluno/relatorios-aluno.component';
+import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios-professor/relatorios-professor/relatorios-professor.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -115,6 +116,9 @@ export const routes: Routes = [
 },
 
 { path: 'aluno/relatorios', component: RelatoriosAlunoComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'ALUNO' } },
+
+{ path: 'professor/relatorios', component: RelatoriosProfessorComponent,
+  canActivate: [AuthGuard, RoleGuard], data: { role: 'PROFESSOR' } },
 
   // Rota fallback
   { path: '**', redirectTo: '/login' },

@@ -1,13 +1,13 @@
 <app-navbar></app-navbar>
 
 <div class="material-header">
-  <h2>Gerenciar Materiais</h2>
+  <h2>Gerenciar Matérias</h2>
   <div class="header-actions">
     <button class="btn-secondary" (click)="irParaDashboard()">
       Voltar
     </button>
     <button class="btn-primary" (click)="irParaNovo()">
-      + Novo Material
+      + Nova Matéria
     </button>
   </div>
 </div>
@@ -22,13 +22,13 @@
           class="form-control"
           [(ngModel)]="filtros.titulo"
           (input)="aplicarFiltros()"
-          placeholder="Digite o título do material...">
+          placeholder="Digite o título da materia...">
       </div>
     </div>
   </div>
 
   <div *ngIf="loading" class="loading">
-    <p>Carregando materiais...</p>
+    <p>Carregando matérias...</p>
   </div>
 
   <div *ngIf="!loading && materiais.length > 0" class="material-grid">
@@ -51,6 +51,6 @@
   </div>
 
   <div *ngIf="!loading && materiais.length === 0" class="empty-state">
-    <h3>Nenhum material encontrado</h3>
-    <p>Comece criando seu primeiro material clicando no botão "Novo Material" acima.</p>
+    <h3>Nenhuma matéria encontrada</h3>
+    <p>Comece criando sua primeira matéria clicando no botão "Nova Matéria" acima.</p>
 </div>
