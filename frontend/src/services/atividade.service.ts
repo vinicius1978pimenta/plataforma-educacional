@@ -7,6 +7,9 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AtividadeService {
+  listarMaterias() {
+    throw new Error('Method not implemented.');
+  }
  
   private apiUrl = 'http://localhost:3000/atividades';
  
@@ -103,10 +106,21 @@ export class AtividadeService {
 
   
   getMateriais(): Observable<any[]> {
-  return this.http.get<any[]>(`http://localhost:3000/material`, {
-    headers: this.getAuthHeaders()
-  });
-}
+    return this.http.get<any[]>(`http://localhost:3000/material`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  getAtividadesRelatorio(materialId?: string) {
+    const url = materialId
+      ? `${this.apiUrl}?materialId=${encodeURIComponent(materialId)}`
+      : this.apiUrl;
+    return this.http.get<any[]>(url, { headers: this.getAuthHeaders() });
+  }
+
+  getMinhaRespostaRelatorio(atividadeId: string) {
+    return this.http.get<any>(`${this.apiUrl}/${atividadeId}/minha-resposta`, { headers: this.getAuthHeaders() });
+  }
 
 
 }

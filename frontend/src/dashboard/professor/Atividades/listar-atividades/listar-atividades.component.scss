@@ -1,0 +1,231 @@
+/* ===== Container Principal ===== */
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== Alinhamento do Título e Botão ===== */
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-actions h2 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #003366; /* Azul FGV */
+  margin-bottom: 0;
+}
+
+.header-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-actions .btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.header-actions .btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 141, 229, 0.25);
+}
+
+/* ===== Filtro de Busca ===== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+input.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+input.form-control:focus {
+  outline: none;
+  border-color: #0095e5;
+  box-shadow: 0 0 0 4px rgba(0, 141, 229, 0.25);
+  background-color: #ffffff;
+}
+
+/* ===== Tabela de Atividades ===== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+  color: #003366;
+}
+
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table td {
+  font-size: 1em;
+  color: #495057;
+}
+
+/* ===== Botões ===== */
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 0.9em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: #ffffff;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #ffffff;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* ===== Alert de Nenhuma Atividade Encontrada ===== */
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 1em;
+}
+
+/* ===== Estilo de Respostas e Status ===== */
+.resposta-section {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.resposta-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+.resposta-textarea:focus {
+  outline: none;
+  border-color: #0095e5;
+}
+
+.btn-enviar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-enviar:hover {
+  background-color: #218838;
+}
+
+.status-enviado {
+  background-color: #28a745;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* ===== Loading Spinner ===== */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

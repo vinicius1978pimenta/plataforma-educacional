@@ -1,0 +1,130 @@
+/* ===== Container Principal ===== */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== Título da Página ===== */
+h2 {
+  font-size: 2em;
+  font-weight: 700;
+  color: #003366; /* Azul FGV */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ===== Estilo dos Campos de Formulário ===== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Estilo para os inputs, selects e textarea */
+input.form-control,
+select.form-control,
+textarea.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  outline: none;
+  border-color: #0095e5; /* Azul claro no foco */
+  box-shadow: 0 0 0 4px rgba(0, 141, 229, 0.25);
+  background-color: #ffffff;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input.form-control.error {
+  border-color: #f87171;  /* Cor de erro */
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.85rem;
+}
+
+/* ===== Botões ===== */
+button[type="submit"] {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"].btn-success {
+  background-color: #28a745;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+}
+
+button[type="submit"].btn-success:hover {
+  background-color: #218838;
+}
+
+button[type="submit"].btn-danger {
+  background-color: #dc3545;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+}
+
+button[type="submit"].btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* ===== Checkbox (Ativa) ===== */
+.form-check-label {
+  font-weight: 600;
+  color: #495057;
+}
+
+/* ===== Disposição e Layout do Formulário ===== */
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mt-4 {
+  margin-top: 20px;
+}
+
+/* Adicionando animação aos elementos do formulário */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.container {
+  animation: fadeIn 1s ease-out;
+}

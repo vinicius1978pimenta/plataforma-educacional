@@ -4,6 +4,7 @@ import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Material, MaterialService } from '../../../../app/material/material.service';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 interface AtividadeForm {
   titulo: string;
@@ -23,7 +24,7 @@ interface AtividadeForm {
 @Component({
   selector: 'app-criar-atividade',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
   templateUrl: './criar-atividade.component.html',
   styleUrls: ['./criar-atividade.component.scss']
 })
