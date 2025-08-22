@@ -36,6 +36,9 @@ model User {
 
   // Conteúdos que o aluno pode acessar
   conteudosAcessados Conteudo[] @relation("AlunoConteudos")
+  
+  // Avisos criados pelo professor
+  avisos Aviso[] @relation("ProfessorAvisos")
 }
 
 model Material {
@@ -81,6 +84,9 @@ model Turma {
 
   // Atividades da turma
   atividades Atividade[]
+  
+  // Avisos da turma
+  avisos Aviso[] @relation("AvisoTurmas")
 
   createdAt DateTime @default(now())
 }
@@ -171,6 +177,28 @@ model Conteudo {
   updatedAt DateTime @updatedAt
 }
 
+model Aviso {
+  id          String   @id @default(uuid())
+  titulo      String
+  conteudo    String
+  tipo        TipoAviso @default(GERAL)
+  prioridade  PrioridadeAviso @default(NORMAL)
+  ativo       Boolean  @default(true)
+  
+  // Professor que criou o aviso
+  professor   User     @relation("ProfessorAvisos", fields: [professorId], references: [id])
+  professorId String
+  
+  // Turmas que podem ver o aviso (opcional - se vazio, todos veem)
+  turmas      Turma[]  @relation("AvisoTurmas")
+  
+  // Timestamps
+  dataInicio    DateTime @default(now())
+  dataExpiracao DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 enum Role {
   ALUNO
   PROFESSOR
@@ -199,8 +227,24 @@ enum StatusResposta {
   DEVOLVIDA
 }
 
+
+enum TipoAviso {
+  GERAL
+  URGENTE
+  EVENTO
+  LEMBRETE
+  COMUNICADO
+}
+
+enum PrioridadeAviso {
+  BAIXA
+  NORMAL
+  ALTA
+  CRITICA
+
 enum TipoConteudo {
   TEXTO
   PDF
   LINK
+
 }

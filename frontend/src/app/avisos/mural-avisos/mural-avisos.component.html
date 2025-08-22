@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="mural-container">
+  <div class="header-section">
+    <h1 class="page-title">
+      <i class="fas fa-clipboard-list"></i>
+      Mural de Avisos
+    </h1>
+    <button class="btn-refresh" (click)="recarregar()" [disabled]="loading">
+      <i class="fas fa-sync-alt" [class.fa-spin]="loading"></i>
+      Atualizar
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="loading-spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Carregando avisos...</p>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-error" *ngIf="errorMessage && !loading">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+    <button class="btn-retry" (click)="recarregar()">
+      <i class="fas fa-redo"></i>
+      Tentar novamente
+    </button>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!loading && !errorMessage && avisos.length === 0">
+    <div class="empty-icon">
+      <i class="fas fa-clipboard-list"></i>
+    </div>
+    <h3>Nenhum aviso encontrado</h3>
+    <p>Não há avisos disponíveis no momento.</p>
+  </div>
+
+  <!-- Avisos List -->
+  <div class="avisos-grid" *ngIf="!loading && !errorMessage && avisos.length > 0">
+    <div 
+      class="aviso-card" 
+      *ngFor="let aviso of avisos"
+      [class]="getPrioridadeClass(aviso.prioridade)"
+      [class.expirado]="isAvisoExpirado(aviso)"
+    >
+      <!-- Header do Card -->
+      <div class="aviso-header">
+        <div class="aviso-tipo">
+          <i [class]="getTipoIcon(aviso.tipo)"></i>
+          <span>{{ getTipoLabel(aviso.tipo) }}</span>
+        </div>
+        <div class="aviso-prioridade">
+          <span class="prioridade-badge">{{ getPrioridadeLabel(aviso.prioridade) }}</span>
+        </div>
+      </div>
+
+      <!-- Título -->
+      <h3 class="aviso-titulo">{{ aviso.titulo }}</h3>
+
+      <!-- Conteúdo -->
+      <div class="aviso-conteudo">
+        <p>{{ aviso.conteudo }}</p>
+      </div>
+
+      <!-- Footer do Card -->
+      <div class="aviso-footer">
+        <div class="aviso-info">
+          <div class="professor-info">
+            <i class="fas fa-user-tie"></i>
+            <span>{{ aviso.professor.name }}</span>
+          </div>
+          <div class="data-info">
+            <i class="fas fa-clock"></i>
+            <span>{{ formatarData(aviso.createdAt) }}</span>
+          </div>
+        </div>
+
+        <!-- Turmas (se houver) -->
+        <div class="turmas-info" *ngIf="aviso.turmas && aviso.turmas.length > 0">
+          <i class="fas fa-users"></i>
+          <span>{{ getTurmasNomes(aviso.turmas) }}</span>
+        </div>
+
+        <!-- Data de Expiração -->
+        <div class="expiracao-info" *ngIf="aviso.dataExpiracao">
+          <i class="fas fa-calendar-times" [class.text-danger]="isAvisoExpirado(aviso)"></i>
+          <span [class.text-danger]="isAvisoExpirado(aviso)">
+            {{ isAvisoExpirado(aviso) ? 'Expirado em' : 'Expira em' }}: 
+            {{ formatarData(aviso.dataExpiracao) }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Indicador de Expirado -->
+      <div class="aviso-expirado" *ngIf="isAvisoExpirado(aviso)">
+        <i class="fas fa-exclamation-triangle"></i>
+        EXPIRADO
+      </div>
+    </div>
+  </div>
+</div>

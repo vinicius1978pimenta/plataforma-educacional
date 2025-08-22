@@ -1,0 +1,240 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="criar-aviso-container">
+  <div class="header-section">
+    <button class="btn-voltar" (click)="voltar()">
+      <i class="fas fa-arrow-left"></i>
+      Voltar
+    </button>
+    <h1 class="page-title">
+      <i class="fas fa-bullhorn"></i>
+      Gerenciar Avisos
+    </h1>
+  </div>
+
+  <!-- Layout em duas colunas -->
+  <div class="main-content">
+    <!-- Coluna esquerda - Formulário -->
+    <div class="form-column">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-plus-circle"></i>
+          Criar Novo Aviso
+        </h2>
+      </div>
+      
+      <div class="form-container">
+        <form [formGroup]="avisoForm" (ngSubmit)="onSubmit()" class="aviso-form">
+          
+          <!-- Título -->
+          <div class="form-group">
+            <label for="titulo" class="form-label">
+              <i class="fas fa-heading"></i>
+              Título do Aviso
+            </label>
+            <input
+              type="text"
+              id="titulo"
+              formControlName="titulo"
+              class="form-control"
+              placeholder="Digite o título do aviso..."
+              [class.error]="getFieldError('titulo')"
+            >
+            <div class="error-message" *ngIf="getFieldError('titulo')">
+              {{ getFieldError('titulo') }}
+            </div>
+          </div>
+
+          <!-- Conteúdo -->
+          <div class="form-group">
+            <label for="conteudo" class="form-label">
+              <i class="fas fa-align-left"></i>
+              Conteúdo do Aviso
+            </label>
+            <textarea
+              id="conteudo"
+              formControlName="conteudo"
+              class="form-control textarea"
+              rows="4"
+              placeholder="Digite o conteúdo do aviso..."
+              [class.error]="getFieldError('conteudo')"
+            ></textarea>
+            <div class="error-message" *ngIf="getFieldError('conteudo')">
+              {{ getFieldError('conteudo') }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Tipo -->
+            <div class="form-group">
+              <label for="tipo" class="form-label">
+                <i class="fas fa-tag"></i>
+                Tipo do Aviso
+              </label>
+              <select id="tipo" formControlName="tipo" class="form-control">
+                <option *ngFor="let tipo of tiposAviso" [value]="tipo.value">
+                  {{ tipo.label }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Prioridade -->
+            <div class="form-group">
+              <label for="prioridade" class="form-label">
+                <i class="fas fa-exclamation-triangle"></i>
+                Prioridade
+              </label>
+              <select id="prioridade" formControlName="prioridade" class="form-control">
+                <option *ngFor="let prioridade of prioridades" [value]="prioridade.value">
+                  {{ prioridade.label }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Data de Expiração -->
+          <div class="form-group">
+            <label for="dataExpiracao" class="form-label">
+              <i class="fas fa-calendar-alt"></i>
+              Data de Expiração (Opcional)
+            </label>
+            <input
+              type="datetime-local"
+              id="dataExpiracao"
+              formControlName="dataExpiracao"
+              class="form-control"
+            >
+            <small class="form-hint">Deixe em branco para que o aviso não expire</small>
+          </div>
+
+          <!-- Ativo -->
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                formControlName="ativo"
+                class="checkbox-input"
+              >
+              <span class="checkbox-custom"></span>
+              <span class="checkbox-text">
+                <i class="fas fa-eye"></i>
+                Aviso ativo (visível para os alunos)
+              </span>
+            </label>
+          </div>
+
+          <!-- Mensagens -->
+          <div class="alert alert-success" *ngIf="successMessage">
+            <i class="fas fa-check-circle"></i>
+            {{ successMessage }}
+          </div>
+
+          <div class="alert alert-error" *ngIf="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ errorMessage }}
+          </div>
+
+          <!-- Botões -->
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="voltar()"
+              [disabled]="loading"
+            >
+              <i class="fas fa-times"></i>
+              Cancelar
+            </button>
+            
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="loading || avisoForm.invalid"
+            >
+              <i class="fas fa-spinner fa-spin" *ngIf="loading"></i>
+              <i class="fas fa-paper-plane" *ngIf="!loading"></i>
+              {{ loading ? 'Criando...' : 'Criar Aviso' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Coluna direita - Meus Avisos -->
+    <div class="avisos-column">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-list"></i>
+          Meus Avisos Criados
+        </h2>
+        <span class="avisos-count" *ngIf="!loadingAvisos && meusAvisos.length > 0">{{ meusAvisos.length }} aviso(s)</span>
+      </div>
+
+      <div class="avisos-container">
+        <div class="loading-container" *ngIf="loadingAvisos">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Carregando avisos...</span>
+        </div>
+
+        <div class="avisos-grid" *ngIf="!loadingAvisos && meusAvisos.length > 0">
+          <div class="aviso-card" *ngFor="let aviso of meusAvisos" [class]="getTipoClass(aviso.tipo)">
+            <div class="aviso-header">
+              <div class="aviso-badges">
+                <span class="badge tipo-badge" [class]="getTipoClass(aviso.tipo)">
+                  {{ getTipoLabel(aviso.tipo) }}
+                </span>
+                <span class="badge prioridade-badge" [class]="getPrioridadeClass(aviso.prioridade)">
+                  {{ getPrioridadeLabel(aviso.prioridade) }}
+                </span>
+                <span class="badge status-badge" [class.ativo]="aviso.ativo" [class.inativo]="!aviso.ativo">
+                  <i class="fas" [class.fa-eye]="aviso.ativo" [class.fa-eye-slash]="!aviso.ativo"></i>
+                  {{ aviso.ativo ? 'Ativo' : 'Inativo' }}
+                </span>
+              </div>
+              <div class="aviso-actions">
+                <button 
+                  class="btn-action btn-toggle" 
+                  (click)="toggleAtivo(aviso)"
+                  [title]="aviso.ativo ? 'Desativar aviso' : 'Ativar aviso'"
+                >
+                  <i class="fas" [class.fa-eye-slash]="aviso.ativo" [class.fa-eye]="!aviso.ativo"></i>
+                </button>
+                <button 
+                  class="btn-action btn-delete" 
+                  (click)="excluirAviso(aviso)"
+                  title="Excluir aviso"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="aviso-content">
+              <h3 class="aviso-titulo">{{ aviso.titulo }}</h3>
+              <p class="aviso-conteudo">{{ aviso.conteudo }}</p>
+            </div>
+
+            <div class="aviso-footer">
+              <div class="aviso-dates">
+                <span class="date-item">
+                  <i class="fas fa-calendar-plus"></i>
+                  Criado: {{ formatarData(aviso.createdAt) }}
+                </span>
+                <span class="date-item" *ngIf="aviso.dataExpiracao">
+                  <i class="fas fa-calendar-times"></i>
+                  Expira: {{ formatarData(aviso.dataExpiracao) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!loadingAvisos && meusAvisos.length === 0">
+          <i class="fas fa-bullhorn"></i>
+          <h3>Nenhum aviso criado ainda</h3>
+          <p>Crie seu primeiro aviso usando o formulário ao lado!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

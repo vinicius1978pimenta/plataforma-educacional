@@ -30,12 +30,14 @@ export class AuthService {
       throw new ConflictException('Email já está em uso');
     }
 
-    let responsavelId: string | null = null; 
+    let responsavelId: string | null = null;
 
     // Se for aluno, busca o responsável pelo email
     if (role === Role.ALUNO) {
       if (!responsavelEmail) {
-        throw new BadRequestException('Email do responsável é obrigatório para alunos');
+        throw new BadRequestException(
+          'Email do responsável é obrigatório para alunos',
+        );
       }
 
       const responsavel = await this.prisma.user.findUnique({
@@ -43,14 +45,18 @@ export class AuthService {
       });
 
       if (!responsavel) {
-        throw new BadRequestException('Responsável não encontrado com o email fornecido');
+        throw new BadRequestException(
+          'Responsável não encontrado com o email fornecido',
+        );
       }
 
       if (responsavel.role !== Role.RESPONSAVEL) {
-        throw new BadRequestException('O usuário informado não é um responsável');
+        throw new BadRequestException(
+          'O usuário informado não é um responsável',
+        );
       }
 
-      responsavelId = responsavel.id; // ⬅️ Agora funciona perfeitamente
+      responsavelId = responsavel.id; // 
     }
 
     // Gera hash da senha
@@ -152,7 +158,10 @@ export class AuthService {
       }
 
       // Verifica se o refresh token corresponde ao salvo no banco
-      const isRefreshTokenValid = await bcrypt.compare(refreshToken, user.refreshToken);
+      const isRefreshTokenValid = await bcrypt.compare(
+        refreshToken,
+        user.refreshToken,
+      );
 
       if (!isRefreshTokenValid) {
         throw new UnauthorizedException('Refresh token inválido');
@@ -190,6 +199,11 @@ export class AuthService {
   }
 
   async logout(userId: string) {
+    // Validação para evitar erro de userId undefined
+    if (!userId) {
+      throw new UnauthorizedException('ID do usuário não fornecido');
+    }
+
     // Remove o refresh token do banco
     await this.prisma.user.update({
       where: { id: userId },
