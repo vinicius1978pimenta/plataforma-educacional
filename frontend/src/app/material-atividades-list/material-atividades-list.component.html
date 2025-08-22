@@ -1,27 +1,35 @@
-<div class="container mt-4">
-  <h2 class="mb-4">Atividades Vinculadas</h2>
+<div class="container atividades-vinculadas mt-4">
+  <h2 class="page-title mb-4">Atividades Vinculadas</h2>
 
-  <div *ngIf="loading" class="alert alert-info">
+  <div *ngIf="loading" class="alert alert-info custom-alert">
     Carregando atividades...
   </div>
 
-  <div *ngIf="!loading && atividades.length === 0" class="alert alert-warning">
-    Nenhuma atividade vinculada a este material.
+  <div *ngIf="!loading && atividades.length === 0" class="empty-state">
+    <div class="empty-icon">📎</div>
+    <h3>Nenhuma atividade vinculada</h3>
+    <p>Vincule uma atividade a este material para vê-la aqui.</p>
   </div>
 
-  <div *ngIf="!loading && atividades.length > 0">
-    <div *ngFor="let atividade of atividades" class="card mb-3">
+  <div *ngIf="!loading && atividades.length > 0" class="atividades-grid">
+    <div *ngFor="let atividade of atividades" class="atividade-card">
+      <div class="card-header">
+        <h3 class="card-title">{{ atividade.titulo }}</h3>
+        <span class="badge-tipo">{{ atividade.tipo | titlecase }}</span>
+      </div>
+
       <div class="card-body">
-        <h5 class="card-title">{{ atividade.titulo }}</h5>
-        <p class="card-text"><strong>Descrição:</strong> {{ atividade.descricao }}</p>
-        <p class="card-text"><strong>Matéria:</strong> {{ atividade.materia }}</p>
-        <p class="card-text"><strong>Tipo:</strong> {{ atividade.tipo }}</p>
-        <p class="card-text"><strong>Pontuação:</strong> {{ atividade.pontuacao }}</p>
-        <p class="card-text"><strong>Data de Vencimento:</strong> {{ atividade.dataVencimento }}</p>
-        <p class="card-text"><strong>Conteúdo:</strong> {{ atividade.conteudo }}</p>
+        <div class="meta-row">
+          <span><strong>Matéria:</strong> {{ atividade.materia }}</span>
+          <span><strong>Pontuação:</strong> {{ atividade.pontuacao ?? '—' }}</span>
+          <span><strong>Vence em:</strong> {{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <p class="card-conteudo">Conteúdo: {{ atividade.conteudo }}</p>
+      </div>
     </div>
   </div>
- <button type="submit" class="btn btn-secondary w-100 mt-2 mb-4" routerLink="/dashboard-professor">
-  Voltar
-</button>
+
+  <button type="button" class="btn btn-secondary w-100 mt-3 mb-4" routerLink="/dashboard-professor">
+    Voltar
+  </button>
 </div>
