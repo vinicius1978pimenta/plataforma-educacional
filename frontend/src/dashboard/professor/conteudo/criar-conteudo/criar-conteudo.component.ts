@@ -316,6 +316,9 @@ export class CriarConteudoComponent implements OnInit {
     
     return parseFloat((tamanhoBytes / Math.pow(k, i)).toFixed(2)) + ' ' + tamanhos[i];
   }
+
+
+  
   
 }
 
