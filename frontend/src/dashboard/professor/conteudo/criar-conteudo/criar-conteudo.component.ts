@@ -29,6 +29,7 @@ export class CriarConteudoComponent implements OnInit {
   conteudoSelecionado: any = null;
   conteudoParaDeletar: any = null;
 
+
   constructor(
     private fb: FormBuilder,
     private conteudoService: ConteudoService,
@@ -317,6 +318,8 @@ export class CriarConteudoComponent implements OnInit {
     return parseFloat((tamanhoBytes / Math.pow(k, i)).toFixed(2)) + ' ' + tamanhos[i];
   }
 
+
+  //teste 
 
   
   
