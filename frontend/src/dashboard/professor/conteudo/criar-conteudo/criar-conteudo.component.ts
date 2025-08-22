@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { ConteudoService } from '../../../../services/conteudo.service';
 import { AtividadeService } from '../../../../services/atividade.service';
-import { ConteudoCreate, ConteudoLink } from '../../../../services/interfaces/conteudo-create.model';
+import { ConteudoCreate, ConteudoLink, ConteudoUpdate } from '../../../../services/interfaces/conteudo-create.model';
 
 @Component({
   selector: 'app-criar-conteudo',
@@ -217,22 +217,34 @@ export class CriarConteudoComponent implements OnInit {
     }
 
     this.loading = true;
-    const dados = this.form.value;
+    const formValues = this.form.value;
 
-    this.conteudoService.atualizar(this.conteudoEditando.id, dados).subscribe({
-      next: () => {
-        alert('Conteúdo atualizado com sucesso!');
-        this.cancelarEdicao();
-        this.listarconteudo();
-      },
-      error: (err) => {
-        console.error(err);
-        alert('Erro ao atualizar conteúdo');
-      },
-      complete: () => {
-        this.loading = false;
-      }
-    });
+  // Cria payload apenas com campos preenchidos
+    const payload: ConteudoUpdate = {};
+    if (formValues.titulo) payload.titulo = formValues.titulo;
+    if (formValues.descricao) payload.descricao = formValues.descricao;
+    if (formValues.texto) payload.texto = formValues.texto;
+
+  // Só envia url se não for vazio e começar com http/https
+    if (formValues.url && (formValues.url.startsWith('http://') || formValues.url.startsWith('https://'))) {
+      payload.url = formValues.url;
+    }
+
+    this.conteudoService.atualizar(this.conteudoEditando.id, payload).subscribe({
+    next: () => {
+      alert('Conteúdo atualizado com sucesso!');
+      this.cancelarEdicao();
+      this.listarconteudo();
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Erro ao atualizar conteúdo');
+    },
+    complete: () => {
+      this.loading = false;
+    }
+  });
+
   }
 
   // Cancelar edição
@@ -304,4 +316,6 @@ export class CriarConteudoComponent implements OnInit {
     
     return parseFloat((tamanhoBytes / Math.pow(k, i)).toFixed(2)) + ' ' + tamanhos[i];
   }
+  
 }
+

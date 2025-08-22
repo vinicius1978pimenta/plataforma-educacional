@@ -36,3 +36,9 @@ export interface ConteudoLink {
   url: string;
   materialId: string;
 }
+export interface ConteudoUpdate {
+  titulo?: string;
+  descricao?: string;
+  texto?: string;
+  url?: string; // só colocar se realmente for URL válida
+}
