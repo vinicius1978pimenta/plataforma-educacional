@@ -7,14 +7,14 @@
     </div>
     
     <div class="welcome-section">
-      <h2>Olá, Bem Vindo De Volta</h2>
-      <p>Acesse sua plataforma educacional</p>
+      <h2>{{ 'login-1' | transloco }}</h2>
+      <p>{{ 'login-2' | transloco }}</p>
     </div>
     
     <div class="login-form">
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="form-group">
-          <label for="email">Email </label>
+          <label for="email">{{ 'login-3' | transloco }} </label>
           <input 
             type="email" 
             id="email" 
@@ -22,14 +22,14 @@
             [(ngModel)]="loginData.email" 
             required 
             #email="ngModel"
-            placeholder="usuario">
+            placeholder="{{ 'login-17' | transloco }}">
           <div *ngIf="email.invalid && email.touched" class="error">
-            Email é obrigatório
+            {{ 'login-4' | transloco }}
           </div>
         </div>
 
         <div class="form-group">
-          <label for="password">Senha</label>
+          <label for="password">{{ 'login-5' | transloco }}</label>
           <input 
             type="password" 
             id="password" 
@@ -37,32 +37,32 @@
             [(ngModel)]="loginData.password" 
             required 
             #password="ngModel"
-            placeholder="Digite sua senha">
+            placeholder="{{ 'login-18' | transloco }}">
           <div *ngIf="password.invalid && password.touched" class="error">
-            Senha é obrigatória
+            {{ 'login-6' | transloco }}
           </div>
         </div>
 
         <div class="role-selection">
-          <label>Perfil de Acesso</label>
+          <label>{{ 'login-7' | transloco }}</label>
           <div class="role-buttons">
             <button 
               type="button" 
               [class.active]="selectedRole === 'ALUNO'" 
               (click)="selectRole('ALUNO')">
-              Estudante
+              {{ 'login-8' | transloco }}
             </button>
             <button 
               type="button" 
               [class.active]="selectedRole === 'PROFESSOR'" 
               (click)="selectRole('PROFESSOR')">
-              Professor
+              {{ 'login-9' | transloco }}
             </button>
             <button 
               type="button" 
               [class.active]="selectedRole === 'RESPONSAVEL'" 
               (click)="selectRole('RESPONSAVEL')">
-              Responsável
+              {{ 'login-10' | transloco }}
             </button>
           </div>
         </div>
@@ -83,17 +83,17 @@
       <div class="navigation-section">
                     <div class="nav-buttons">
                         <a href="/home" class="nav-btn btn-home">
-                            🏠 Início
+                            {{ 'login-12' | transloco }}
                         </a>
                         <a href="/register" class="nav-btn btn-register">
-                            ✨ Cadastrar
+                            {{ 'login-13' | transloco }}
                         </a>
                     </div>
                 </div>
 
       <div class="register-section">
-        <p>Novo na plataforma? 
-          <a href="/register" (click)="goToRegister($event)">Cadastrar</a>
+        <p>{{ 'login-14' | transloco }} 
+          <a href="/register" (click)="goToRegister($event)">{{ 'login-13' | transloco }}</a>
         </p>
       </div>
     </div>
@@ -117,8 +117,8 @@
       </div>
       
       <div class="hero-text">
-        <h3>Ambiente Acadêmico Seguro</h3>
-        <p>Plataforma educacional integrada com os mais altos padrões de segurança e usabilidade para a comunidade.</p>
+        <h3>{{ 'login-15' | transloco }}</h3>
+        <p>{{ 'login-16' | transloco }}</p>
       </div>
     </div>
   </div>

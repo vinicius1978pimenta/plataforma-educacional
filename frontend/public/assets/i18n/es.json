@@ -60,7 +60,29 @@
     "sobre12":"🔔 Notificaciones y actualizaciones sobre el rendimiento de los alumnos",
     "sobre13":"🧭 Navegación intuitiva con soporte multilingüe en toda la plataforma.",
     "sobre14":"Multilingüismo",
-    "sobre15":"El sistema está preparado para manejar múltiples idiomas. El usuario puede elegir su idioma preferido y todos los textos se traducen automáticamente, lo que garantiza una experiencia inclusiva y personalizada para personas de diferentes culturas y orígenes."
+    "sobre15":"El sistema está preparado para manejar múltiples idiomas. El usuario puede elegir su idioma preferido y todos los textos se traducen automáticamente, lo que garantiza una experiencia inclusiva y personalizada para personas de diferentes culturas y orígenes.",
+
+
+
+    "login-1" : "Hola, bienvenido de nuevo.",
+    "login-2" : "Acceda a su plataforma educativa",
+    "login-3" : "Correo electrónico",
+    "login-4" : "El correo electrónico es obligatorio.",
+    "login-5" : "Contraseña",
+    "login-6" : "La contraseña es obligatoria.",
+    "login-7" : "Perfil de acceso",
+    "login-8" : "Estudiante",
+    "login-9" : "Profesor",
+    "login-10" : "Responsable",
+    "login-11" : "Acceder a la plataforma",
+    "login-12" : "🏠 Inicio",
+    "login-13" : "✨ Registrarse",
+    "login-14" : "¿Nuevo en la plataforma?",
+    "login-15" : "Entorno académico seguro",
+    "login-16" : "Plataforma educativa integrada con los más altos estándares de seguridad y usabilidad para la comunidad.",
+    "login-17" : "usuario",
+    "login-18" : "Introduzca su contraseña"
+
     
     
 

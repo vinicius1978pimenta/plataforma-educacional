@@ -3,12 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule,
+           FormsModule, 
+           RouterModule,
+          TranslocoModule,
+          TranslocoPipe],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'], 
 })
@@ -25,8 +30,17 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private translocoservice : TranslocoService
   ) {}
+
+   changeLanguage(lang: string) {
+    this.translocoservice.setActiveLang(lang);
+  }
+
+  getCurrentLang() {
+    return this.translocoservice.getActiveLang();
+  }
 
   selectRole(role: 'ALUNO' | 'PROFESSOR' | 'RESPONSAVEL') {
     this.selectedRole = role;
