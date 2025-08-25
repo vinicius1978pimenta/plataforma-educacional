@@ -63,7 +63,29 @@
     "sobre12":"🔔 Notifications and updates on student performance",
     "sobre13":"🧭 Intuitive navigation with multilingual support across the entire platform",
     "sobre14":"Multilingualism",
-    "sobre15":"The system is designed to handle multiple languages. Users can choose their preferred language, and all texts are automatically translated, ensuring an inclusive and personalized experience for people from different cultures and backgrounds."
+    "sobre15":"The system is designed to handle multiple languages. Users can choose their preferred language, and all texts are automatically translated, ensuring an inclusive and personalized experience for people from different cultures and backgrounds.",
+
+
+    "login-1" : "Hello, Welcome Back",
+    "login-2" : "Access your educational platform",
+    "login-3" : "Email",
+    "login-4" : "Email is required",
+    "login-5" : "Password",
+    "login-6" : "Password is required",
+    "login-7" : "Access Profile",
+    "login-8" : "Student",
+    "login-9" : "Teacher",
+    "login-10" : "Responsible",
+    "login-11" : "Access Platform",
+    "login-12" : "🏠 Home",
+    "login-13" : "✨ Register",
+    "login-14" : "New to the platform?",
+    "login-15" : "Safe Academic Environment",
+    "login-16" : "Integrated educational platform with the highest standards of security and usability for the community.",
+    "login-17" : "user",
+    "login-18" : "Enter your password"
+
+
 
 
 
