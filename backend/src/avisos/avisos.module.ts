@@ -3,10 +3,11 @@ import { AvisosService } from './avisos.service';
 import { AvisosController } from './avisos.controller';
 import { PrismaModule } from '../Prisma/prisma/prisma.module';
 
+
 @Module({
   imports: [PrismaModule],
   controllers: [AvisosController],
-  providers: [AvisosService],
+  providers: [AvisosService,],
   exports: [AvisosService],
 })
 export class AvisosModule {}
