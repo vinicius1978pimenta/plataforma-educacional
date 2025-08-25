@@ -161,7 +161,7 @@
               
               <div class="material-tag" *ngIf="item.material">
                 <span class="tag-icon">📖</span>
-                {{ item.material.nome }}
+                {{ item.material.titulo }}
               </div>
               
               <!-- Preview do conteúdo -->
@@ -232,7 +232,7 @@
       <div class="modal-body">
         <div class="modal-info">
           <p><strong>Descrição:</strong> {{ conteudoSelecionado.descricao }}</p>
-          <p><strong>Material:</strong> {{ conteudoSelecionado.material?.nome }}</p>
+          <p><strong>Material:</strong> {{ conteudoSelecionado.material?.titulo }}</p>
           <p><strong>Tipo:</strong> {{ conteudoSelecionado.tipo || 'TEXTO' }}</p>
         </div>
         <div *ngIf="conteudoSelecionado.texto" class="modal-content-text">
