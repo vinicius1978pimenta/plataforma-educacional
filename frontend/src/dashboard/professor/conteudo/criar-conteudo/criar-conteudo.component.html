@@ -104,7 +104,7 @@
             class="form-input file-input">
           <small class="help-text">Máximo 10MB</small>
           <div *ngIf="selectedPdf" class="file-info">
-            <span class="file-icon">📄</span>
+            <span class="file-icon"></span>
             {{ selectedPdf.name }}
           </div>
         </div>
@@ -160,7 +160,7 @@
               <p class="content-description">{{ item.descricao }}</p>
               
               <div class="material-tag" *ngIf="item.material">
-                <span class="tag-icon">📖</span>
+                <span class="tag-icon"></span>
                 {{ item.material.titulo }}
               </div>
               
@@ -178,7 +178,7 @@
 
               <!-- PDF info -->
               <div class="pdf-info" *ngIf="item.tipo === 'PDF' && item.nomeArquivo">
-                <span class="file-icon">📄</span>
+                <span class="file-icon"></span>
                 {{ item.nomeArquivo }}
                 <span *ngIf="item.tamanho" class="file-size">
                   ({{ formatarTamanhoArquivo(item.tamanho) }})
@@ -191,14 +191,14 @@
                 class="action-btn view-btn"
                 (click)="visualizarConteudo(item)"
                 title="Visualizar">
-                👁️
+                
               </button>
               
               <button 
                 class="action-btn edit-btn"
                 (click)="editarConteudo(item)"
                 title="Editar">
-                ✏️
+                
               </button>
               
               <button 
@@ -206,14 +206,14 @@
                 (click)="downloadPdf(item.id, item.titulo)"
                 *ngIf="item.tipo === 'PDF'"
                 title="Download PDF">
-                📄
+                
               </button>
               
               <button 
                 class="action-btn delete-btn"
                 (click)="confirmarDelecao(item)"
                 title="Excluir">
-                🗑️
+                
               </button>
             </div>
           </div>
@@ -227,7 +227,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h3>{{ conteudoSelecionado.titulo }}</h3>
-        <button class="close-btn" (click)="fecharModal()">×</button>
+        <button class="close-btn" (click)="fecharModal()"></button>
       </div>
       <div class="modal-body">
         <div class="modal-info">

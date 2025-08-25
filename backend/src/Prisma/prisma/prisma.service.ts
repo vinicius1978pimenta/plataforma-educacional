@@ -6,7 +6,13 @@ export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
-  aviso: any;
+  private _aviso: any;
+  public get aviso(): any {
+    return this._aviso;
+  }
+  public set aviso(value: any) {
+    this._aviso = value;
+  }
   async onModuleInit() {
     await this.$connect();
   }
