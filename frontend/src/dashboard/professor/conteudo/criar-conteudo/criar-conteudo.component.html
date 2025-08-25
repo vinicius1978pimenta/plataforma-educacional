@@ -1,194 +1,222 @@
-<button routerLink="/dashboard-professor">Voltar</button>
-<div class="container">
-  <h1>Gerenciar Conteúdos</h1>
+<div class="dashboard-container">
+  
+  <div class="cabecalho"><button class="btn btn-primary" routerLink="/dashboard-professor" >voltar</button>
+  <h1 class="dashboard-title">Gerenciar Conteúdos</h1></div>
 
-  <!-- Formulário para criar/editar conteúdo -->
-  <div class="form-section">
-    <h2>{{ editandoConteudo ? 'Editar Conteúdo' : 'Criar Novo Conteúdo' }}</h2>
-    
-    <!-- Seletor de tipo de conteúdo -->
-    <div class="tipo-selector" *ngIf="!editandoConteudo">
-      <button 
-        type="button" 
-        class="tipo-btn" 
-        [class.active]="tipoConteudo === 'TEXTO'"
-        (click)="setTipo('TEXTO')">
-        Texto
-      </button>
-      <button 
-        type="button" 
-        class="tipo-btn" 
-        [class.active]="tipoConteudo === 'PDF'"
-        (click)="setTipo('PDF')">
-        PDF
-      </button>
-      <button 
-        type="button" 
-        class="tipo-btn" 
-        [class.active]="tipoConteudo === 'LINK'"
-        (click)="setTipo('LINK')">
-        Link
-      </button>
-    </div>
-
-    <form [formGroup]="form" (ngSubmit)="editandoConteudo ? atualizarConteudo() : criarConteudo()">
+  <div class="dashboard-layout">
+    <!-- FORMULÁRIO - LADO ESQUERDO -->
+    <div class="form-panel">
+      <div class="panel-header">
+        <h2>{{ editandoConteudo ? 'Editar Conteúdo' : 'Criar Novo Conteúdo' }}</h2>
+      </div>
       
-      <!-- Campo Material -->
-     <div class="form-group"> <label>Matéria</label> <select formControlName="materialId"> <option value="">Selecione</option> <!-- Mostrando nome da matéria --> <option *ngFor="let m of materiais" [value]="m.id">{{ m.nome || m.titulo }}</option> </select> </div>
-
-      <!-- Campo Título -->
-      <div class="form-group">
-        <label for="titulo">Título *</label>
-        <input 
-          id="titulo" 
-          type="text" 
-          formControlName="titulo" 
-          class="form-control"
-          placeholder="Digite o título do conteúdo">
-      </div>
-
-      <!-- Campo Descrição -->
-      <div class="form-group">
-        <label for="descricao">Descrição *</label>
-        <textarea 
-          id="descricao" 
-          formControlName="descricao" 
-          class="form-control"
-          rows="3"
-          placeholder="Digite a descrição do conteúdo"></textarea>
-      </div>
-
-      <!-- Campo Texto (para TEXTO e LINK) -->
-      <div class="form-group" *ngIf="tipoConteudo === 'TEXTO' || tipoConteudo === 'LINK'">
-        <label for="texto">Texto do Conteúdo</label>
-        <textarea 
-          id="texto" 
-          formControlName="texto" 
-          class="form-control"
-          rows="6"
-          placeholder="Digite o conteúdo aqui"></textarea>
-      </div>
-
-      <!-- Campo URL (apenas para LINK) -->
-      <div class="form-group" *ngIf="tipoConteudo === 'LINK'">
-        <label for="url">URL *</label>
-        <input 
-          id="url" 
-          type="url" 
-          formControlName="url" 
-          class="form-control"
-          placeholder="https://exemplo.com">
-      </div>
-
-      <!-- Upload de PDF -->
-      <div class="form-group" *ngIf="tipoConteudo === 'PDF' && !editandoConteudo">
-        <label for="pdf">Arquivo PDF *</label>
-        <input 
-          id="pdf" 
-          type="file" 
-          accept=".pdf"
-          (change)="onFileSelected($event)"
-          class="form-control">
-        <small class="help-text">Máximo 10MB</small>
-        <div *ngIf="selectedPdf" class="file-info">
-          Arquivo selecionado: {{ selectedPdf.name }}
-        </div>
-      </div>
-
-      <!-- Botões -->
-      <div class="form-actions">
+      <!-- Seletor de tipo de conteúdo -->
+      <div class="tipo-selector" *ngIf="!editandoConteudo">
         <button 
-          type="submit" 
-          class="btn btn-primary"
-          [disabled]="loading">
-          {{ loading ? 'Processando...' : (editandoConteudo ? 'Atualizar' : 'Criar') }}
+          type="button" 
+          class="tipo-btn" 
+          [class.active]="tipoConteudo === 'TEXTO'"
+          (click)="setTipo('TEXTO')">
+          <span class="tipo-icon">📝</span>
+          Texto
         </button>
         <button 
           type="button" 
-          class="btn btn-secondary"
-          (click)="cancelarEdicao()"
-          *ngIf="editandoConteudo">
-          Cancelar
+          class="tipo-btn" 
+          [class.active]="tipoConteudo === 'PDF'"
+          (click)="setTipo('PDF')">
+          <span class="tipo-icon">📄</span>
+          PDF
+        </button>
+        <button 
+          type="button" 
+          class="tipo-btn" 
+          [class.active]="tipoConteudo === 'LINK'"
+          (click)="setTipo('LINK')">
+          <span class="tipo-icon">🔗</span>
+          Link
         </button>
       </div>
-    </form>
-  </div>
 
-  <!-- Lista de conteúdos -->
-  <div class="content-list">
-    <h2>Conteúdos Criados</h2>
-    
-    <div *ngIf="conteudo.length === 0" class="no-content">
-      Nenhum conteúdo encontrado.
+      <form [formGroup]="form" (ngSubmit)="editandoConteudo ? atualizarConteudo() : criarConteudo()" class="content-form">
+        
+        <!-- Campo Material -->
+        <div class="form-group">
+          <label class="form-label">Matéria</label>
+          <select formControlName="materialId" class="form-input">
+            <option value="">Selecione</option>
+            <option *ngFor="let m of materiais" [value]="m.id">{{ m.nome || m.titulo }}</option>
+          </select>
+        </div>
+
+        <!-- Campo Título -->
+        <div class="form-group">
+          <label for="titulo" class="form-label">Título *</label>
+          <input 
+            id="titulo" 
+            type="text" 
+            formControlName="titulo" 
+            class="form-input"
+            placeholder="Digite o título do conteúdo">
+        </div>
+
+        <!-- Campo Descrição -->
+        <div class="form-group">
+          <label for="descricao" class="form-label">Descrição *</label>
+          <textarea 
+            id="descricao" 
+            formControlName="descricao" 
+            class="form-input form-textarea"
+            rows="3"
+            placeholder="Digite a descrição do conteúdo"></textarea>
+        </div>
+
+        <!-- Campo Texto (para TEXTO e LINK) -->
+        <div class="form-group" *ngIf="tipoConteudo === 'TEXTO' || tipoConteudo === 'LINK'">
+          <label for="texto" class="form-label">Texto do Conteúdo</label>
+          <textarea 
+            id="texto" 
+            formControlName="texto" 
+            class="form-input form-textarea"
+            rows="6"
+            placeholder="Digite o conteúdo aqui"></textarea>
+        </div>
+
+        <!-- Campo URL (apenas para LINK) -->
+        <div class="form-group" *ngIf="tipoConteudo === 'LINK'">
+          <label for="url" class="form-label">URL *</label>
+          <input 
+            id="url" 
+            type="url" 
+            formControlName="url" 
+            class="form-input"
+            placeholder="https://exemplo.com">
+        </div>
+
+        <!-- Upload de PDF -->
+        <div class="form-group" *ngIf="tipoConteudo === 'PDF' && !editandoConteudo">
+          <label for="pdf" class="form-label">Arquivo PDF *</label>
+          <input 
+            id="pdf" 
+            type="file" 
+            accept=".pdf"
+            (change)="onFileSelected($event)"
+            class="form-input file-input">
+          <small class="help-text">Máximo 10MB</small>
+          <div *ngIf="selectedPdf" class="file-info">
+            <span class="file-icon">📄</span>
+            {{ selectedPdf.name }}
+          </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="loading">
+            {{ loading ? 'Processando...' : (editandoConteudo ? 'Atualizar' : 'Criar') }}
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-secondary"
+            (click)="cancelarEdicao()"
+            *ngIf="editandoConteudo">
+            Cancelar
+          </button>
+        </div>
+      </form>
     </div>
 
-    <div class="content-grid">
-      <div *ngFor="let item of conteudo" class="content-card">
-        <div class="content-header">
-          <h3>{{ item.titulo }}</h3>
-          <div class="content-type">
-            <span class="type-badge" [ngClass]="'type-' + item.tipo?.toLowerCase()">
-              {{ item.tipo || 'TEXTO' }}
-            </span>
-          </div>
+    <!-- LISTA - LADO DIREITO -->
+    <div class="list-panel">
+      <div class="panel-header">
+        <h2>Conteúdos Criados</h2>
+        <div class="content-count" *ngIf="conteudo.length > 0">
+          {{ conteudo.length }} item(s)
         </div>
-        
-        <div class="content-body">
-          <p class="description">{{ item.descricao }}</p>
-          <div class="material-info" *ngIf="item.material">
-            <small><strong>Material:</strong> {{ item.material.nome }}</small>
-          </div>
-          
-          <!-- Preview do conteúdo -->
-          <div class="content-preview" *ngIf="item.texto">
-            <small>{{ item.texto.substring(0, 100) }}{{ item.texto.length > 100 ? '...' : '' }}</small>
-          </div>
-          
-          <!-- Link preview -->
-          <div class="link-preview" *ngIf="item.url">
-            <a [href]="item.url" target="_blank" class="external-link">
-              {{ item.url }}
-            </a>
-          </div>
-
-          <!-- PDF info -->
-          <div class="pdf-info" *ngIf="item.tipo === 'PDF' && item.nomeArquivo">
-            <small><strong>Arquivo:</strong> {{ item.nomeArquivo }}</small>
-            <small *ngIf="item.tamanho" class="file-size">
-              ({{ formatarTamanhoArquivo(item.tamanho) }})
-            </small>
+      </div>
+      
+      <div class="content-scroll">
+        <div *ngIf="conteudo.length === 0" class="no-content">
+          <div class="empty-state">
+            <span class="empty-icon">📚</span>
+            <p>Nenhum conteúdo encontrado.</p>
           </div>
         </div>
 
-        <div class="content-actions">
-          <button 
-            class="btn btn-sm btn-info"
-            (click)="visualizarConteudo(item)"
-            title="Visualizar">
-            👁️
-          </button>
-          
-          <button 
-            class="btn btn-sm btn-warning"
-            (click)="editarConteudo(item)"
-            title="Editar">
-            ✏️
-          </button>
-          
-          <button 
-            class="btn btn-sm btn-success"
-            (click)="downloadPdf(item.id, item.titulo)"
-            *ngIf="item.tipo === 'PDF'"
-            title="Download PDF">
-            📄
-          </button>
-          
-          <button 
-            class="btn btn-sm btn-danger"
-            (click)="confirmarDelecao(item)"
-            title="Excluir">
-            🗑️
-          </button>
+        <div class="content-list" *ngIf="conteudo.length > 0">
+          <div *ngFor="let item of conteudo" class="content-card">
+            <div class="card-header">
+              <div class="content-info">
+                <h3 class="content-title">{{ item.titulo }}</h3>
+                <span class="type-badge" [ngClass]="'type-' + item.tipo?.toLowerCase()">
+                  {{ item.tipo || 'TEXTO' }}
+                </span>
+              </div>
+            </div>
+            
+            <div class="card-body">
+              <p class="content-description">{{ item.descricao }}</p>
+              
+              <div class="material-tag" *ngIf="item.material">
+                <span class="tag-icon">📖</span>
+                {{ item.material.nome }}
+              </div>
+              
+              <!-- Preview do conteúdo -->
+              <div class="content-preview" *ngIf="item.texto">
+                {{ item.texto.substring(0, 80) }}{{ item.texto.length > 80 ? '...' : '' }}
+              </div>
+              
+              <!-- Link preview -->
+              <div class="link-preview" *ngIf="item.url">
+                <a [href]="item.url" target="_blank" class="preview-link">
+                  🔗 {{ item.url.substring(0, 40) }}{{ item.url.length > 40 ? '...' : '' }}
+                </a>
+              </div>
+
+              <!-- PDF info -->
+              <div class="pdf-info" *ngIf="item.tipo === 'PDF' && item.nomeArquivo">
+                <span class="file-icon">📄</span>
+                {{ item.nomeArquivo }}
+                <span *ngIf="item.tamanho" class="file-size">
+                  ({{ formatarTamanhoArquivo(item.tamanho) }})
+                </span>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button 
+                class="action-btn view-btn"
+                (click)="visualizarConteudo(item)"
+                title="Visualizar">
+                👁️
+              </button>
+              
+              <button 
+                class="action-btn edit-btn"
+                (click)="editarConteudo(item)"
+                title="Editar">
+                ✏️
+              </button>
+              
+              <button 
+                class="action-btn download-btn"
+                (click)="downloadPdf(item.id, item.titulo)"
+                *ngIf="item.tipo === 'PDF'"
+                title="Download PDF">
+                📄
+              </button>
+              
+              <button 
+                class="action-btn delete-btn"
+                (click)="confirmarDelecao(item)"
+                title="Excluir">
+                🗑️
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -202,25 +230,27 @@
         <button class="close-btn" (click)="fecharModal()">×</button>
       </div>
       <div class="modal-body">
-        <p><strong>Descrição:</strong> {{ conteudoSelecionado.descricao }}</p>
-        <p><strong>Material:</strong> {{ conteudoSelecionado.material?.nome }}</p>
-        <p><strong>Tipo:</strong> {{ conteudoSelecionado.tipo || 'TEXTO' }}</p>
-        <div *ngIf="conteudoSelecionado.texto">
+        <div class="modal-info">
+          <p><strong>Descrição:</strong> {{ conteudoSelecionado.descricao }}</p>
+          <p><strong>Material:</strong> {{ conteudoSelecionado.material?.nome }}</p>
+          <p><strong>Tipo:</strong> {{ conteudoSelecionado.tipo || 'TEXTO' }}</p>
+        </div>
+        <div *ngIf="conteudoSelecionado.texto" class="modal-content-text">
           <strong>Conteúdo:</strong>
           <div class="content-text">{{ conteudoSelecionado.texto }}</div>
         </div>
-        <div *ngIf="conteudoSelecionado.url">
+        <div *ngIf="conteudoSelecionado.url" class="modal-link">
           <strong>Link:</strong>
           <a [href]="conteudoSelecionado.url" target="_blank">{{ conteudoSelecionado.url }}</a>
         </div>
-        <div *ngIf="conteudoSelecionado.tipo === 'PDF' && conteudoSelecionado.nomeArquivo">
+        <div *ngIf="conteudoSelecionado.tipo === 'PDF' && conteudoSelecionado.nomeArquivo" class="modal-file">
           <p><strong>Arquivo:</strong> {{ conteudoSelecionado.nomeArquivo }}</p>
           <p *ngIf="conteudoSelecionado.tamanho"><strong>Tamanho:</strong> {{ formatarTamanhoArquivo(conteudoSelecionado.tamanho) }}</p>
         </div>
-        <div *ngIf="conteudoSelecionado.professor">
+        <div *ngIf="conteudoSelecionado.professor" class="modal-professor">
           <p><strong>Professor:</strong> {{ conteudoSelecionado.professor.nome }}</p>
         </div>
-        <p><strong>Criado em:</strong> {{ conteudoSelecionado.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p class="modal-date"><strong>Criado em:</strong> {{ conteudoSelecionado.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
       </div>
     </div>
   </div>
@@ -232,8 +262,13 @@
         <h3>Confirmar Exclusão</h3>
       </div>
       <div class="modal-body">
-        <p>Tem certeza que deseja excluir o conteúdo "<strong>{{ conteudoParaDeletar.titulo }}</strong>"?</p>
-        <p class="warning">Esta ação não pode ser desfeita.</p>
+        <div class="delete-warning">
+          <span class="warning-icon">⚠️</span>
+          <div>
+            <p>Tem certeza que deseja excluir o conteúdo "<strong>{{ conteudoParaDeletar.titulo }}</strong>"?</p>
+            <p class="warning-text">Esta ação não pode ser desfeita.</p>
+          </div>
+        </div>
       </div>
       <div class="modal-actions">
         <button class="btn btn-danger" (click)="deletarConteudo()">Excluir</button>
