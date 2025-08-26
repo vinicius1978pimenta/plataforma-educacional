@@ -20,6 +20,7 @@ import { AlunoMaterialListComponent } from '../dashboard/aluno/aluno-material-li
 import { AlunoMaterialAtividadesListComponent } from '../dashboard/aluno/aluno-material-atividades-list/aluno-material-atividades-list.component';
 import { AcompanhamentoFilhosComponent } from '../dashboard/responsaveis/acompanhamento-filhos/acompanhamento-filhos.component';
 import { PerfilResponsavelComponent } from '../dashboard/responsaveis/perfil-responsavel/perfil-responsavel.component';
+import { PerfilAlunoComponent } from '../dashboard/aluno/perfil-aluno/perfil-aluno.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -29,7 +30,6 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'home', component : InicialComponent },
   {path: 'sobre', component : SobreNosComponent },
-  // Dashboards protegidos por autenticação e role específico
   {
     path: 'dashboard-professor',
     component: DashboardProfessorComponent,
@@ -95,6 +95,8 @@ export const routes: Routes = [
 
   { path: 'perfil-editar/:id', component: PerfilEditarComponent },
   { path: 'perfil-responsavel-editar/:id', component: PerfilResponsavelComponent },
+  { path: 'perfil-aluno/:id', component: PerfilAlunoComponent },
+
 
 {
   path: 'materiais/:id/atividades',  // Usando o ID do material

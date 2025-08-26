@@ -1,17 +1,17 @@
-<div class="container">
+<div class="login-wrapper">
     <!-- Seção do formulário -->
-    <div class="register-form-section">
+    <div class="login-form-section">
         <div class="logo-sistema">
             <div class="logo"><img src="/logo-inter-azul.png" alt="Logo InterLinguas" width="50" height="40"></div> 
-            <h2>Cadastro</h2>
+            <h1><strong>Interlinguas</strong></h1>
         </div>
 
         <div class="welcome-section">
-            <h3>Criar Nova Conta</h3>
+            <a>Criar Nova Conta</a>
             <p>Preencha os dados para se cadastrar</p>
         </div>
 
-        <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="register-form">
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="login-form">
             <div class="form-group">
                 <label for="name">Nome:</label>
                 <input 
@@ -106,21 +106,29 @@
                 type="submit" 
                 [disabled]="registerForm.invalid || !registerData.role || loading" 
                 class="submit-btn">
-                {{ loading ? 'Cadastrando...' : 'Cadastrar' }}
+                {{ loading ? 'Autenticando...' : 'Login' }}
             </button>
         </form>
 
         <div class="navigation-section">
             <div class="nav-buttons">
-                <a href="/login" (click)="goToLogin($event)" class="nav-btn btn-login">Login</a>
-                <a routerLink="/home" class="nav-btn btn-home">Início</a>
+                <a href="/home" class="nav-btn btn-home">
+                            🏠 Início
+                        </a>
+                <a href="/login" class="nav-btn btn-login">
+                            Login
+                        </a>
+
             </div>
 
+            <!--
+           
             <div class="login-link-section">
                 <p>
                     Já tem conta? <a routerLink="/login" (click)="goToLogin($event)">Faça login aqui</a>
                 </p>
             </div>
+             -->
         </div>
     </div>
 

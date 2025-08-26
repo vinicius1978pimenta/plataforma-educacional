@@ -9,49 +9,49 @@
       <li class="nav-item">
         <a routerLink="/dashboard-professor" routerLinkActive="active" class="nav-link" data-tooltip="Dashboard">
           <i class="fas fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <span class="nav-text">Dashboard</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a routerLink="/materiais" routerLinkActive="active" class="nav-link" data-tooltip="Matérias">
           <i class="fas fa-book-open"></i>
-          <span>Matérias</span>
+          <span class="nav-text">Matérias</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a routerLink="/atividades" routerLinkActive="active" class="nav-link" data-tooltip="Atividades">
           <i class="fas fa-clipboard-list"></i>
-          <span>Atividades</span>
+          <span class="nav-text">Atividades</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a routerLink="/criar-atividade" routerLinkActive="active" class="nav-link" data-tooltip="Criar Atividade">
           <i class="fas fa-plus-square"></i>
-          <span>Criar Atividade</span>
+          <span class="nav-text">Criar Atividade</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a routerLinkActive="active" class="nav-link" data-tooltip="Alunos">
           <i class="fas fa-user-graduate"></i>
-          <span>Alunos</span>
+          <span class="nav-text">Alunos</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a routerLinkActive="active" class="nav-link" data-tooltip="Relatórios">
           <i class="fas fa-chart-line"></i>
-          <span>Relatórios</span>
+          <span class="nav-text">Relatórios</span>
         </a>
       </li>
            
       <li class="nav-item">
-        <a [routerLink]="getProfileEditRoute()" routerLinkActive="active" class="nav-link" data-tooltip="Configurações">
+        <a [routerLink]="['/perfil-editar', currentUser?.id]"  routerLinkActive="active" class="nav-link" data-tooltip="Configurações">
           <i class="fas fa-cogs"></i>
-          <span>Editar Perfil</span>
+          <span class="nav-text">Editar Perfil</span>
         </a>
       </li>
     </ul>

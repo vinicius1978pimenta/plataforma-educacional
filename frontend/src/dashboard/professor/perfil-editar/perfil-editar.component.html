@@ -1,11 +1,26 @@
+<nav class="navbar">
+  <div class="navbar-brand" routerLink="/dashboard-aluno">
+      <img src="/logo-inter-azul.png"  alt="">
+    <span>Interlinguas</span>
+  </div>
+  
+  
+  
+  <div class="navbar-actions">    
+    <button class="logout-btn" (click)="voltar()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>voltar</span>
+    </button>
+  </div>
+</nav>
+
 <div class="container">
-  <h2 class="mb-4">Editar Perfil</h2>
   <div class="d-flex gap-4 align-items-stretch">
 
     <form (ngSubmit)="salvarAlteracoes()" #usuarioForm="ngForm" class="w-100">
-      <h3 class="mt-0">Atualizar Dados</h3>
+      <h3 class="mt-0">Nome</h3>
       <div class="form-group">
-        <label for="name">Nome</label>
+        <label for="name"></label>
         <input
           id="name"
           name="name"
@@ -15,6 +30,7 @@
         />
       </div>
 
+      <!--
       <div class="form-group">
         <label for="email">E-mail</label>
         <input
@@ -25,14 +41,13 @@
           required
         />
       </div>
-
-      <button type="submit" class="btn btn-success w-50 mt-4">
-        Salvar Alterações
+      -->
+      <button type="submit" class="botoes-salvar">
+        Atualizar nome
       </button>
-    </form>
 
-    <form (ngSubmit)="salvarAlteracaoSenha()" #senhaForm="ngForm" class="w-100">
-      <h3 class="mt-0">Alterar Senha</h3>
+ <form (ngSubmit)="salvarAlteracaoSenha()" #senhaForm="ngForm" class="w-100">
+      <h3 class="mt-0">Trocar a Senha</h3>
       <div class="form-group">
         <label for="senhaAntiga">Senha Antiga</label>
         <input
@@ -57,13 +72,13 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-warning w-50 mt-4">
+      <button type="submit" class="botoes-salvar">
         Atualizar Senha
       </button>
     </form>
-  </div>
 
-  <button type="button" class="btn btn-secondary w-100 mt-3" (click)="voltar()">
-    Voltar
-  </button>
+    </form>
+
+   
+  </div>
 </div>

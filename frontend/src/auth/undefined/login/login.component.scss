@@ -7,16 +7,19 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow-x: hidden;
         }
 
         .login-wrapper {
             width: 100%;
             max-width: 1400px;
-            height: 85vh;
+            height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
             background: #ffffff;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+            margin: 0 auto; 
+            overflow: hidden;
         }
 
         .hero-section {
@@ -200,7 +203,7 @@ body {
             width: 100%;
             padding: 14px;
             background: #02285f;
-            color: #ffffff;
+            color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -229,7 +232,7 @@ body {
 
         .nav-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-bottom: 20px;
         }
@@ -423,6 +426,7 @@ body {
                 linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: slide 20s linear infinite;
+            overflow: hidden;
         }
 
         @keyframes glow {

@@ -44,13 +44,13 @@
         </div>
 
         <div class="role-selection">
-          <label>Perfil de Acesso</label>
+          <label>Tipo de usuário:</label>
           <div class="role-buttons">
             <button 
               type="button" 
               [class.active]="selectedRole === 'ALUNO'" 
               (click)="selectRole('ALUNO')">
-              Estudante
+              Aluno
             </button>
             <button 
               type="button" 
@@ -86,16 +86,17 @@
                             🏠 Início
                         </a>
                         <a href="/register" class="nav-btn btn-register">
-                            ✨ Cadastrar
+                            Cadastrar
                         </a>
                     </div>
                 </div>
-
+      <!--       
       <div class="register-section">
         <p>Novo na plataforma? 
           <a href="/register" (click)="goToRegister($event)">Cadastrar</a>
         </p>
       </div>
+      -->
     </div>
   </div>
 
