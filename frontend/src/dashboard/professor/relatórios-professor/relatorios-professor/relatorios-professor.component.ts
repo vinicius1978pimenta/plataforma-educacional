@@ -2,18 +2,17 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef 
 import { CommonModule } from '@angular/common';
 import Chart from 'chart.js/auto';
 import { lastValueFrom } from 'rxjs';
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../../navbar/navbar.component';
+import { Navbar2Component } from "../../../../navbar2/navbar2.component";
 
 type Resposta = { status: 'ENVIADA'|'CORRIGIDA'; nota?: number|null };
 
 @Component({
   selector: 'app-relatorios-professor',
   standalone: true,
-  imports: [CommonModule,NavbarComponent],
+  imports: [CommonModule, Navbar2Component],
   templateUrl: './relatorios-professor.component.html',
   styleUrls: ['./relatorios-professor.component.scss'],
 })

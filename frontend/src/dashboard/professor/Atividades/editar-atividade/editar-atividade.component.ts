@@ -3,12 +3,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Navbar2Component } from "../../../../navbar2/navbar2.component";
 
 
 @Component({
   selector: 'app-editar-atividade',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
   templateUrl: './editar-atividade.component.html',
   styleUrls: ['./editar-atividade.component.scss']
 })

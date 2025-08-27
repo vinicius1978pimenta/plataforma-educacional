@@ -3,12 +3,12 @@ import { Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from '../../navbar/navbar.component';
+import { Navbar2Component } from "../../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-listar-atividades',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent  ],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
   templateUrl: './listar-atividades.component.html',
   styleUrls: ['./listar-atividades.component.scss']
 })
