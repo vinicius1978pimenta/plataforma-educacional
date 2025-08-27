@@ -1,130 +1,110 @@
-/* ===== Container Principal ===== */
-.container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+/* ===== Fundo + container (mesmo padrão) ===== */
+html, body { height: 100%; }
+body{
+  margin: 0;
   font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+.container.container--full{
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-/* ===== Título da Página ===== */
-h2 {
-  font-size: 2em;
-  font-weight: 700;
-  color: #003366; /* Azul FGV */
-  margin-bottom: 20px;
-  text-align: center;
+/* ===== Header igual ao de Atividades ===== */
+.header-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:20px;
+  padding:25px;
+  border-radius:10px;
+  background: linear-gradient(135deg, #02285d, #4fc3f7);
+  box-shadow: 0 8px 25px rgb(138 136 136);
 }
-
-/* ===== Estilo dos Campos de Formulário ===== */
-.form-group {
-  margin-bottom: 20px;
+.header-actions h2{
+  margin:0;
+  font-size:2.2rem;
+  font-weight:700;
+  color:#fff;
 }
+.header-actions .btn.btn-secondary{
+  background-color:#6c757d; color:#fff; padding:12px 24px;
+  font-size:1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer;
+  transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+}
+.header-actions .btn.btn-secondary:hover{ background:#5a6268; transform:translateY(-2px); }
+.header-actions .btn.btn-secondary:focus{ outline:none; box-shadow:0 0 0 2px rgba(0,141,229,.25); }
 
-label {
-  font-weight: 600;
-  color: #495057;
+/* ===== Card do formulário ===== */
+.card.form-card{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.card.form-card .card-body{ padding:20px; }
+
+/* ===== Inputs no mesmo estilo ===== */
+.form-group{ margin-bottom:16px; }
+label{ display:block; font-weight:600; color:#003366; margin-bottom:8px; }
+.form-control{
+  width:100%;
+  padding:12px 15px;
+  font-size:1em;
+  border-radius:10px;
+  border:1px solid #ced4da;
+  background:#ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  transition: border-color .3s, box-shadow .3s, background-color .3s;
+}
+.form-control:focus{
+  outline:none;
+  border-color:#0095e5;
+  box-shadow:0 0 0 4px rgba(0,141,229,.20);
+  background:#fff;
+}
+textarea.form-control{ resize: vertical; }
+
+/* ===== Grid dos campos (desktop em 2 colunas) ===== */
+.form-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:16px;
   margin-bottom: 8px;
-  display: block;
 }
+.form-grid .form-group:nth-last-child(-n+2){ align-self:end; } /* data/checkbox ficam alinhados */
 
-/* Estilo para os inputs, selects e textarea */
-input.form-control,
-select.form-control,
-textarea.form-control {
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 1em;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  background-color: #f8f9fa;
-  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+/* checkbox em linha */
+.form-check{
+  display:flex; align-items:center; gap:10px; padding-top:6px;
 }
+.form-check-input{ width:18px; height:18px; }
+.form-check-label{ margin:0; font-weight:600; }
 
-input.form-control:focus,
-select.form-control:focus,
-textarea.form-control:focus {
-  outline: none;
-  border-color: #0095e5; /* Azul claro no foco */
-  box-shadow: 0 0 0 4px rgba(0, 141, 229, 0.25);
-  background-color: #ffffff;
+/* ===== Rodapé do formulário ===== */
+.form-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:12px;
+  margin-top:16px;
 }
+.form-footer .btn{ min-width:160px; }
+.btn-success{ background:#28a745; color:#fff; }
+.btn-success:hover{ background:#218838; }
+.btn-danger{ background:#dc3545; color:#fff; }
+.btn-danger:hover{ background:#c82333; }
 
-textarea.form-control {
-  resize: vertical;
-  min-height: 80px;
-}
-
-input.form-control.error {
-  border-color: #f87171;  /* Cor de erro */
-}
-
-.error-message {
-  color: #ef4444;
-  font-size: 0.85rem;
-}
-
-/* ===== Botões ===== */
-button[type="submit"] {
-  padding: 12px 20px;
-  font-size: 1.1em;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button[type="submit"].btn-success {
-  background-color: #28a745;
-  color: #ffffff;
-  font-weight: 600;
-  border: none;
-}
-
-button[type="submit"].btn-success:hover {
-  background-color: #218838;
-}
-
-button[type="submit"].btn-danger {
-  background-color: #dc3545;
-  color: #ffffff;
-  font-weight: 600;
-  border: none;
-}
-
-button[type="submit"].btn-danger:hover {
-  background-color: #c82333;
-}
-
-/* ===== Checkbox (Ativa) ===== */
-.form-check-label {
-  font-weight: 600;
-  color: #495057;
-}
-
-/* ===== Disposição e Layout do Formulário ===== */
-.d-flex {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.w-100 {
-  width: 100%;
-}
-
-.mt-4 {
-  margin-top: 20px;
-}
-
-/* Adicionando animação aos elementos do formulário */
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-.container {
-  animation: fadeIn 1s ease-out;
+/* ===== Responsivo ===== */
+@media (max-width: 768px){
+  .header-actions{ padding:18px; }
+  .header-actions h2{ font-size:1.6rem; }
+  .form-grid{ grid-template-columns: 1fr; }
+  .form-footer{ flex-direction:column-reverse; }
+  .form-footer .btn{ width:100%; min-width:0; }
 }

@@ -1,13 +1,14 @@
 /* Reset básico */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; 
+}
 
 /* Layout geral */
 .container {
   max-width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   font-family: 'Inter', sans-serif;
+   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .mb-2 {

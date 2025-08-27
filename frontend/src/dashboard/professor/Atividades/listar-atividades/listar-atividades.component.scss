@@ -1,231 +1,158 @@
-/* ===== Container Principal ===== */
-.container {
-  max-width: 1200px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+/* ===== Fundo e container com “respiro” lateral ===== */
+html, body { height: 100%; }
+body{
+  margin: 0;
   font-family: 'Inter', sans-serif;
 }
-
-/* ===== Alinhamento do Título e Botão ===== */
-.header-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.container.container--full{
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
-.header-actions h2 {
-  font-size: 2.2em;
-  font-weight: 700;
-  color: #003366; /* Azul FGV */
-  margin-bottom: 0;
+/* ===== Header igual ao dos relatórios ===== */
+.header-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:20px;
+  padding:25px;
+  border-radius:10px;
+  background: linear-gradient(135deg, #02285d, #4fc3f7);
+  box-shadow: 0 8px 25px rgb(138 136 136);
+}
+.header-actions h2{
+  margin:0;
+  font-size:2.2rem;
+  font-weight:700;
+  color:#fff;
+}
+.header-actions .btn.btn-secondary{
+  background-color:#6c757d;
+  color:#fff;
+  padding:12px 24px;
+  font-size:1rem;
+  font-weight:600;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
+}
+.header-actions .btn.btn-secondary:hover{ background:#5a6268; transform:translateY(-2px); }
+.header-actions .btn.btn-secondary:focus{ outline:none; box-shadow:0 0 0 2px rgba(0,141,229,.25); }
+
+/* ===== Campo de busca ===== */
+.form-group{ margin-bottom:20px; }
+input.form-control{
+  width:100%;
+  padding:12px 15px;
+  font-size:1em;
+  border-radius:10px;
+  border:1px solid #ced4da;
+  background:#ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  transition: border-color .3s, box-shadow .3s, background-color .3s;
+}
+input.form-control:focus{
+  outline:none;
+  border-color:#0095e5;
+  box-shadow:0 0 0 4px rgba(0,141,229,.20);
+  background:#fff;
 }
 
-.header-actions .btn-secondary {
-  background-color: #6c757d;
-  color: white;
-  padding: 12px 24px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* ===== Tabela em card com head fixo ===== */
+.table-responsive{
+  overflow:auto;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
+.table{ width:100%; border-collapse:collapse; }
+.table th, .table td{ padding:12px 15px; text-align:left; }
+.thead-light th{
+  background: linear-gradient(135deg, #02285d, #4fc3f7);
+  color:#fff;
+}
+.table thead th{ position:sticky; top:0; z-index:2; }
+.table-bordered{ border:1px solid #ddd; }
+.table-hover tbody tr:hover{ background:#eef5ff; }
+.table td{ font-size:1em; color:#495057; }
 
-.header-actions .btn-secondary:hover {
-  background-color: #5a6268;
-  transform: translateY(-2px);
+/* ===== Badges de status ===== */
+.badge{
+  display:inline-block;
+  padding:.35rem .6rem;
+  font-size:.78rem;
+  line-height:1;
+  border-radius:999px;
+  font-weight:600;
+  border:1px solid transparent;
 }
-
-.header-actions .btn-secondary:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 141, 229, 0.25);
-}
-
-/* ===== Filtro de Busca ===== */
-.form-group {
-  margin-bottom: 20px;
-}
-
-input.form-control {
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 1em;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  background-color: #f8f9fa;
-  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
-}
-
-input.form-control:focus {
-  outline: none;
-  border-color: #0095e5;
-  box-shadow: 0 0 0 4px rgba(0, 141, 229, 0.25);
-  background-color: #ffffff;
-}
-
-/* ===== Tabela de Atividades ===== */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table th,
-.table td {
-  padding: 12px 15px;
-  text-align: left;
-}
-
-.table th {
-  background-color: #f1f1f1;
-  font-weight: 600;
-  color: #003366;
-}
-
-.table-bordered {
-  border: 1px solid #ddd;
-}
-
-.table-hover tbody tr:hover {
-  background-color: #f5f5f5;
-}
-
-.table td {
-  font-size: 1em;
-  color: #495057;
-}
+.badge-success{ background:#e6f4ea; color:#1e7e34; border-color:#cde9d6; }
+.badge-secondary{ background:#f1f3f5; color:#495057; border-color:#e9ecef; }
 
 /* ===== Botões ===== */
-.btn-sm {
-  padding: 8px 14px;
-  font-size: 0.9em;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.btn-sm{
+  padding:8px 14px;
+  font-size:.9em;
+  border-radius:8px;
+  cursor:pointer;
+  transition: transform .2s ease, background-color .3s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,.06);
+}
+.btn-sm:hover{ transform:translateY(-1px); }
+.btn-info{ background:#17a2b8; color:#fff; }
+.btn-info:hover{ background:#138496; }
+.btn-warning{ background:#ffc107; color:#fff; }
+.btn-warning:hover{ background:#e0a800; }
+.btn-danger{ background:#dc3545; color:#fff; }
+.btn-danger:hover{ background:#c82333; }
+.btn-success{ background:#28a745; color:#fff; }
+.btn-success:hover{ background:#218838; }
+.btn-secondary{ background:#6c757d; color:#fff; }
+.btn-secondary:hover{ background:#5a6268; }
+
+/* ===== Alert ===== */
+.alert-info{
+  background:#d1ecf1;
+  color:#0c5460;
+  border:1px solid #bee5eb;
+  padding:10px 15px;
+  border-radius:8px;
+  font-size:1em;
 }
 
-.btn-info {
-  background-color: #17a2b8;
-  color: #ffffff;
+/* ===== Respostas / Avaliação ===== */
+.resposta-section{
+  background:#f8f9fa;
+  padding:16px;
+  border-radius:10px;
+  margin-top:20px;
 }
 
-.btn-info:hover {
-  background-color: #138496;
+/* ===== Responsivo ===== */
+@media (max-width:768px){
+  .header-actions{ padding:18px; }
+  .header-actions h2{ font-size:1.6rem; }
+  .table-responsive{ -webkit-overflow-scrolling:touch; }
 }
 
-.btn-warning {
-  background-color: #ffc107;
-  color: #ffffff;
+/* mantém os botões na coluna Ações sem quebrar a linha no desktop */
+.cell-actions{ white-space: nowrap; }
+
+/* no mobile pode quebrar para caber melhor */
+@media (max-width: 576px){
+  .cell-actions{ white-space: normal; }
 }
 
-.btn-warning:hover {
-  background-color: #e0a800;
-}
 
-.btn-danger {
-  background-color: #dc3545;
-  color: #ffffff;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-}
-
-.btn-success {
-  background-color: #28a745;
-  color: #ffffff;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: #ffffff;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-}
-
-/* ===== Alert de Nenhuma Atividade Encontrada ===== */
-.alert-info {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
-  padding: 10px 15px;
-  border-radius: 8px;
-  font-size: 1em;
-}
-
-/* ===== Estilo de Respostas e Status ===== */
-.resposta-section {
-  background-color: #f8f9fa;
-  padding: 16px;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-
-.resposta-textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ced4da;
-  border-radius: 8px;
-  resize: vertical;
-  min-height: 80px;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
-  transition: border-color 0.3s ease;
-}
-
-.resposta-textarea:focus {
-  outline: none;
-  border-color: #0095e5;
-}
-
-.btn-enviar {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.btn-enviar:hover {
-  background-color: #218838;
-}
-
-.status-enviado {
-  background-color: #28a745;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 10px;
-  font-size: 1rem;
-}
-
-/* ===== Loading Spinner ===== */
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: inline-block;
-  margin-right: 6px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.table thead th:last-child,
+.table tbody td:last-child{
+  width: 260px; 
 }
