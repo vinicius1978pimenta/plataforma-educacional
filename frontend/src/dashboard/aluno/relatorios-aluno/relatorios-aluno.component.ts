@@ -2,16 +2,115 @@ import {
   Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { lastValueFrom } from 'rxjs';
 import { AtividadeService } from '../../../services/atividade.service';
 import { AuthService } from '../../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 
+// ---------- NITIDEZ ----------
+const DPR = Math.min(3, Math.ceil(window.devicePixelRatio || 1));
+Chart.defaults.devicePixelRatio = DPR;
 
+// ---------- Plugin: valor no centro da barra ----------
+const valueInBarPlugin = {
+  id: 'valueInBar',
+  afterDatasetsDraw(chart: any, _args: any, pluginOptions: any) {
+    const { ctx } = chart;
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = pluginOptions?.font || '700 12px Inter, system-ui, sans-serif';
+
+    const minInside = pluginOptions?.minInsideHeight ?? 18;
+    const formatter = pluginOptions?.formatter || ((v: number) => String(v));
+    const color = pluginOptions?.color || '#ffffff';
+
+    chart.data.datasets.forEach((ds: any, di: number) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.type !== 'bar' || !chart.isDatasetVisible(di)) return;
+
+      meta.data.forEach((bar: any, i: number) => {
+        const raw = Number(ds.data?.[i] ?? 0);
+        if (isNaN(raw)) return;
+
+        const x = bar.x;
+        const yTop = bar.y;
+        const yBase = bar.base;
+        const h = Math.abs(yBase - yTop);
+        const y = h >= minInside ? (yTop + (yBase - yTop) / 2) : (yTop - 8);
+
+        ctx.fillStyle = color;
+        ctx.fillText(formatter(raw, { datasetIndex: di, dataIndex: i }), x, y);
+      });
+    });
+
+    ctx.restore();
+  }
+};
+Chart.register(valueInBarPlugin);
+
+
+// --- Números sobre os arcos do doughnut ---
+const valueOnArcPlugin = {
+  id: 'valueOnArc',
+  afterDatasetsDraw(chart: any, _args: any, pluginOptions: any) {
+    const { ctx } = chart;
+
+    chart.data.datasets.forEach((ds: any, di: number) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.type !== 'doughnut' || !chart.isDatasetVisible(di)) return;
+
+      const dataArr = Array.isArray(ds.data) ? ds.data : [];
+      const total = dataArr.reduce((a: number, b: any) => a + Number(b ?? 0), 0) || 1;
+
+      meta.data.forEach((arc: any, i: number) => {
+        const raw = Number(dataArr[i] ?? 0);
+        if (!isFinite(raw) || raw <= 0) return;
+
+        const pct = Math.round((raw / total) * 100);
+        const minPct = pluginOptions?.minPercentToShow ?? 0;
+        if (pct < minPct) return;
+
+        // pega geometria atual do arco (compatível com animação do Chart.js 4)
+        const p = arc.getProps(['startAngle','endAngle','innerRadius','outerRadius','x','y'], true);
+        const ang = (p.startAngle + p.endAngle) / 2;
+        const r = (p.innerRadius + p.outerRadius) / 2;
+
+        const x = p.x + Math.cos(ang) * r;
+        const y = p.y + Math.sin(ang) * r;
+
+        const font = pluginOptions?.font || '700 12px Inter, system-ui, sans-serif';
+        const color = pluginOptions?.color || '#ffffff';
+        const outlineWidth = pluginOptions?.outlineWidth ?? 3;
+        const outlineColor = pluginOptions?.outlineColor ?? 'rgba(0,0,0,.35)';
+
+        const text = typeof pluginOptions?.formatter === 'function'
+          ? pluginOptions.formatter(raw, pct, { datasetIndex: di, dataIndex: i })
+          : `${pct}%`;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = font;
+
+        if (outlineWidth) {
+          ctx.lineWidth = outlineWidth;
+          ctx.strokeStyle = outlineColor;
+          ctx.strokeText(text, x, y);
+        }
+        ctx.fillStyle = color;
+        ctx.fillText(text, x, y);
+        ctx.restore();
+      });
+    });
+  }
+};
+Chart.register(valueOnArcPlugin);
+
+// ---------- Tipos ----------
 type RespostaAluno = {
   status?: 'ENVIADA' | 'CORRIGIDA';
   nota?: number | null;
@@ -26,9 +125,9 @@ type RespostaAluno = {
   styleUrls: ['./relatorios-aluno.component.scss'],
 })
 export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
-  @ViewChild('chartStatus') chartStatusRef!: ElementRef<HTMLCanvasElement>;
-  @ViewChild('chartNotas')  chartNotasRef!:  ElementRef<HTMLCanvasElement>;
-  @ViewChild('chartMaterias') chartMateriasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartStatus')    chartStatusRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartNotas')     chartNotasRef!:  ElementRef<HTMLCanvasElement>;
+  @ViewChild('chartMaterias')  chartMateriasRef!: ElementRef<HTMLCanvasElement>;
 
   loading = false;
   erro?: string;
@@ -46,7 +145,6 @@ export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
 
   materiasLabels: string[] = [];
   notasPorMateria: number[] = [];
-
 
   private chartStatus?: Chart;
   private chartNotas?: Chart;
@@ -136,37 +234,37 @@ export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
   }
 
   private calcularNotasPorMateria() {
-  const map = new Map<string, number>();
-  for (const a of this.atividades) {
-    if (a?.materia && a.status === 'CORRIGIDA' && typeof a.nota === 'number') {
-      map.set(a.materia, (map.get(a.materia) || 0) + a.nota);
+    const map = new Map<string, number>();
+    for (const a of this.atividades) {
+      if (a?.materia && a.status === 'CORRIGIDA' && typeof a.nota === 'number') {
+        map.set(a.materia, (map.get(a.materia) || 0) + a.nota);
+      }
     }
+    const entries = Array.from(map.entries());
+    this.materiasLabels = entries.map(([m]) => m);
+    this.notasPorMateria = entries.map(([, v]) => v);
   }
-  const entries = Array.from(map.entries());
-  this.materiasLabels = entries.map(([m]) => m);
-  this.notasPorMateria = entries.map(([, v]) => v);
-}
 
   private renderCharts() {
     this.destroyCharts();
     if (!this.chartStatusRef?.nativeElement || !this.chartNotasRef?.nativeElement) return;
 
-    // Doughnut
+    // ---------------- Doughnut: Status ----------------
     this.chartStatus = new Chart(this.chartStatusRef.nativeElement, {
       type: 'doughnut',
       data: {
         labels: ['A fazer', 'Aguardando correção', 'Corrigidas'],
         datasets: [{
           data: [this.pendentes, this.aguardandoCorrecao, this.corrigidas],
-          backgroundColor: ['#9ca3af', '#f59e0b', '#16a34a'],
+          backgroundColor: ['#8a73beff', '#def50bff', '#17c958ff'],
           borderWidth: 0,
         }],
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false, // usa altura do contêiner
+        maintainAspectRatio: false,
         plugins: {
-          legend: { position: 'bottom', labels: { font: { size: 12 } } },
+          legend: { position: 'bottom', labels: { font: { size: 15 } } },
           title:  { display: true, text: 'Status das atividades', font: { size: 16 } },
           tooltip: {
             callbacks: {
@@ -179,50 +277,99 @@ export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
               },
             },
           },
+      ...( { valueOnArc: {
+      font: '800 17px Inter, system-ui, sans-serif',
+      color: '#ffffff',
+      outlineColor: 'rgba(0,0,0,.35)',
+      outlineWidth: 3,
+      minPercentToShow: 0,
+      formatter: (valor: number) => String(valor),
+    }} as any ),
         },
       },
     });
 
-    // Barras: Pontuação vs Nota
-    this.chartNotas = new Chart(this.chartNotasRef.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['Distribuída', 'Obtida'],
-        datasets: [{
-          data: [this.pontuacaoDistribuida, this.notaObtida],
-          backgroundColor: ['#93c5fd', '#60a5fa'],
-          borderWidth: 0,
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, // usa altura do contêiner
-        plugins: {
-          legend: { display: false, labels: { font: { size: 12 } } },
-          title:  { display: true, text: 'Pontuação vs Nota', font: { size: 16 } },
-        },
-        scales: {
-          x: { ticks: { font: { size: 12 } } },
-          y: { beginAtZero: true, ticks: { precision: 0, font: { size: 12 } } },
-        },
-      },
-    });
-
-    this.chartMaterias = new Chart(this.chartMateriasRef.nativeElement, {
+    // ---------------- Barras: Pontuação vs Nota ----------------
+   this.chartNotas = new Chart(this.chartNotasRef.nativeElement, {
+  type: 'bar',
   data: {
-    labels: this.materiasLabels,
-    datasets: [
-      { type: 'bar',  label: 'Minhas notas', data: this.notasPorMateria, backgroundColor: '#60a5fa', borderWidth: 0 },
-      { type: 'line', label: 'Meta 60',      data: this.materiasLabels.map(() => 60), backgroundColor:'rgba(74, 119, 93, 1)', borderWidth: 3, borderDash: [12,4], pointRadius: 0, fill: false },
-    ],
+    labels: ['Distribuída', 'Obtida'],
+    datasets: [{
+      data: [this.pontuacaoDistribuida, this.notaObtida],
+      backgroundColor: ['#93c5fd', '#60a5fa'],
+      borderWidth: 0,
+    }],
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Notas por matéria (meta 60)' } },
-    scales: { y: { beginAtZero: true } },
+    plugins: {
+      legend: { display: false, labels: { font: { size: 12 } } },
+      title:  { display: true, text: 'Pontuação vs Nota', font: { size: 16 } },
+
+      // <<< AQUI dentro de plugins, com spread e cast >>>
+      ...( { valueInBar: {
+        font: '800 17px Inter, system-ui, sans-serif',
+        color: '#ffffff',
+        minInsideHeight: 18,
+        // formatter: (v: number) => v.toFixed(0),
+      }} as any ),
+    },
+    scales: {
+      x: { ticks: { font: { size: 15 } } },
+      y: { beginAtZero: true, ticks: { precision: 0, font: { size: 12 } } },
+    },
   },
 });
+
+    // ---------------- Barras: Notas por matéria (ÚNICO, com números nas barras) ----------------
+    const LIMITE_AZUL  = 30;
+    const LIMITE_VERDE = 60;
+    const colorFor = (v: number) => (v >= LIMITE_VERDE ? '#16a34a' : v >= LIMITE_AZUL ? '#3b82f6' : '#ef4444');
+
+    this.chartMaterias = new Chart(this.chartMateriasRef.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: this.materiasLabels,
+        datasets: [{
+          label: 'Minhas notas',
+          data: this.notasPorMateria,
+          borderWidth: 0,
+          backgroundColor: (ctx: any) => colorFor(Number(ctx.raw ?? 0)),
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom' },
+          title:  { display: true, text: 'Notas por matéria' },
+          tooltip: {
+            callbacks: {
+              label: (ctx: any) => {
+                const v = Number(ctx.raw ?? 0);
+                const faixa = v >= LIMITE_VERDE ? 'verde (≥ 60)'
+                          : v >= LIMITE_AZUL  ? 'azul (30–59)'
+                          :                     'vermelho (< 30)';
+                return `${ctx.dataset.label}: ${v} — ${faixa}`;
+              },
+            },
+          },
+          // Use index signature to allow custom plugin options
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ...( { valueInBar: {
+            font: '700 17px Inter, system-ui, sans-serif',
+            color: '#ffffff',
+            minInsideHeight: 18,
+            // formatter: (v: number) => v.toFixed(0), // se quiser arredondar
+          }} as any ),
+        },
+        // (opcional) travar até 100
+        scales: { 
+           x: { ticks: { font: { size: 15 } } },
+          y: { beginAtZero: true, max: 100, ticks: { stepSize: 10 } } },
+      },
+    });
   }
 
   private destroyCharts() {
@@ -231,7 +378,7 @@ export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
     this.chartMaterias?.destroy();
   }
 
-    voltar() {
+  voltar() {
     this.router.navigate(['/dashboard-aluno']);
   }
 }

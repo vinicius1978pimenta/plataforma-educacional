@@ -1,13 +1,11 @@
 
-.card { border-radius: 12px; }
-
-.chart-box { height: 360px; }
-
-canvas {
-  width: 100% !important;
-  height: 100% !important;
-  image-rendering: auto;
+.chart-box { position: relative; height: 360px; } /* mantém a altura no contêiner */
+.chart-box > canvas {
+  width: 100%;   /* sem !important */
+  height: 100%;  /* sem !important */
+  display: block;
 }
+
 
 
 .mb-2 {
@@ -16,13 +14,10 @@ canvas {
 
 /* ===== Container Principal ===== */
 .container {
-  max-width: 1200px;
-  margin: 50px auto;
+  max-width: 100%;
+  margin: auto;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e6e8eb;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   font-family: 'Inter', sans-serif;
 }
 
@@ -54,21 +49,29 @@ h1 {
   border: 1px solid #f5c6cb;
 }
 
-/* ===== Header e Botão ===== */
+
+/* ===== Botão Voltar ===== */
 .header-actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+  justify-content: space-between; /* Garante que o título e o botão se alinhem ao longo do eixo principal */
+  align-items: center; /* Alinha o título e o botão verticalmente */
+  margin-bottom: 20px; /* Espaçamento inferior entre a seção de título e a parte de conteúdo */
+  background: linear-gradient(135deg, #02285d, #4fc3f7);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgb(138, 136, 136)
 }
 
 
-h1 {
-  font-size: 2.4em;
+h2 {
+  font-size: 2.2em;
   font-weight: 700;
-  color: #003366;
-  margin-bottom: 0;
+  color: #ffffff;
+  margin-bottom: 0; /* Remove o espaçamento inferior */
+  
 }
+
+
 
 .btn-secondary {
   background-color: #6c757d;
