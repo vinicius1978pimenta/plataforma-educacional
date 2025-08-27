@@ -24,7 +24,7 @@ interface AtividadeForm {
 @Component({
   selector: 'app-criar-atividade',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ],
   templateUrl: './criar-atividade.component.html',
   styleUrls: ['./criar-atividade.component.scss']
 })
