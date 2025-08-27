@@ -233,6 +233,17 @@ body {
   left: 100%;
 }
 
+/*.btn-login {
+  background: transparent;
+  color: #02285f;
+  border-color: #02285f;
+}
+.btn-login:hover {
+  background: #02285f;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
+}*/
 .btn-login {
   background: transparent;
   color: #02285f;
@@ -245,17 +256,28 @@ body {
   box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
 }
 
-.btn-home {
+/*.btn-home {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: #ffffff;
   border-color: #28a745;
 }
+
 .btn-home:hover {
   background: linear-gradient(135deg, #218838 0%, #1ea980 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}*/
+.btn-home {
+  background: transparent;
+  color: #02285f;
+  border-color: #02285f;
 }
-
+.btn-home:hover {
+  background: #02285f;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
+}
 .login-link-section {
   text-align: center;
   padding-top: 15px;

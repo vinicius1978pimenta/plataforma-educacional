@@ -9,7 +9,7 @@ import { AtividadeService } from '../../../services/atividade.service';
 import { AuthService } from '../../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 
 type RespostaAluno = {
@@ -21,7 +21,7 @@ type RespostaAluno = {
 @Component({
   selector: 'app-relatorios-aluno',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, Navbar2Component],
   templateUrl: './relatorios-aluno.component.html',
   styleUrls: ['./relatorios-aluno.component.scss'],
 })

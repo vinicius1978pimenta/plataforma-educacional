@@ -4,11 +4,12 @@ import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-perfil-aluno',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
   templateUrl: './perfil-aluno.component.html',
   styleUrls: ['./perfil-aluno.component.scss'],
 })
