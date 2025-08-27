@@ -2,18 +2,113 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef 
 import { CommonModule } from '@angular/common';
 import Chart from 'chart.js/auto';
 import { lastValueFrom } from 'rxjs';
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../../navbar/navbar.component';
+import { Navbar2Component } from '../../../../navbar2/navbar2.component';
+
 
 type Resposta = { status: 'ENVIADA'|'CORRIGIDA'; nota?: number|null };
+
+// ---------- NITIDEZ  ----------
+const DPR = Math.min(3, Math.ceil(window.devicePixelRatio || 1));
+Chart.defaults.devicePixelRatio = DPR;
+
+// ---------- Plugin: valor no centro da barra  ----------
+const valueInBarPlugin = {
+  id: 'valueInBar',
+  afterDatasetsDraw(chart: any, _args: any, pluginOptions: any) {
+    const { ctx } = chart;
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = pluginOptions?.font || '700 12px Inter, system-ui, sans-serif';
+
+    const minInside = pluginOptions?.minInsideHeight ?? 18;
+    const formatter = pluginOptions?.formatter || ((v: number) => String(v));
+    const color = pluginOptions?.color || '#ffffff';
+
+    chart.data.datasets.forEach((ds: any, di: number) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.type !== 'bar' || !chart.isDatasetVisible(di)) return;
+
+      meta.data.forEach((bar: any, i: number) => {
+        const raw = Number(ds.data?.[i] ?? 0);
+        if (!isNaN(raw)) {
+          const x = bar.x;
+          const yTop = bar.y;
+          const yBase = bar.base;
+          const h = Math.abs(yBase - yTop);
+          const y = h >= minInside ? (yTop + (yBase - yTop) / 2) : (yTop - 8);
+
+          ctx.fillStyle = color;
+          ctx.fillText(formatter(raw, { datasetIndex: di, dataIndex: i }), x, y);
+        }
+      });
+    });
+
+    ctx.restore();
+  }
+};
+Chart.register(valueInBarPlugin);
+
+// --- Números sobre os arcos do doughnut ---
+const valueOnArcPlugin = {
+  id: 'valueOnArc',
+  afterDatasetsDraw(chart: any, _args: any, pluginOptions: any) {
+    const { ctx } = chart;
+
+    chart.data.datasets.forEach((ds: any, di: number) => {
+      const meta = chart.getDatasetMeta(di);
+      if (meta.type !== 'doughnut' || !chart.isDatasetVisible(di)) return;
+
+      const dataArr = Array.isArray(ds.data) ? ds.data : [];
+      const total = dataArr.reduce((a: number, b: any) => a + Number(b ?? 0), 0) || 1;
+
+      meta.data.forEach((arc: any, i: number) => {
+        const raw = Number(dataArr[i] ?? 0);
+        if (!isFinite(raw) || raw <= 0) return;
+
+        // geometria atual do arco
+        const p = arc.getProps(['startAngle','endAngle','innerRadius','outerRadius','x','y'], true);
+        const ang = (p.startAngle + p.endAngle) / 2;
+        const r = (p.innerRadius + p.outerRadius) / 2;
+
+        const x = p.x + Math.cos(ang) * r;
+        const y = p.y + Math.sin(ang) * r;
+
+        const font = pluginOptions?.font || '700 12px Inter, system-ui, sans-serif';
+        const color = pluginOptions?.color || '#ffffff';
+        const outlineWidth = pluginOptions?.outlineWidth ?? 3;
+        const outlineColor = pluginOptions?.outlineColor ?? 'rgba(0,0,0,.35)';
+
+        const text = typeof pluginOptions?.formatter === 'function'
+          ? pluginOptions.formatter(raw, 0, { datasetIndex: di, dataIndex: i }) // aqui usamos só o valor bruto
+          : String(raw);
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = font;
+
+        if (outlineWidth) {
+          ctx.lineWidth = outlineWidth;
+          ctx.strokeStyle = outlineColor;
+          ctx.strokeText(text, x, y);
+        }
+        ctx.fillStyle = color;
+        ctx.fillText(text, x, y);
+        ctx.restore();
+      });
+    });
+  }
+};
+Chart.register(valueOnArcPlugin);
 
 @Component({
   selector: 'app-relatorios-professor',
   standalone: true,
-  imports: [CommonModule,NavbarComponent],
+  imports: [CommonModule, Navbar2Component],
   templateUrl: './relatorios-professor.component.html',
   styleUrls: ['./relatorios-professor.component.scss'],
 })
@@ -113,7 +208,7 @@ export class RelatoriosProfessorComponent implements OnInit, OnDestroy {
     this.destroyCharts();
     if (!this.chartStatusRef?.nativeElement || !this.chartMateriasRef?.nativeElement) return;
 
-    // 1) Status agregado de respostas
+    // 1) Status agregado de respostas (DOUGHNUT com números nas fatias)
     this.chartStatus = new Chart(this.chartStatusRef.nativeElement, {
       type: 'doughnut',
       data: {
@@ -127,9 +222,10 @@ export class RelatoriosProfessorComponent implements OnInit, OnDestroy {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        cutout: '55%', // abre espaço para texto confortável
         plugins: {
-          legend: { position: 'bottom' },
-          title: { display: true, text: 'Status das respostas (todas as atividades)' },
+          legend: { position: 'bottom', labels: { font: { size: 15 } } },
+          title: { display: true, text: 'Status de todas as atividades)' },
           tooltip: {
             callbacks: {
               label: (ctx: any) => {
@@ -141,11 +237,20 @@ export class RelatoriosProfessorComponent implements OnInit, OnDestroy {
               },
             },
           },
+          // <<< números brutos em cada fatia >>>
+          ...( { valueOnArc: {
+            font: '800 17px Inter, system-ui, sans-serif',
+            color: '#ffffff',
+            outlineColor: 'rgba(0,0,0,.35)',
+            outlineWidth: 3,
+            minPercentToShow: 0,
+            formatter: (valor: number) => String(valor),
+          } } as any ),
         },
       },
     });
 
-    // 2) Pontos distribuídos por matéria + meta 100
+    // 2) Pontos distribuídos por matéria + meta 100 (BARRA + LINHA) com números nas barras
     const meta = 100;
     const topo = Math.max(meta, ...(this.pontosPorMateria || [0])) + 5;
 
@@ -153,17 +258,46 @@ export class RelatoriosProfessorComponent implements OnInit, OnDestroy {
       data: {
         labels: this.materiasLabels,
         datasets: [
-          { type: 'bar',  label: 'Pontos distribuídos', data: this.pontosPorMateria, backgroundColor: '#60a5fa', borderWidth: 0, order: 1 },
-          { type: 'line', label: 'Meta 100', data: this.materiasLabels.map(() => meta),
-            borderColor: '#ef4444', borderWidth: 3, borderDash: [10,6], pointRadius: this.materiasLabels.length === 1 ? 4 : 0,
-            fill: false, order: 2, clip: false },
+          {
+            type: 'bar',
+            label: 'Pontos distribuídos',
+            data: this.pontosPorMateria,
+            backgroundColor: '#60a5fa',
+            borderWidth: 0,
+            order: 1
+          },
+          {
+            type: 'line',
+            label: 'Pontos liberados',
+            data: this.materiasLabels.map(() => meta),
+            borderColor: '#f7c3a0ff',
+            borderWidth: 3,
+            borderDash: [10,6],
+            pointRadius: this.materiasLabels.length === 1 ? 4 : 0,
+            fill: false,
+            order: 2,
+            clip: false
+          },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: 'bottom' }, title: { display: true, text: 'Pontos por matéria (meta 100 anual)' } },
-        scales: { y: { beginAtZero: true, suggestedMax: topo } },
+        plugins: {
+          legend: { position: 'bottom' },
+          title: { display: true, text: 'Pontos por matéria' },
+
+          // <<< números dentro das barras (apenas no dataset de barras) >>>
+          ...( { valueInBar: {
+            font: '700 17px Inter, system-ui, sans-serif',
+            color: '#ffffff',
+            minInsideHeight: 18,
+            // formatter: (v: number) => v.toFixed(0),
+          } } as any ),
+        },
+        scales: {
+           x: { ticks: { font: { size: 15 } } },
+           y: { beginAtZero: true, suggestedMax: topo } },
       },
     });
   }
@@ -173,7 +307,7 @@ export class RelatoriosProfessorComponent implements OnInit, OnDestroy {
     this.chartMaterias?.destroy();
   }
 
-     voltar() {
+  voltar() {
     this.router.navigate(['/dashboard-aluno']);
   }
 }

@@ -5,11 +5,12 @@ import {  RouterModule } from '@angular/router';
 import { ConteudoService } from '../../../../services/conteudo.service';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { ConteudoCreate, ConteudoLink, ConteudoUpdate } from '../../../../services/interfaces/conteudo-create.model';
+import { Navbar2Component } from "../../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-criar-conteudo',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule, Navbar2Component],
   templateUrl: './criar-conteudo.component.html',
   styleUrls: ['./criar-conteudo.component.scss']
 })

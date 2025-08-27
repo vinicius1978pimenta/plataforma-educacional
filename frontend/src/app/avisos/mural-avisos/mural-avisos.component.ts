@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AvisosService, Aviso } from '../../../services/avisos.service';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-mural-avisos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, Navbar2Component],
   templateUrl: './mural-avisos.component.html',
   styleUrl: './mural-avisos.component.scss'
 })

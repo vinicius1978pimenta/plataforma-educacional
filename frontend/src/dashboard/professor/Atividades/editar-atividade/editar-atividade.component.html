@@ -1,85 +1,101 @@
+<app-navbar2></app-navbar2>
 <div class="container">
   <h2 class="mb-4">Editar Atividade</h2>
 
-  <form (ngSubmit)="salvarAlteracoes()" #atividadeForm="ngForm">
-    <div class="form-group">
-      <label for="titulo">Título</label>
-      <input
-        id="titulo"
-        name="titulo"
-        [(ngModel)]="atividade.titulo"
-        class="form-control"
-        required />
-    </div>
 
-    <div class="form-group">
-      <label for="conteudo">Conteúdo</label>
-      <textarea
-        id="conteudo"
-        name="conteudo"
-        [(ngModel)]="atividade.conteudo"
-        class="form-control"
-        required></textarea>
-    </div>
+<div class="container container--full">
+  <!-- Header -->
+  <div class="header-actions">
+    <h2>Editar Atividade</h2>
+  </div>
 
-    <div class="form-group">
-      <label for="materia">Matéria</label>
-      <input
-        id="materia"
-        name="materia"
-        [(ngModel)]="atividade.materia"
-        class="form-control"
-        required />
-    </div>
+  <!-- Card do formulário -->
+  <div class="card form-card">
+    <div class="card-body">
+      <form (ngSubmit)="salvarAlteracoes()" #atividadeForm="ngForm">
+        <!-- Grid de campos (exceto conteúdo) -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input
+              id="titulo"
+              name="titulo"
+              [(ngModel)]="atividade.titulo"
+              class="form-control"
+              required />
+          </div>
 
-    <div class="form-group">
-      <label for="tipo">Tipo</label>
-      <select
-        id="tipo"
-        name="tipo"
-        [(ngModel)]="atividade.tipo"
-        class="form-control">
-        <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
-      </select>
-    </div>
+          <div class="form-group">
+            <label for="materia">Matéria</label>
+            <input
+              id="materia"
+              name="materia"
+              [(ngModel)]="atividade.materia"
+              class="form-control"
+              required />
+          </div>
 
-    <div class="form-group">
-      <label for="dificuldade">Dificuldade</label>
-      <select
-        id="dificuldade"
-        name="dificuldade"
-        [(ngModel)]="atividade.dificuldade"
-        class="form-control">
-        <option *ngFor="let dificuldade of dificuldades" [value]="dificuldade">{{ dificuldade }}</option>
-      </select>
-    </div>
+          <div class="form-group">
+            <label for="tipo">Tipo</label>
+            <select
+              id="tipo"
+              name="tipo"
+              [(ngModel)]="atividade.tipo"
+              class="form-control">
+              <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+            </select>
+          </div>
 
+          <div class="form-group">
+            <label for="dificuldade">Dificuldade</label>
+            <select
+              id="dificuldade"
+              name="dificuldade"
+              [(ngModel)]="atividade.dificuldade"
+              class="form-control">
+              <option *ngFor="let dificuldade of dificuldades" [value]="dificuldade">{{ dificuldade }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="dataVencimento">Data de Vencimento</label>
+            <input
+              type="date"
+              id="dataVencimento"
+              name="dataVencimento"
+              [(ngModel)]="atividade.dataVencimento"
+              class="form-control" />
+          </div>
+
+          <div class="form-group form-check">
+            <input
+              id="ativa"
+              type="checkbox"
+              name="ativa"
+              [(ngModel)]="atividade.ativa"
+              class="form-check-input" />
+            <label for="ativa" class="form-check-label">Ativa</label>
+          </div>
+        </div>
+
+        <!-- Conteúdo (full width) -->
         <div class="form-group">
-      <label for="dataVencimento">Data de Vencimento</label>
-      <input
-        type="date"
-        id="dataVencimento"
-        name="dataVencimento"
-        [(ngModel)]="atividade.dataVencimento"
-        class="form-control" />
+          <label for="conteudo">Conteúdo</label>
+          <textarea
+            id="conteudo"
+            name="conteudo"
+            [(ngModel)]="atividade.conteudo"
+            class="form-control"
+            rows="6"
+            required></textarea>
+        </div>
+
+        <!-- Ações -->
+        <div class="form-footer">
+          <button type="button" class="btn btn-danger" routerLink="/atividades">Cancelar</button>
+          <button type="submit" class="btn btn-success">Salvar Alterações</button>
+        </div>
+      </form>
     </div>
-
-
-    <div class="form-group form-check mt-3">
-      <input
-        id="ativa"
-        type="checkbox"
-        name="ativa"
-        [(ngModel)]="atividade.ativa"
-        class="form-check-input" />
-      <label for="ativa" class="form-check-label">Ativa</label>
-    </div>
-
-    <button type="submit" class="btn btn-success w-100 mt-4">
-      Salvar Alterações
-    </button>
-     <button type="submit" class="btn btn-danger w-100 mt-4" routerLink="/atividades">
-      Cancelar
-    </button>
-  </form>
+  </div>
 </div>

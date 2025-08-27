@@ -3,13 +3,14 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Navbar2Component } from "../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-material-atividades-list',
   standalone: true,
   styleUrls: ['./material-atividades-list.component.scss'],
   templateUrl: './material-atividades-list.component.html',
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
 })
 export class MaterialAtividadesListComponent implements OnInit {
   atividades: any[] = [];
