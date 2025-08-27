@@ -13,6 +13,11 @@
   width: 70px;
 }
 
+.sidebar.collapsed .nav-text {
+  opacity: 0;
+  width: 0; /* Faz o texto ocupar 0 largura quando colapsado */
+  overflow: hidden; /* Garante que o texto não vaze */
+}
 .sidebar-toggle {
   position: absolute;
   top: 15px;
@@ -50,15 +55,15 @@
   margin: 0;
 }
 
-.nav-item {
-  margin: 0.5rem 0;
-}
-
 .nav-text {
   font-weight: 500;
   white-space: nowrap;
   opacity: 1;
   transition: opacity 0.3s ease, width 0.3s ease; /* Adicionado 'width' para transição */
+}
+
+.nav-item {
+  margin: 0.5rem 0;
 }
 
 .nav-link {
@@ -110,12 +115,12 @@
 
 .sidebar.collapsed .nav-link span {
   opacity: 0;
-  overflow: hidden;
 }
 
 .sidebar.collapsed .nav-link {
   justify-content: center;
   padding: 1rem;
+
 }
 
 .sidebar.collapsed .nav-link i {
@@ -124,7 +129,8 @@
 
 /* Tooltip para sidebar colapsada */
 .sidebar.collapsed .nav-link {
-  position: relative;
+  position: center;
+  padding: 1rem;
 }
 
 .sidebar.collapsed .nav-link:hover::after {

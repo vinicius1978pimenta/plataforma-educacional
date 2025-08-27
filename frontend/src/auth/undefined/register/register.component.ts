@@ -65,10 +65,8 @@ export class RegisterComponent {
         console.log('Cadastro realizado com sucesso', response);
         this.successMessage = 'Cadastro realizado com sucesso! Redirecionando para login...';
         
-        // Redireciona para login após 2 segundos
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+        // Redireciona para login imediatamente
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Erro no cadastro', error);

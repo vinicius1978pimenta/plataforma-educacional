@@ -91,8 +91,16 @@
   transition: opacity 0.3s ease;
 }
 
+.nav-text {
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.3s ease, width 0.3s ease; /* Adicionado 'width' para transição */
+}
+
 .sidebar.collapsed .nav-link span {
   opacity: 0;
+  overflow: hidden;
 }
 
 .sidebar.collapsed .nav-link {
