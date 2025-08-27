@@ -7,17 +7,20 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow-x: hidden;
 }
 
-.container {
+.login-wrapper {
    width: 100%;
     max-width: 1400px;
-    height: 135vh;
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: linear-gradient(135deg, #02285f 0%, #102f5b 50%, #02285f 100%);
+    background: #ffffff;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-}
+    margin: 0 auto; 
+    overflow: hidden;
+  }
 
 
 .hero-section {
@@ -31,8 +34,8 @@ body {
             order: 1;
 }
 
-.register-form-section {
-  padding: 5px 20px 10px;
+.login-form-section {
+  padding: 10px 40px 15px;
   display: flex; flex-direction: column; justify-content: center;
   background: #fff;
   position: relative;
@@ -42,36 +45,47 @@ body {
 
 .logo-sistema {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 35px;
 }
-.logo-sistema h2 {
-  font-size: 36px; color: #02285f;
-  font-weight: 300; letter-spacing: -1px;
-  margin: 0; position: relative;
+.logo-sistema h1 {
+  font-size: 36px;
+  color: #02285f;
+  font-weight: 300;
+  letter-spacing: -1px;
+  margin: 0;
+  position: relative;
 }
-.logo-sistema h2::after {
+.logo-sistema h1::after {
   content: '';
-  width: 50px; height: 3px;
+  width: 50px;
+  height: 3px;
   background: #02285f;
   position: absolute;
-  bottom: -12px; left: 50%;
+  bottom: -12px;
+  left: 50%;
   transform: translateX(-50%);
 }
 
 .welcome-section {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
 }
-.welcome-section h3 {
-  font-size: 30px; color: #02285f;
-  font-weight: 300; margin-bottom: 5px;
+
+.welcome-section h2 {
+  font-size: 30px;
+  color: #02285f;
+  font-weight: 300;
+  margin-bottom: 5px;
   letter-spacing: -0.5px;
 }
+
 .welcome-section p {
-  color: #666; font-size: 16px; font-weight: 300;
+  color: #666;
+  font-size: 16px;
+  font-weight: 300;
 }
 
-.register-form {
+.login-form {
   max-width: 380px;
   margin: 0 auto;
   width: 100%;
@@ -208,8 +222,10 @@ body {
 .nav-btn::before {
   content: '';
   position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.5s ease;
 }
@@ -217,31 +233,51 @@ body {
   left: 100%;
 }
 
+/*.btn-login {
+  background: transparent;
+  color: #02285f;
+  border-color: #02285f;
+}
+.btn-login:hover {
+  background: #02285f;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
+}*/
 .btn-login {
   background: transparent;
   color: #02285f;
   border-color: #02285f;
-  
 }
 .btn-login:hover {
   background: #02285f;
-  color: #fff;
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(2,40,95,0.3);
-  
+  box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
 }
 
-.btn-home {
+/*.btn-home {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-  color: #fff;
+  color: #ffffff;
   border-color: #28a745;
 }
+
 .btn-home:hover {
   background: linear-gradient(135deg, #218838 0%, #1ea980 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(40,167,69,0.3);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}*/
+.btn-home {
+  background: transparent;
+  color: #02285f;
+  border-color: #02285f;
 }
-
+.btn-home:hover {
+  background: #02285f;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
+}
 .login-link-section {
   text-align: center;
   padding-top: 15px;
@@ -363,6 +399,7 @@ body {
     linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
   background-size: 50px 50px;
   animation: slide 20s linear infinite;
+  
 }
 
 @keyframes glow {
@@ -391,7 +428,7 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .container {
+  .login-wrapper {
     grid-template-columns: 1fr;
     max-width: 600px;
     margin: 0 20px;
@@ -400,25 +437,20 @@ body {
     display: none;
     height: 100%;
   }
-  .register-form-section {
+  .login-form-section {
     padding: 40px 30px;
     order: 1;
   }
 }
 
 @media (max-width: 768px) {
-  .container {
+  .login-wrapper {
     margin: 0 10px;
     height: auto;
     min-height: 85vh;
   }
-  .register-form-section {
-    padding: 30px 20px;
-  }
+  
 }
-.logo {
-  border-radius: 10px;
-  overflow: hidden; /* para cortar cantos da imagem */
-  display: inline-block; /* para ajustar tamanho ao conteúdo */
-  border: 1px solid #ccc; /* opcional */
+.logo img {
+  border-radius: 8px !important;
 }

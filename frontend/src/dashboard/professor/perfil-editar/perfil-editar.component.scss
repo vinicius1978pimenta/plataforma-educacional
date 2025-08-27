@@ -1,3 +1,107 @@
+
+.navbar {
+    height: 60px;
+    background: linear-gradient(135deg,#89acd2 0%, #02285d  100%);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    box-shadow: 0 4px 20px rgba(2, 40, 93, 0.3);
+    border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+    
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .navbar-brand i {
+    font-size: 1.8rem;
+    color: #4fc3f7;
+  }
+  .navbar-brand img {
+    width: 40px;        
+    height: 40px;       
+    object-fit: contain; 
+    margin-right: 8px;   
+    vertical-align: middle; 
+    border-radius: 10px;
+  }
+  .logout-btn {
+    background: linear-gradient(45deg, #e30719, #e60b25);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+  }
+
+ .container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-control {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.botoes-salvar {
+  display: block;
+  margin-left: auto;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #092D5D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.botoes-salvar:hover {
+  background-color: #092D5D;
+}
+
 /* ===== Container Principal ===== */
 .container {
   max-width: 1200px;
@@ -138,3 +242,4 @@ input.form-control:focus {
     margin-bottom: 15px;
   }
 }
+

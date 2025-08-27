@@ -1,25 +1,13 @@
-<div class="dashboard">
-
-  <div class="botao-sair"><button (click)="logout()">Sair</button></div>
-
-      <div class="dashboard-header">
-        <h1>Bem-vindo, {{ currentUser.name }}</h1>
-        <app-user-profile></app-user-profile>
+ <div class="dashboard-container">
+  <app-navbar></app-navbar>
+  
+  <div class="main-content">
+    <app-sidebar></app-sidebar>
+    
+    <div class="content-area">
+      <div class="dashboard-content">
+        <app-card></app-card>
       </div>
-
-
-      <div class="card">
-        <h3>Acompanhe seu filho</h3>
-        <p>Visualizar o acompanhamento do seu filho(a)</p>
-        <button class="btn-primary" routerLink="/dashboard-responsaveis/acompanhamento-filhos">Acompanhe seu filho</button>
-      </div>
-
-        <div class="card">
-          <h3>Atividades em andamento</h3>
-          <p>Visualizar atividades em andamento</p>
-          <button class="btn-primary">Ver Atividades</button>
-        </div>
-
-
-
-      </div>
+    </div>
+  </div>
+</div>

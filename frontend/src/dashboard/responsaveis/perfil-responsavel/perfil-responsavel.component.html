@@ -1,11 +1,12 @@
+<app-navbar2></app-navbar2>
+
 <div class="container">
-  <h2 class="mb-4">Editar Perfil</h2>
   <div class="d-flex gap-4 align-items-stretch">
 
     <form (ngSubmit)="salvarAlteracoes()" #profileForm="ngForm" class="w-100">
-      <h3 class="mt-0">Atualizar Dados</h3>
+      <h3 class="mt-0">Nome </h3>
       <div class="form-group">
-        <label for="name">Nome</label>
+        <label for="name"></label>
         <input
           id="name"
           name="name"
@@ -14,56 +15,46 @@
           required
         />
       </div>
-
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input
-          id="email"
-          name="email"
-          [(ngModel)]="responsavel.email"
-          class="form-control"
-          required
-        />
-      </div>
-
-      <button type="submit" class="btn btn-success w-50 mt-4">
-        Salvar Alterações
+      <button type="submit" class="botoes-salvar">
+       Atualizar nome
       </button>
+
+      <form (ngSubmit)="salvarAlteracaoSenha()" #passwordForm="ngForm" class="w-100">
+        <h3 class="mt-0">Trocar a Senha</h3>
+        <div class="form-group">
+          <label for="oldPassword">Senha Antiga</label>
+          <input
+            id="senhaAntiga"
+            name="senhaAntiga"
+            type="password"
+            [(ngModel)]="responsavel.senhaAntiga"
+            class="form-control"
+            required
+          />
+        </div>
+   
+        <div class="form-group">
+          <label for="newPassword">Nova Senha</label>
+          <input
+            id="senhaNova"
+            name="senhaNova"
+            type="password"
+            [(ngModel)]="responsavel.senhaNova"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <button type="submit" class="botoes-salvar">
+          Atualizar Senha
+        </button>
+      </form>
+    
+
+
     </form>
 
-    <form (ngSubmit)="salvarAlteracaoSenha()" #passwordForm="ngForm" class="w-100">
-      <h3 class="mt-0">Alterar Senha</h3>
-      <div class="form-group">
-        <label for="oldPassword">Senha Antiga</label>
-        <input
-          id="senhaAntiga"
-          name="senhaAntiga"
-          type="password"
-          [(ngModel)]="responsavel.senhaAntiga"
-          class="form-control"
-          required
-        />
-      </div>
- 
-      <div class="form-group">
-        <label for="newPassword">Nova Senha</label>
-        <input
-          id="senhaNova"
-          name="senhaNova"
-          type="password"
-          [(ngModel)]="responsavel.senhaNova"
-          class="form-control"
-          required
-        />
-      </div>
+   </div>
 
-      <button type="submit" class="btn btn-warning w-50 mt-4">
-        Atualizar Senha
-      </button>
-    </form>
-  </div>
-
-  <button type="button" class="btn btn-secondary w-100 mt-3" (click)="voltar()">
-    Voltar
-  </button>
+  
 </div>

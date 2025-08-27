@@ -1,14 +1,15 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-perfil-aluno',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
   templateUrl: './perfil-aluno.component.html',
   styleUrls: ['./perfil-aluno.component.scss'],
 })
@@ -26,7 +27,9 @@ export class PerfilAlunoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -92,4 +95,27 @@ salvarAlteracoes() {
       }
     });
   }
+  voltar(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      const currentUser = this.authService.getCurrentUser();
+      let dashboardRoute = '/dashboard';
+  
+      if (currentUser?.role) {
+        switch (currentUser.role) {
+          case 'PROFESSOR':
+            dashboardRoute = '/dashboard-professor';
+            break;
+          case 'ALUNO':
+            dashboardRoute = '/dashboard-aluno';
+            break;
+          case 'RESPONSAVEL':
+            dashboardRoute = '/dashboard-responsavel';
+            break;
+        }
+      }
+    this.router.navigate([dashboardRoute]);
+  }
+}
 }

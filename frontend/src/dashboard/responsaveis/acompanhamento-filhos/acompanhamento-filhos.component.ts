@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-acompanhamento-filhos',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
   templateUrl: './acompanhamento-filhos.component.html',
   styleUrls: ['./acompanhamento-filhos.component.scss']
 })

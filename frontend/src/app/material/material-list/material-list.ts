@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaterialService, Material, FiltroMaterialDto } from '../material.service';
-import { NavbarComponent } from '../../../dashboard/professor/navbar/navbar.component';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 
 @Component({
   selector: 'app-material-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, Navbar2Component],
   templateUrl: './material-list.html',
   styleUrl: './material-list.scss'
 })
