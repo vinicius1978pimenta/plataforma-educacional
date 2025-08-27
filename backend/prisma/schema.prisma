@@ -30,6 +30,15 @@ model User {
 
   Agenda Agenda[]
   Turma  Turma[]
+
+  // Conteúdos criados pelo professor
+  conteudosCriados Conteudo[] @relation("ProfessorConteudos")
+
+  // Conteúdos que o aluno pode acessar
+  conteudosAcessados Conteudo[] @relation("AlunoConteudos")
+
+  // Avisos criados pelo professor
+  avisos Aviso[] @relation("ProfessorAvisos")
 }
 
 model Material {
@@ -41,6 +50,7 @@ model Material {
   professorId String
   createdAt   DateTime    @default(now())
   Atividade   Atividade[]
+  Conteudo    Conteudo[]
 }
 
 model Vocabulo {
@@ -75,6 +85,9 @@ model Turma {
   // Atividades da turma
   atividades Atividade[]
 
+  // Avisos da turma
+  avisos Aviso[] @relation("AvisoTurmas")
+
   createdAt DateTime @default(now())
 }
 
@@ -86,15 +99,15 @@ model Atividade {
   materia   String // Ex: "Matemática", "Português", "Inglês"
 
   // Adicionando materialId e criando o relacionamento com o modelo Material
-  materialId String // Campo para a chave estrangeira
-  material   Material @relation(fields: [materialId], references: [id]) // Relacionamento com a tabela Material
+  materialId String
+  material   Material @relation(fields: [materialId], references: [id])
 
   // Campos adicionais opcionais
   tipo          TipoAtividade    @default(EXERCICIO)
   dificuldade   NivelDificuldade @default(MEDIO)
-  pontuacao     Int? // Pontos que a atividade vale
-  tempoEstimado Int? // Tempo estimado em minutos
-  instrucoes    String? // Instruções específicas
+  pontuacao     Int?
+  tempoEstimado Int?
+  instrucoes    String?
 
   // Relacionamentos
   professor   User   @relation(fields: [professorId], references: [id])
@@ -113,7 +126,6 @@ model Atividade {
   updatedAt      DateTime  @updatedAt
 }
 
-// Nova tabela para respostas dos alunos
 model RespostaAtividade {
   id String @id @default(uuid())
 
@@ -126,19 +138,65 @@ model RespostaAtividade {
 
   // Conteúdo da resposta
   resposta String
-  anexos   String[] // URLs dos arquivos anexados
+  anexos   String[]
 
   // Avaliação
-  nota     Float? // Nota dada pelo professor
-  feedback String? // Comentários do professor
+  nota     Float?
+  feedback String?
   status   StatusResposta @default(ENVIADA)
 
   // Timestamps
   dataEnvio    DateTime  @default(now())
   dataCorrecao DateTime?
 
-  // Constraint para evitar múltiplas respostas do mesmo aluno
   @@unique([atividadeId, alunoId])
+}
+
+model Conteudo {
+  id        String @id @default(uuid())
+  titulo    String
+  descricao String
+  texto     String
+
+  // Campos adicionados para PDF e links
+  tipo           TipoConteudo? // PDF ou LINK
+  url            String? // Para links
+  nomeArquivo    String? // Nome original do arquivo
+  caminhoArquivo String? // Caminho do arquivo no sistema
+  tamanho        Int? // Tamanho em bytes
+
+  professor   User   @relation("ProfessorConteudos", fields: [professorId], references: [id])
+  professorId String
+  alunos      User[] @relation("AlunoConteudos")
+
+  // Relacionamento com Material
+  material   Material @relation(fields: [materialId], references: [id])
+  materialId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Aviso {
+  id         String          @id @default(uuid())
+  titulo     String
+  conteudo   String
+  tipo       TipoAviso       @default(GERAL)
+  prioridade PrioridadeAviso @default(NORMAL)
+  ativo      Boolean         @default(true)
+
+  // Professor que criou o aviso
+  professor   User   @relation("ProfessorAvisos", fields: [professorId], references: [id])
+  professorId String
+
+  // Turmas que podem ver o aviso (opcional - se vazio, todos veem)
+  turmas Turma[] @relation("AvisoTurmas")
+
+  // Timestamps
+  dataInicio    DateTime  @default(now())
+  dataExpiracao DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 enum Role {
@@ -167,4 +225,25 @@ enum StatusResposta {
   ENVIADA
   CORRIGIDA
   DEVOLVIDA
+}
+
+enum TipoAviso {
+  GERAL
+  URGENTE
+  EVENTO
+  LEMBRETE
+  COMUNICADO
+}
+
+enum PrioridadeAviso {
+  BAIXA
+  NORMAL
+  ALTA
+  CRITICA
+}
+
+enum TipoConteudo {
+  TEXTO
+  PDF
+  LINK
 }

@@ -1,3 +1,4 @@
+
 .navbar {
     height: 60px;
     background: linear-gradient(135deg,#89acd2 0%, #02285d  100%);
@@ -100,3 +101,145 @@ label {
 .botoes-salvar:hover {
   background-color: #092D5D;
 }
+=======
+/* ===== Container Principal ===== */
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e6e8eb;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+h2 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #003366; /* Azul FGV */
+  margin-bottom: 30px;
+}
+
+/* ===== Formulários de Dados e Senha ===== */
+.d-flex {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+h3 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input.form-control {
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+input.form-control:focus {
+  outline: none;
+  border-color: #0095e5;
+  box-shadow: 0 0 0 4px rgba(0, 141, 229, 0.25);
+  background-color: #ffffff;
+}
+
+/* ===== Botões ===== */
+.btn {
+  padding: 12px 20px;
+  font-size: 1.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 20px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* ===== Botão Voltar ===== */
+.btn-secondary {
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+}
+

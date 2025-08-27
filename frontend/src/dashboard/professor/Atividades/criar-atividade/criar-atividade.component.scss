@@ -1,12 +1,427 @@
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+// Cores modernas mantendo a identidade FGV
+$primary-color: #003366;
+$primary-hover: #0055a5;
+$primary-gradient: linear-gradient(135deg, #003366 0%, #0055a5 100%);
+$secondary-color: #6c757d;
+$background-color: #f4f4f4;
+$card-background: #ffffff;
+$text-color: #333333;
+$border-color: #d1d1d1;
+$accent-color: #667eea;
+
+// Fonte base
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
 }
 
-textarea.form-control {
-  resize: vertical;
-  min-height: 80px;
+// Container principal - mantendo dimensões exatas
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: $card-background;
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 51, 102, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+
+  // Accent border sutil no topo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $primary-gradient;
+    border-radius: 12px 12px 0 0;
+  }
+
+  h2 {
+    color: $primary-color;
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+    font-weight: 600;
+    background: $primary-gradient;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: $secondary-color;
+    margin-bottom: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .form-section-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        border-bottom: 2px solid $primary-color;
+        padding-bottom: 0.3rem;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 50px;
+          height: 2px;
+          background: $primary-gradient;
+          border-radius: 2px;
+        }
+      }
+
+      .form-row {
+        display: flex;
+        gap: 1rem;
+
+        &.single {
+          flex-direction: column;
+        }
+
+        .form-group {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+          position: relative;
+
+          label {
+            font-weight: 500;
+            font-size: 0.9rem;
+
+            &.required-field::after {
+              content: "*";
+              color: #ef4444;
+              margin-left: 2px;
+            }
+          }
+
+          input,
+          select,
+          textarea {
+            padding: 0.55rem 0.8rem;
+            font-size: 0.9rem;
+            border: 1px solid $border-color;
+            border-radius: 8px;
+            outline: none;
+            background-color: $card-background;
+            transition: all 0.25s ease;
+
+            &:focus {
+              border-color: $primary-color;
+              box-shadow: 
+                0 0 8px rgba($primary-color, 0.25),
+                0 0 0 2px rgba($primary-color, 0.1);
+            }
+
+            &:hover:not(:focus) {
+              border-color: rgba($primary-color, 0.6);
+            }
+          }
+
+          textarea {
+            min-height: 80px;
+            resize: vertical;
+          }
+
+          select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23003366' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 12px 12px;
+            padding-right: 2rem;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .form-check-wrapper {
+        display: flex;
+        align-items: center;
+        margin-top: 0.5rem;
+
+        .form-check {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          input[type="checkbox"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: $primary-color;
+          }
+
+          label {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+
+      button {
+        flex: 1;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        &.btn-primary {
+          background: $primary-gradient;
+          color: #ffffff;
+
+          &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba($primary-color, 0.25);
+          }
+        }
+
+        &.btn-secondary {
+          background-color: $secondary-color;
+          color: #ffffff;
+
+          &:hover {
+            background-color: darken($secondary-color, 10%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos específicos para Dashboard
+.dashboard-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background-color: $card-background;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 51, 102, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  border-top: 3px solid transparent;
+  background-clip: padding-box;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $primary-gradient;
+    border-radius: 12px 12px 0 0;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 35px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 51, 102, 0.1);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba($border-color, 0.5);
+
+    h3 {
+      color: $primary-color;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .card-icon {
+      width: 2rem;
+      height: 2rem;
+      background: $primary-gradient;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+    }
+  }
+
+  .card-content {
+    color: $text-color;
+    line-height: 1.6;
+
+    .metric {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba($border-color, 0.3);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .metric-label {
+        font-weight: 500;
+        color: $secondary-color;
+      }
+
+      .metric-value {
+        font-weight: 600;
+        color: $primary-color;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+// Navegação/Sidebar para dashboard
+.dashboard-nav {
+  background-color: $card-background;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 51, 102, 0.08);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $primary-gradient;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: $text-color;
+    font-weight: 500;
+    transition: all 0.25s ease;
+
+    &:hover, &.active {
+      background: linear-gradient(135deg, rgba($primary-color, 0.1) 0%, rgba($primary-hover, 0.1) 100%);
+      color: $primary-color;
+      transform: translateX(4px);
+    }
+
+    .nav-icon {
+      margin-right: 0.75rem;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Tabela para dashboard
+.dashboard-table {
+  background-color: $card-background;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 51, 102, 0.08);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $primary-gradient;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background: linear-gradient(135deg, rgba($primary-color, 0.05) 0%, rgba($primary-hover, 0.05) 100%);
+
+      th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: $primary-color;
+        border-bottom: 1px solid rgba($border-color, 0.5);
+      }
+    }
+
+    tbody {
+      tr {
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: linear-gradient(135deg, rgba($primary-color, 0.02) 0%, rgba($primary-hover, 0.02) 100%);
+        }
+
+        td {
+          padding: 1rem;
+          border-bottom: 1px solid rgba($border-color, 0.3);
+          color: $text-color;
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
 }

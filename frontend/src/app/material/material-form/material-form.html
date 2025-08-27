@@ -1,13 +1,13 @@
 <div class="form-container">
   <!-- Header -->
   <div class="form-header">
-    <h2>{{ isEditMode ? 'Editar Material' : 'Novo Material' }}</h2>
-    <p>{{ isEditMode ? 'Atualize as informações do material' : 'Preencha os dados para criar um novo material' }}</p>
+    <h2>{{ isEditMode ? 'Editar Matéria' : 'Nova Matéria' }}</h2>
+    <p>{{ isEditMode ? 'Atualize as informações da matéria' : 'Preencha os dados para criar uma nova matéria' }}</p>
   </div>
 
   <!-- Loading -->
   <div *ngIf="loading" class="loading">
-    <p>{{ isEditMode ? 'Carregando dados do material...' : 'Salvando material...' }}</p>
+    <p>{{ isEditMode ? 'Carregando dados da matéria...' : 'Salvando matéria...' }}</p>
   </div>
 
   <!-- Formulário -->
@@ -28,7 +28,7 @@
           #titulo="ngModel"
           required
           maxlength="100"
-          placeholder="Digite o título do material">
+          placeholder="Digite o título da matéria">
         <div class="form-help">Máximo de 100 caracteres</div>
         <div *ngIf="titulo.invalid && titulo.touched" class="error-message">
           <div *ngIf="titulo.errors?.['required']">O título é obrigatório</div>

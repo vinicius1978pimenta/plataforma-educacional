@@ -13,7 +13,7 @@
 
       <!-- Coluna do CRUD -->
       <div class="form-section">
-        <h2>Adicionar Nova Palavra</h2>
+        <div class="texto-add"><h2> Adicionar Nova Palavra</h2></div>
         <form [formGroup]="vocabularioForm" (ngSubmit)="adicionarPalavra()" class="vocabulario-form">
           
           <div class="form-group">
@@ -53,7 +53,7 @@
       <!-- Coluna da Lista de Palavras -->
       <div class="lista-section">
         <div class="lista-header">
-          <h2>Minhas Palavras</h2>
+          <h2>Vocabulário</h2>
           <span class="contador">{{ (vocabularios$ | async)?.length || 0 }} palavras</span>
         </div>
 
@@ -63,7 +63,7 @@
         </div>
 
         <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length === 0" class="empty-state">
-          <div class="empty-icon">📚</div>
+          <div class="empty-icon"></div>
           <h3>Nenhuma palavra ainda</h3>
           <p>Adicione sua primeira palavra para começar a construir seu vocabulário!</p>
         </div>
@@ -77,7 +77,7 @@
             </div>
             <button class="btn-excluir" (click)="excluirPalavra(vocab.id, vocab.palavra)" [disabled]="excluindo === vocab.id" title="Excluir palavra">
               <span *ngIf="excluindo === vocab.id" class="loading-spinner small"></span>
-              <span *ngIf="excluindo !== vocab.id">🗑️</span>
+              <span *ngIf="excluindo !== vocab.id"></span>
             </button>
           </div>
         </div>
@@ -85,9 +85,7 @@
 
     </div>
 
-    <!-- Mensagens de feedback -->
-    <div *ngIf="mensagem" class="mensagem" [ngClass]="tipoMensagem">
-      {{ mensagem }}
-    </div>
+    
+    
 
   </div>

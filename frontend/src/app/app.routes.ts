@@ -21,6 +21,13 @@ import { AlunoMaterialAtividadesListComponent } from '../dashboard/aluno/aluno-m
 import { AcompanhamentoFilhosComponent } from '../dashboard/responsaveis/acompanhamento-filhos/acompanhamento-filhos.component';
 import { PerfilResponsavelComponent } from '../dashboard/responsaveis/perfil-responsavel/perfil-responsavel.component';
 import { PerfilAlunoComponent } from '../dashboard/aluno/perfil-aluno/perfil-aluno.component';
+import { CriarAvisoComponent } from './avisos/criar-aviso/criar-aviso.component';
+import { MuralAvisosComponent } from './avisos/mural-avisos/mural-avisos.component';
+import { CriarConteudoComponent } from '../dashboard/professor/conteudo/criar-conteudo/criar-conteudo.component';
+import { RelatoriosAlunoComponent } from '../dashboard/aluno/relatorios-aluno/relatorios-aluno.component';
+import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios-professor/relatorios-professor/relatorios-professor.component';
+
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,6 +37,10 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'home', component : InicialComponent },
   {path: 'sobre', component : SobreNosComponent },
+
+  
+  // Dashboards protegidos por autenticação e role específico
+
   {
     path: 'dashboard-professor',
     component: DashboardProfessorComponent,
@@ -73,6 +84,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
+  {path : 'criar-conteudo', component : CriarConteudoComponent,canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }},
+
   // Rotas de materiais (protegidas para professores)
   {
     path: 'materiais',
@@ -113,11 +127,34 @@ export const routes: Routes = [
   component: AlunoMaterialAtividadesListComponent,
   canActivate: [AuthGuard, RoleGuard],
   data: { role: 'ALUNO' }
-},
+  },
+
+  // Rotas de avisos
+  {
+    path: 'criar-aviso',
+    component: CriarAvisoComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
+  {
+    path: 'mural-avisos',
+    component: MuralAvisosComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ALUNO' }
+  },
+  {
+    path: 'avisos-responsavel',
+    component: MuralAvisosComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'RESPONSAVEL' }
+  },
+
+{ path: 'aluno/relatorios', component: RelatoriosAlunoComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'ALUNO' } },
+
+{ path: 'professor/relatorios', component: RelatoriosProfessorComponent,
+  canActivate: [AuthGuard, RoleGuard], data: { role: 'PROFESSOR' } },
 
   // Rota fallback
   { path: '**', redirectTo: '/login' },
 
-
 ];
-

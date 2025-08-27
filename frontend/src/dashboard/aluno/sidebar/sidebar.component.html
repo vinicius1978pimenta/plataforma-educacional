@@ -41,12 +41,21 @@
         </a>
       </li>
            
+
       <li class="nav-item">
         <a routerLinkActive="active" class="nav-link" data-tooltip="Relatórios">
           <i class="fas fa-chart-line"></i>
           <span class="nav-text">Progresso</span>
         </a>
       </li>
+
+    <li class="nav-item">
+  <a routerLink="/aluno/relatorios" routerLinkActive="active" class="nav-link" data-tooltip="Relatórios">
+    <i class="fas fa-chart-bar"></i>
+    <span>Relatórios</span>
+  </a>
+</li>
+
            
       <li class="nav-item">
         <a [routerLink]="['/perfil-aluno', currentUser?.id]"  routerLinkActive="active" class="nav-link" data-tooltip="Configurações">
