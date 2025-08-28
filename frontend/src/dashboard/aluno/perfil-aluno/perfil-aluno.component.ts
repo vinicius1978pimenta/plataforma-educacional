@@ -69,7 +69,7 @@ salvarAlteracoes() {
   this.userService.updateUser(this.alunoId, 'ALUNO', alunoAtualizado).subscribe({
     next: () => {
       alert('Perfil atualizado com sucesso!');
-      this.router.navigate(['/perfil']);
+      this.router.navigate(['/dashboard-aluno']);
     },
     error: (err: any) => {
       console.error('Erro ao atualizar perfil', err);
@@ -87,7 +87,7 @@ salvarAlteracoes() {
     this.userService.updatePassword(this.alunoId, 'ALUNO', senhaAtualizada).subscribe({
       next: () => {
         alert('Senha atualizada com sucesso!');
-        this.router.navigate(['/perfil']);
+        this.router.navigate(['/dashboard-aluno']);
       },
       error: (err: any) => {
         console.error('Erro ao atualizar senha', err);

@@ -27,12 +27,17 @@ export class LoginComponent {
   selectedRole: 'ALUNO' | 'PROFESSOR' | 'RESPONSAVEL' | null = null;
   errorMessage = '';
   loading = false;
+  showPassword = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private translocoservice : TranslocoService
   ) {}
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
    changeLanguage(lang: string) {
     this.translocoservice.setActiveLang(lang);

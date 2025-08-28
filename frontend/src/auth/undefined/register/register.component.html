@@ -7,7 +7,7 @@
         </div>
 
         <div class="welcome-section">
-            <a>Criar Nova Conta</a>
+            <h2>Criar Nova Conta</h2>
             <p>Preencha os dados para se cadastrar</p>
         </div>
 
@@ -42,19 +42,50 @@
 
             <div class="form-group">
                 <label for="password">Senha:</label>
+                <div class="password-input-container">
                 <input 
-                    type="password" 
+                    [type]="showPassword ? 'text' : 'password'" 
                     id="password" 
                     name="password" 
-                    [(ngModel)]="registerData.password" 
+                    [(ngModel)]="registerData.password"
                     required 
                     minlength="6" 
                     #password="ngModel">
+                    <button 
+                    type="button" 
+                    class="password-toggle-btn"
+                    (click)="togglePasswordVisibility()">
+                    <i [class]="showPassword ?'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+                    </button>
+                </div>
                 <div *ngIf="password.invalid && password.touched" class="error">
                     <div *ngIf="password.errors?.['required']">Senha é obrigatória</div>
                     <div *ngIf="password.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Senha:</label>
+                <div class="password-input-container">
+                  <input 
+                    [type]="showConfirmPassword ? 'text' : 'password'" 
+                    id="confirmPassword" 
+                    name="confirmPassword" 
+                    [(ngModel)]="registerData.confirmPassword"
+                    required 
+                    #confirmPassword="ngModel">
+                  <button 
+                    type="button" 
+                    class="password-toggle-btn"
+                    (click)="toggleConfirmPasswordVisibility()">
+                    <i [class]="showConfirmPassword ?'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+                  </button>
+                </div>
+                <!-- Validação -->
+                <div *ngIf="confirmPassword.touched && registerData.confirmPassword !== registerData.password" class="error">
+                  As senhas não coincidem
+                </div>
+              </div>
 
             <div class="role-selection">
                 <label>Tipo de usuário:</label>
