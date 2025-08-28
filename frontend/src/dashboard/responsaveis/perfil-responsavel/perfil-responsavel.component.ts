@@ -83,23 +83,27 @@ export class PerfilResponsavelComponent implements OnInit {
   }
 
   salvarAlteracaoSenha(): void {
-    const senhaAtualizada = {
-      oldPassword: this.responsavel.senhaAntiga,
-      newPassword: this.responsavel.senhaNova
-    };
+  const senhaAtualizada = {
+    oldPassword: this.responsavel.senhaAntiga,
+    newPassword: this.responsavel.senhaNova
+  };
 
-    this.userService.updatePassword(this.responsavelId, this.responsavelRole, senhaAtualizada).subscribe({
-      next: () => {
-        alert('Senha atualizada com sucesso!');
-        this.responsavel.senhaAntiga = '';
-        this.responsavel.senhaNova = '';
-      },
-      error: (err: any) => {
-        console.error('Erro ao atualizar senha', err);
-        alert(err.error.message || 'Erro ao atualizar senha.');
-      }
-    });
-  }
+  this.userService.updatePassword(this.responsavelId, this.responsavelRole, senhaAtualizada).subscribe({
+    next: () => {
+      alert('Senha atualizada com sucesso!');
+      this.responsavel.senhaAntiga = '';
+      this.responsavel.senhaNova = '';
+
+      // Redireciona para o dashboard do responsável
+      this.voltar();
+    },
+    error: (err: any) => {
+      console.error('Erro ao atualizar senha', err);
+      alert(err.error.message || 'Erro ao atualizar senha.');
+    }
+  });
+}
+
 
   voltar(): void {
     if (window.history.length > 1) {
