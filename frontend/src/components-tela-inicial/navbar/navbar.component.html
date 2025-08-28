@@ -13,14 +13,22 @@
 
   <!-- botoes idiomas  -->
 <div class="lang-selector">
-  <button class="lang-btn" [class.active]="getCurrentLang() === 'pt-BR'" (click)="changeLanguage('pt-BR')">
-    <svg class="flag-icon" viewBox="0 0 16 12">
-      <rect width="16" height="12" fill="#009639"/>
-      <polygon points="0,0 8,6 0,12" fill="#fedf00"/>
-      <circle cx="8" cy="6" r="2" fill="#002776"/>
-    </svg>
-    <span class="d-none d-sm-inline">PT</span>
-  </button>
+<button class="lang-btn" [class.active]="getCurrentLang() === 'pt-BR'" (click)="changeLanguage('pt-BR')">
+  <svg class="flag-icon" viewBox="0 0 16 12">
+    <!-- Fundo verde -->
+    <rect width="16" height="12" fill="#009639"/>
+    
+    <!-- Losango amarelo -->
+    <polygon points="2,6 8,2 14,6 8,10" fill="#FEDF00"/>
+    
+    <!-- Círculo azul -->
+    <circle cx="8" cy="6" r="2.2" fill="#002776"/>
+    
+    <!-- Faixa branca no círculo -->
+    <ellipse cx="8" cy="6.5" rx="2" ry="0.4" fill="#FFFFFF" opacity="0.9"/>
+  </svg>
+  <span class="d-none d-sm-inline">PT</span>
+</button>
   <button class="lang-btn" [class.active]="getCurrentLang() === 'en'" (click)="changeLanguage('en')">
     <svg class="flag-icon" viewBox="0 0 16 12">
       <rect width="16" height="12" fill="#B22234"/>
