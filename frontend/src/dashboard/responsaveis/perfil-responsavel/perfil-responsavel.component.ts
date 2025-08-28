@@ -82,6 +82,8 @@ export class PerfilResponsavelComponent implements OnInit {
     });
   }
 
+
+  
   salvarAlteracaoSenha(): void {
   const senhaAtualizada = {
     oldPassword: this.responsavel.senhaAntiga,
