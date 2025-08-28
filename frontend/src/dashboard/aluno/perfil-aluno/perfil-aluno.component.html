@@ -1,59 +1,88 @@
 <app-navbar2></app-navbar2>
 
-<div class="container">
-  <div class="d-flex gap-4 align-items-stretch"> 
-
+<div class="dashboard-container">
+  <div class="forms-section d-flex gap-4 align-items-stretch">
     
-    <form (ngSubmit)="salvarAlteracoes()" #alunoForm="ngForm" class="w-100">
-      <h3 class="mt-0"> Nome</h3>
-      <div class="form-group">
-        <label for="name"></label>
-        <input
-          id="name"
-          name="name"
-          [(ngModel)]="aluno.name"
-          class="form-control"
-          required
-        />
-      </div>
+    <!-- Formulário de Nome -->
+    <div class="form-container w-100">
+      <form (ngSubmit)="salvarAlteracoes()" #alunoForm="ngForm" class="w-100">
+        <h2 class="form-title">Atualizar Nome</h2>
 
-      <button type="submit" class="botoes-salvar">
-        Atualizar nome
-      </button>
+        <div class="form-group">
+          <label for="name" class="form-label">Nome Completo</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            [(ngModel)]="aluno.name"
+            class="form-control"
+            placeholder="Digite seu nome completo"
+            required
+            autocomplete="name"
+          />
+        </div>
 
-    <form (ngSubmit)="salvarAlteracaoSenha()" #senhaForm="ngForm" class="w-100">
-          <h3 class="mt-0">Trocar a Senha</h3> 
-          <div class="form-group">
-            <label for="senhaAntiga">Senha Antiga</label>
-            <input
-              id="senhaAntiga"
-              name="senhaAntiga"
-              type="password"
-              [(ngModel)]="aluno.senhaAntiga"
-              class="form-control"
-              required
-            />
-          </div>
+        <button type="submit" class="btn-update botoes-salvar">
+          Atualizar Nome
+        </button>
+      </form>
+    </div>
 
-          <div class="form-group">
-            <label for="senhaNova">Nova Senha</label>
-            <input
-              id="senhaNova"
-              name="senhaNova"
-              type="password"
-              [(ngModel)]="aluno.senhaNova"
-              class="form-control"
-              required
-            />
-          </div>
+    <div class="divider"></div>
 
-          <button type="submit" class="botoes-salvar">
-            Atualizar Senha
-          </button>
-        </form>
-      
+    <!-- Formulário de Senha -->
+    <div class="form-container w-100">
+      <form (ngSubmit)="salvarAlteracaoSenha()" #senhaForm="ngForm" class="w-100">
+        <h2 class="form-title">Alterar Senha</h2>
 
-    </form>
-</div>
-   
+        <div class="form-group">
+          <label for="senhaAntiga" class="form-label">Senha Atual</label>
+          <input
+            id="senhaAntiga"
+            name="senhaAntiga"
+            type="password"
+            [(ngModel)]="aluno.senhaAntiga"
+            class="form-control"
+            placeholder="Digite sua senha atual"
+            required
+            autocomplete="current-password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="senhaNova" class="form-label">Nova Senha</label>
+          <input
+            id="senhaNova"
+            name="senhaNova"
+            type="password"
+            [(ngModel)]="aluno.senhaNova"
+            class="form-control"
+            placeholder="Digite sua nova senha"
+            required
+            autocomplete="new-password"
+          />
+        </div>
+
+        <button type="submit" class="btn-update botoes-salvar">
+          Atualizar Senha
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="sidebar-illustration">
+    <div class="decorative-elements"></div>
+    
+    <div class="profile-icon">
+      👤
+    </div>
+    
+    <div class="sidebar-content">
+      <h3 class="sidebar-title">Perfil do Usuário</h3>
+      <p class="sidebar-subtitle">
+        Mantenha suas informações sempre atualizadas para uma experiência personalizada e segura.
+      </p>
+    </div>
+  </div>
 </div>
