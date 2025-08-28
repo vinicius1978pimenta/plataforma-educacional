@@ -29,14 +29,22 @@
 
         <div class="form-group">
           <label for="password">{{ 'login-5' | transloco }}</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            [(ngModel)]="loginData.password" 
-            required 
-            #password="ngModel"
-            placeholder="{{ 'login-18' | transloco }}">
+          <div class="password-input-container">
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password" 
+              name="password" 
+              [(ngModel)]="loginData.password" 
+              required 
+              #password="ngModel"
+              placeholder="{{ 'login-18' | transloco }}">
+              <button 
+              type="button" 
+              class="password-toggle-btn"
+              (click)="togglePasswordVisibility()">
+              <i [class]="showPassword ?'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+            </button>
+          </div>
           <div *ngIf="password.invalid && password.touched" class="error">
             {{ 'login-6' | transloco }}
           </div>
