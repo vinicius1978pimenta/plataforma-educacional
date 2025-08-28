@@ -14,22 +14,35 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class RegisterComponent {
 
+
    registerData = {
     name: '',
     email: '',
     password: '',
     role: '' as 'ALUNO' | 'PROFESSOR' | 'RESPONSAVEL' | '',
-    responsavelEmail: ''
+    responsavelEmail: '',
+    confirmPassword: ''
   };
   
   errorMessage = '';
   successMessage = '';
   loading = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
+
+
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   selectRole(role: 'ALUNO' | 'PROFESSOR' | 'RESPONSAVEL') {
     this.registerData.role = role;
