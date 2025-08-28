@@ -1,0 +1,72 @@
+<footer class="site-footer text-light mt-0" aria-label="Rodapé do site">
+  <!-- Onda para transição suave -->
+  <div class="footer-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" focusable="false">
+      <path d="M0,64L48,74.7C96,85,192,107,288,112C384,117,480,107,576,90.7C672,75,768,53,864,58.7C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L0,0Z" fill="#001427"></path>
+    </svg>
+  </div>
+
+  <div class="container py-5">
+    <div class="row gy-4">
+      <!-- Coluna: Marca -->
+      <div class="col-md-4">
+        <a class="d-flex align-items-center gap-2 text-decoration-none mb-3" routerLink="/">
+          <img src="/logo-inter-azul.png" alt="InterLinguas" width="52" height="52" class="rounded-2">
+          <span class="fw-bold fs-5 text-light">InterLinguas</span>
+        </a>
+       <br>
+
+        <div class="d-flex gap-3">
+          <a routerLink="/" class="icon-link" aria-label="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+          <a routerLink="/" class="icon-link" aria-label="Facebook"><i class="bi bi-facebook fs-4"></i></a>
+          <a routerLink="/" class="icon-link" aria-label="YouTube"><i class="bi bi-youtube fs-4"></i></a>
+          <a href="https://github.com/vinicius1978pimenta/plataforma-educacional" class="icon-link" aria-label="GitHub"><i class="bi bi-github fs-4"></i></a>
+        </div>
+      </div>
+
+      <!-- Coluna: Links rápidos -->
+      <div class="col-md-4">
+        <h6 class="text-uppercase fw-semibold mb-3">{{ 'Links'}}</h6>
+        <ul class="list-unstyled">
+          <li><a class="footer-link" routerLink="/login">{{ 'Entrar'}}</a></li>
+          <li><a class="footer-link" routerLink="/register">{{ 'Cadastrar'}}</a></li>
+          <li>
+            <button class="btn btn-link p-0 footer-link" (click)="scrollTo('sobre-section')">
+              {{ 'Sobre' }}
+            </button>
+          </li>
+          <li><a class="footer-link" routerLink="/">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna: Contato -->
+      <div class="col-md-4">
+        <h6 class="text-uppercase fw-semibold mb-3">{{ 'Contatos'}}</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> {{ 'Endereço'}}</li>
+          <li class="mb-2"><i class="bi bi-envelope me-2"></i>
+            <a class="footer-link" [href]="'mailto:' + email">{{ email }}</a>
+          </li>
+          <li class="mb-2"><i class="bi bi-telephone me-2"></i>
+            <a class="footer-link" >+55 (11) 3814-9936</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- faixa inferior -->
+  <div class="footer-bottom border-top border-white-10 py-3 small">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <span>© {{ currentYear }} InterLinguas — {{ 'Grupo FGV' }}</span>
+      <div class="d-flex align-items-center gap-3">
+        <a class="footer-link" routerLink="/">{{ 'Privacidade' }}</a>
+        <span class="opacity-50">•</span>
+        <a class="footer-link" routerLink="/">{{ 'Termos'}}</a>
+        <button class="btn btn-sm btn-outline-light ms-2" (click)="backToTop()" aria-label="Voltar ao topo">
+          <i class="bi bi-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

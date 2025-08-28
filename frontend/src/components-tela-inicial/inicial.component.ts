@@ -8,6 +8,7 @@ import { Conteudo2Component } from './conteudo-2/conteudo-2/conteudo-2.component
 import { Conteudo3Component } from './conteudo-3/conteudo-3/conteudo-3.component';
 import { LazyLoadDirective } from './lazy-load.directive';
 import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   standalone: true,
@@ -23,6 +24,7 @@ import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transl
     LazyLoadDirective,
     TranslocoModule,
     TranslocoPipe,
+    FooterComponent,
 ],
   templateUrl: './inicial.component.html',
   styleUrls: ['./inicial.component.scss']  
