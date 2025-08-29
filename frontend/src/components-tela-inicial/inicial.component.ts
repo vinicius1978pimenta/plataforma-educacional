@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarroselComponent } from './carrosel-fotos/carrosel/carrosel.component';
-import { SobreNosComponent } from './sobre-nos-card/sobre-nos/sobre-nos.component';
 import { ConteudoComponent } from './conteudo-principal/conteudo/conteudo.component';
 import { Conteudo2Component } from './conteudo-2/conteudo-2/conteudo-2.component';
 import { Conteudo3Component } from './conteudo-3/conteudo-3/conteudo-3.component';
 import { LazyLoadDirective } from './lazy-load.directive';
 import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   standalone: true,
@@ -16,13 +16,13 @@ import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transl
     CommonModule,
     NavbarComponent,
     CarroselComponent,
-    SobreNosComponent,
     ConteudoComponent,
     Conteudo2Component,
     Conteudo3Component,
     LazyLoadDirective,
     TranslocoModule,
     TranslocoPipe,
+    FooterComponent,
 ],
   templateUrl: './inicial.component.html',
   styleUrls: ['./inicial.component.scss']  

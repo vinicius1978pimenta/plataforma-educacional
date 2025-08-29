@@ -1,0 +1,117 @@
+<footer id="footer" class="site-footer text-light mt-0" aria-label="Rodapé do site">
+
+  <!-- Onda -->
+  <div class="footer-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <!-- Gradiente invertido (de baixo para cima) -->
+        <linearGradient id="waveGradient" x1="60%" y1="100%" x2="100%" y2="40%">
+          <stop offset="10%" stop-color="#475972" />
+          <stop offset="90%" stop-color="#083A82" />
+          
+        </linearGradient>
+      </defs>
+      <path d="M0,64L48,74.7C96,85,192,107,288,112C384,117,480,107,576,90.7C672,75,768,53,864,58.7C960,64,1056,96,1152,101.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L0,0Z" fill="url(#waveGradient)"></path>
+    </svg>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Mega-menu: 5 colunas -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 footer-mega">
+
+      <!-- Col 1 -->
+      <div class="col text-start">
+        <h6 class="footer-title">Nosso Propósito</h6>
+        <p class="footer-text small mb-0">
+          O InterLinguas é uma plataforma educacional inovadora que permite aos usuários
+          acessarem conteúdos em seu idioma nativo. Nossa missão é quebrar barreiras
+          linguísticas no ensino digital e promover inclusão.
+        </p>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="col text-start">
+        <h6 class="footer-title">Para Quem?</h6>
+        <p class="footer-text small mb-0">
+          Professores, alunos e responsáveis, com interface personalizada, intuitiva e
+          multilíngue — garantindo compreensão total do conteúdo.
+        </p>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="col text-start">
+        <h6 class="footer-title">Funcionalidades</h6>
+        <ul class="list-unstyled small mb-0 footer-list">
+          <li>Tradução automática de atividades e conteúdos</li>
+          <li>Interface por perfil (professor, aluno, responsável)</li>
+          <li>Acesso rápido às atividades por matéria</li>
+          <li>Notificações e atualizações de desempenho</li>
+          <li>Suporte multilíngue na navegação</li>
+        </ul>
+      </div>
+
+      <!-- Col 4 -->
+      <div class="col text-start">
+        <h6 class="footer-title">Multilinguismo</h6>
+        <p class="footer-text small mb-0">
+          Escolha de idioma preferido com tradução automática de todos os textos,
+          garantindo experiência inclusiva e personalizada.
+        </p>
+      </div>
+
+      <!-- Col 5 (Links rápidos) -->
+      <div class="col text-start">
+        <h6 class="footer-title">Links</h6>
+        <ul class="list-unstyled small mb-0 footer-list">
+          <li><a class="footer-link" routerLink="/login">Entrar</a></li>
+          <li><a class="footer-link" routerLink="/register">Cadastrar</a></li>
+          <li><a class="footer-link" routerLink="/">FAQ</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr class="border-white-10 my-4">
+
+    <!-- Linha inferior: marca, contato e sociais -->
+    <div class="row gy-4 align-items-start">
+      <div class="col-md-4">
+        <a class="d-flex align-items-center gap-2 text-decoration-none mb-2" routerLink="/">
+          <img src="/logo-inter-azul.png" alt="InterLinguas" width="40" height="40" class="rounded-2">
+          <span class="fw-semibold text-light">InterLinguas</span>
+        </a>
+        <div class="d-flex gap-3">
+          <a routerLink="/" class="icon-link" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+          <a routerLink="/" class="icon-link" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+          <a routerLink="/" class="icon-link" aria-label="YouTube"><i class="bi bi-youtube fs-5"></i></a>
+          <a href="https://github.com/vinicius1978pimenta/plataforma-educacional" class="icon-link" aria-label="GitHub"><i class="bi bi-github fs-5"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <h6 class="footer-title">Contatos</h6>
+        <ul class="list-unstyled small mb-0 footer-list">
+          <li><i class="bi bi-geo-alt me-2"></i> Endereço</li>
+          <li><i class="bi bi-envelope me-2"></i> <a class="footer-link" [href]="'mailto:' + email">{{ email }}</a></li>
+          <li><i class="bi bi-telephone me-2"></i> <a class="footer-link">+55 (11) 3814-9945</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra legal -->
+  <div class="footer-bottom border-top border-white-10 py-3 small">
+    <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <span class="opacity-75">Português (Brasil)</span>
+        <a class="footer-link" routerLink="/">Suas opções de privacidade</a>
+        <a class="footer-link" routerLink="/">Privacidade</a>
+        <a class="footer-link" routerLink="/">Ética e Compliance</a>
+        <a class="footer-link" routerLink="/">Acessibilidade</a>
+        
+      </div>
+      <div class="opacity-75">© {{ currentYear }} InterLinguas — Grupo FGV</div>
+    </div>
+  </div>
+</footer>
