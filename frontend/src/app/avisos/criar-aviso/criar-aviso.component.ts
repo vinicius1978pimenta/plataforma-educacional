@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AvisosService, CreateAvisoDto, Aviso } from '../../../services/avisos.service';
+import { AvisosService, Aviso } from '../../../services/avisos.service';
+import { Navbar2Component } from "../../../navbar2/navbar2.component";
 
 @Component({
   selector: 'app-criar-aviso',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Navbar2Component],
   templateUrl: './criar-aviso.component.html',
   styleUrl: './criar-aviso.component.scss'
 })
