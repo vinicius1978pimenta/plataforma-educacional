@@ -19,6 +19,9 @@ export class AlunoMaterialListComponent implements OnInit {
   materiais: Material[] = [];
   loading = false;
   filtros: FiltroMaterialDto = {};
+  showModal: boolean = false;
+  materialSelecionado: any = null;
+
 
   constructor(private materialService: MaterialService, private router: Router) {}
 
@@ -58,4 +61,37 @@ carregarMateriais(): void {
     const data = new Date(dataString);
     return data.toLocaleDateString('pt-BR');
   }
+
+   
+
+  // Método para abrir o modal (substitui o antigo abrirMaterial)
+  abrirModalSelecao(material: any) {
+    this.materialSelecionado = material;
+    this.showModal = true;
+  }
+
+  // Método para fechar o modal
+  fecharModal() {
+    this.showModal = false;
+    this.materialSelecionado = null;
+  }
+
+  // Método para abrir atividade
+  abrirAtividade() {
+    if (this.materialSelecionado) {
+      // Navega para a página de atividades do material
+      this.router.navigate(['/aluno/materiais', this.materialSelecionado.id, 'atividades']);
+      this.fecharModal();
+    }
+  }
+
+  // Método para abrir conteúdo
+  abrirConteudo() {
+    if (this.materialSelecionado) {
+      // Navega para a página de conteúdo do material
+      this.router.navigate([]);
+      this.fecharModal();
+    }
+  }
+
 }
