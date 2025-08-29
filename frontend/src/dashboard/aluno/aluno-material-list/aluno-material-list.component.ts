@@ -49,9 +49,7 @@ carregarMateriais(): void {
     setTimeout(() => this.carregarMateriais(), 400);
   }
 
-  abrirMaterial(id: string): void {
-    this.router.navigate(['/aluno/materiais', id, 'atividades']);
-  }
+ 
 
   irParaDashboard(): void {
     this.router.navigate(['/dashboard-aluno']);
