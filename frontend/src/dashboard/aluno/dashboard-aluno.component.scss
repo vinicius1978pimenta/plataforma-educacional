@@ -7,7 +7,8 @@
   color: white;
   position: relative;
   overflow: hidden;
-  width: 1150px;
+  max-width: 1150px;
+  width: 95%;
   margin: 0 auto;
 }
 
@@ -143,7 +144,6 @@
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
-  padding-top: 600px;
   padding-bottom: 1px;
 }
 
@@ -686,5 +686,5 @@ body {
   resize: vertical; /* Permite que o usuário aumente a altura */
   line-height: 1.5;
   cursor: text;
-  overflow: hidden; 
+  overflow: hidden; /* Evita barras de rolagem */
 }
