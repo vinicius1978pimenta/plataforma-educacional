@@ -56,9 +56,11 @@
                   
                   <h3 class="aviso-preview-titulo">{{ aviso.titulo }}</h3>
                   
-                  <p class="aviso-preview-conteudo">
-                    {{ aviso.conteudo | slice:0:150 }}{{ aviso.conteudo.length > 150 ? '...' : '' }}
-                  </p>
+                  <div class="aviso-preview-conteudo">
+                   <textarea class="aviso-conteudo-leitura" rows="1"  readonly>{{ aviso.conteudo}}
+                   </textarea>
+                  </div>
+        
                   
                   <div class="aviso-preview-footer">
                     <div class="professor-info">
@@ -73,6 +75,7 @@
                 </div>
               </div>
             </div>
+
             
             <!-- Indicadores de posição -->
             <div class="carousel-indicators" *ngIf="ultimosAvisos.length > 1">
