@@ -85,11 +85,11 @@ carregarMateriais(): void {
 
   // Método para abrir conteúdo
   abrirConteudo() {
-    if (this.materialSelecionado) {
-      // Navega para a página de conteúdo do material
-      this.router.navigate([]);
-      this.fecharModal();
-    }
+  if (this.materialSelecionado) {
+    // Navega para a página de conteúdos do material
+    this.router.navigate(['/aluno/materiais', this.materialSelecionado.id, 'conteudos']);
+    this.fecharModal();
   }
+}
 
 }

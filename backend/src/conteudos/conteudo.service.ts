@@ -133,25 +133,35 @@ export class ConteudoService {
   }
 
   // Métodos originais atualizados para incluir novos campos
-  async findAllByProfessor(professorId: string) {
+  async findAllByAluno(alunoId: string, materialId?: string) {
+    
     return await this.prismaservice.conteudo.findMany({
-      where: { professorId },
-      include: { material: true },
+      where: {
+        // Mantém apenas o filtro por materialId
+        ...(materialId && { materialId: materialId }),
+      },
+      include: { 
+        material: true, 
+        professor: true 
+      },
       orderBy: { createdAt: 'desc' },
     });
   }
 
-  async findAllByAluno(alunoId: string) {
-    return await this.prismaservice.conteudo.findMany({
-      where: {
-        alunos: {
-          some: { id: alunoId },
-        },
-      },
-      include: { material: true, professor: true },
-      orderBy: { createdAt: 'desc' },
-    });
-  }
+async findAllByProfessor(professorId: string, materialId?: string) {
+  return await this.prismaservice.conteudo.findMany({
+    where: {
+      professorId,
+      // CORRIGIDO: Filtrar pelo materialId diretamente
+      ...(materialId && { materialId: materialId }),
+    },
+    include: { 
+      material: true, 
+      professor: true 
+    },
+    orderBy: { createdAt: 'desc' },
+  });
+}
 
   // Novo método - download de PDF
   async downloadPdf(id: string, res: Response, userId: string, userRole: Role) {

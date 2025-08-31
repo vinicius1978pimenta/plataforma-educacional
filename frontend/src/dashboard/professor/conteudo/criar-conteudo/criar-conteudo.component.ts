@@ -54,16 +54,17 @@ export class CriarConteudoComponent implements OnInit {
   }
 
   listarconteudo() {
-    this.conteudoService.listarconteudo().subscribe({
-      next: (res) => {
-        this.conteudo = res;
-      },
-      error: (err) => {
-        console.error('Erro ao carregar conteúdo', err);
-        alert('Erro ao carregar conteúdo');
-      }
-    });
-  }
+  // Se você quiser todos os conteúdos do professor:
+  this.conteudoService.listarconteudo('').subscribe({
+    next: (res) => {
+      this.conteudo = res;
+    },
+    error: (err) => {
+      console.error('Erro ao carregar conteúdo', err);
+      alert('Erro ao carregar conteúdo');
+    }
+  });
+}
 
   carregarMateriais() {
     this.atividadeservice.getMateriais().subscribe({

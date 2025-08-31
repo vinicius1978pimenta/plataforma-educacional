@@ -1,0 +1,101 @@
+
+/* Container principal */
+.container {
+  font-family: 'Inter', sans-serif;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+/* Botão voltar */
+button {
+  transition: all 0.3s ease;
+}
+
+/* Header do material */
+.bg-white {
+  background-color: #ffffff;
+}
+
+.shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-lg {
+  border-radius: 12px;
+}
+
+/* Cards de conteúdo */
+.conteudo-card {
+  transition: all 0.3s ease;
+}
+
+.conteudo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Tipo do conteúdo */
+.text-xs.font-medium {
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* Modal */
+.fixed.inset-0 {
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+  animation: modalShow 0.3s ease;
+}
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botões do modal */
+button {
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Nenhum conteúdo */
+.text-center {
+  font-size: 1.125rem;
+  color: #9ca3af;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .conteudo-card {
+    flex-direction: column;
+  }
+
+  .ml-4 {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .modal-content {
+    max-width: 90%;
+  }
+}

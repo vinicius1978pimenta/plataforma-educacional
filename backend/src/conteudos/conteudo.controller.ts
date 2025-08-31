@@ -13,6 +13,7 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
   Res,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
@@ -72,15 +73,19 @@ export class ConteudoController {
   // Encontrar todos (original)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
-  findAll(@CurrentUser() user: any) {
+  findAll(
+    @CurrentUser() user: any,
+    @Query('materialId') materialId?: string  
+  ) {
     if (user.role === Role.PROFESSOR) {
-      return this.conteudoservice.findAllByProfessor(user.id);
+      return this.conteudoservice.findAllByProfessor(user.id, materialId);
     } else if (user.role === Role.ALUNO) {
-      return this.conteudoservice.findAllByAluno(user.id);
+      return this.conteudoservice.findAllByAluno(user.id, materialId);
     } else {
       throw new Error('Você não tem permissão para acessar os conteúdos');
     }
   }
+
 
   // Download de PDF
   @UseGuards(JwtAuthGuard, RolesGuard)
