@@ -37,10 +37,13 @@ body {
             padding: 10px 40px 15px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             background: #ffffff;
             position: relative;
             order: 2;
+            overflow-y: auto;       /* adiciona scroll vertical */
+            max-height: 100vh;      /* não ultrapassa a altura da tela */
+            box-sizing: border-box; /* garante padding no cálculo */
         }
 
         .logo-sistema {
