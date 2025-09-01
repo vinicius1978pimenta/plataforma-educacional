@@ -16,6 +16,14 @@ body {
     margin: 0 auto;
     padding: 2rem;
     min-height: 100vh;
+    width: 90%;               /* ocupa 90% da largura da tela */
+  max-width: 1200px;        /* não ultrapassa 1200px em telas grandes */
+  margin: 20px auto;        /* centraliza o container horizontalmente */
+  padding: 20px;            /* espaço interno */
+  border: 2px solid #00000013;   /* borda preta */
+  border-radius: 10px;      
+  box-sizing: border-box;
+    
 }
 
 /* Header */
@@ -29,7 +37,7 @@ body {
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     background: #ffffff;
-    color: #6366f1;
+    color: linear-gradient(135deg, #082c55 0%, #8b5cf6 100%);
     border: 2px solid #e2e8f0;
     border-radius: 12px;
     font-weight: 600;
@@ -40,7 +48,7 @@ body {
 }
 
 .btn-back:hover {
-    background: #6366f1;
+    background: linear-gradient(135deg, #082c55 0%, #8b5cf6 100%);
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
@@ -48,12 +56,13 @@ body {
 
 /* Card do Material */
 .material-card {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #082c55 0%, #8b5cf6 100%);
     color: white;
     padding: 2rem;
     border-radius: 20px;
     margin-bottom: 2rem;
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    margin-top: 10px;
 }
 
 .material-title {
@@ -74,6 +83,7 @@ body {
     display: grid;
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    margin-top: 20px;
 }
 
 .content-card {
