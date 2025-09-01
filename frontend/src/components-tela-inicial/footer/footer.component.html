@@ -18,7 +18,7 @@
   <div class="container py-5">
 
     <!-- Mega-menu: 5 colunas -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 footer-mega">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 footer-mega">
 
       <!-- Col 1 -->
       <div class="col text-start">
@@ -60,58 +60,42 @@
         </p>
       </div>
 
-      <!-- Col 5 (Links rápidos) -->
-      <div class="col text-start">
-        <h6 class="footer-title">Links</h6>
-        <ul class="list-unstyled small mb-0 footer-list">
-          <li><a class="footer-link" routerLink="/login">Entrar</a></li>
-          <li><a class="footer-link" routerLink="/register">Cadastrar</a></li>
-          <li><a class="footer-link" routerLink="/">FAQ</a></li>
-        </ul>
-      </div>
 
     </div>
 
     <hr class="border-white-10 my-4">
+ <!-- Linha inferior: marca, contato e sociais -->
+ <div class="navbar-container">
 
-    <!-- Linha inferior: marca, contato e sociais -->
-    <div class="row gy-4 align-items-start">
-      <div class="col-md-4">
-        <a class="d-flex align-items-center gap-2 text-decoration-none mb-2" routerLink="/">
-          <img src="/logo-inter-azul.png" alt="InterLinguas" width="40" height="40" class="rounded-2">
-          <span class="fw-semibold text-light">InterLinguas</span>
-        </a>
-        <div class="d-flex gap-3">
-          <a routerLink="/" class="icon-link" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
-          <a routerLink="/" class="icon-link" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
-          <a routerLink="/" class="icon-link" aria-label="YouTube"><i class="bi bi-youtube fs-5"></i></a>
-          <a href="https://github.com/vinicius1978pimenta/plataforma-educacional" class="icon-link" aria-label="GitHub"><i class="bi bi-github fs-5"></i></a>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <h6 class="footer-title">Contatos</h6>
-        <ul class="list-unstyled small mb-0 footer-list">
-          <li><i class="bi bi-geo-alt me-2"></i> Endereço</li>
-          <li><i class="bi bi-envelope me-2"></i> <a class="footer-link" [href]="'mailto:' + email">{{ email }}</a></li>
-          <li><i class="bi bi-telephone me-2"></i> <a class="footer-link">+55 (11) 3814-9945</a></li>
-        </ul>
-      </div>
-    </div>
+  <!-- Div da Logo (à esquerda) -->
+  <div class="logo-container">
+    <a class="d-flex align-items-center gap-2 text-decoration-none" routerLink="/">
+      <img src="/logo-inter-azul.png" alt="InterLinguas" width="40" height="40" class="rounded-2">
+      <span class="fw-semibold text-light">InterLinguas</span>
+    </a>
   </div>
 
+  <!-- Div das Redes Sociais (à direita) -->
+  <div class="social-icons">
+    <a routerLink="/" class="icon-link" aria-label="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+    <a routerLink="/" class="icon-link" aria-label="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+    <a routerLink="/" class="icon-link" aria-label="YouTube"><i class="bi bi-youtube fs-5"></i></a>
+    <a href="https://github.com/vinicius1978pimenta/plataforma-educacional" class="icon-link" aria-label="GitHub"><i class="bi bi-github fs-5"></i></a>
+  </div>
+
+</div>
+
   <!-- Barra legal -->
-  <div class="footer-bottom border-top border-white-10 py-3 small">
+  <div class="footer-bottom border-top border-white-10 py-5 small">
+    
     <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
       <div class="d-flex align-items-center gap-3 flex-wrap">
-        <span class="opacity-75">Português (Brasil)</span>
-        <a class="footer-link" routerLink="/">Suas opções de privacidade</a>
-        <a class="footer-link" routerLink="/">Privacidade</a>
-        <a class="footer-link" routerLink="/">Ética e Compliance</a>
-        <a class="footer-link" routerLink="/">Acessibilidade</a>
-        
-      </div>
+        <li><i class="bi bi-geo-alt me-2"></i> <a class="footer-link">Endereço</a></li>
+        <li><i class="bi bi-telephone me-2"></i> <a class="footer-link">+55 (11) 3814-9945</a></li>
+        <li><i class="bi bi-envelope me-2"></i> <a class="footer-link" [href]="'mailto:' + email">{{ email }}</a></li>
+    </div>
       <div class="opacity-75">© {{ currentYear }} InterLinguas — Grupo FGV</div>
     </div>
   </div>
+</div>
 </footer>

@@ -83,3 +83,16 @@
     text-align: center;
   }
 }
+
+.navbar-container {
+  display: flex; /* Ativa o layout flexível */
+  justify-content: space-between; /* Coloca espaço entre os itens (logo na esquerda, ícones na direita ) */
+  align-items: center; /* Alinha verticalmente os itens ao centro */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+  padding: 10px ;
+}
+
+.social-icons {
+  display: flex; /* Mantém os ícones em linha */
+  gap: 1rem; /* Adiciona um espaço entre os ícones (ajuste conforme necessário) */
+}
