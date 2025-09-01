@@ -1,0 +1,100 @@
+/* Reset básico */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Layout geral */
+.container {
+  min-height: 100vh;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Header com degradê */
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #02285d, #4fc3f7);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgb(138, 136, 136);
+}
+
+h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+/* Alertas */
+.alert { border-radius: 8px; font-size: 1em; }
+.alert-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+.alert-danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* Card */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  transition: margin-top .2s ease, box-shadow .3s ease;
+}
+.card:hover {
+  margin-top: -6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+.card-body { padding: 20px; }
+
+/* Título card */
+.card-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+/* Input filtro */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* Área rolável da tabela */
+.table-wrap {
+  max-height: 65vh;          /* altura visível da lista */
+  overflow-y: auto;       
+  overflow-x: auto;         
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Cabeçalho fixo durante a rolagem */
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: #f5f7fa;
+  z-index: 2;
+  /* opcional: sombra no topo para separar visualmente */
+  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+}
+
+/* Tabela */
+.table { margin-bottom: 0; }
+.table th {
+  border-radius: 2px;
+  color: #003366;
+  font-weight: 600;
+}
+.table td { color: #495057; }
+
+/* Scrollbar (WebKit) */
+.table-wrap::-webkit-scrollbar { width: 10px; height: 10px; }
+.table-wrap::-webkit-scrollbar-track { background: #eef1f5; border-radius: 8px; }
+.table-wrap::-webkit-scrollbar-thumb { background: #b7c1d1; border-radius: 8px; }
+.table-wrap::-webkit-scrollbar-thumb:hover { background: #98a6bb; }
+

@@ -27,6 +27,7 @@ import { CriarConteudoComponent } from '../dashboard/professor/conteudo/criar-co
 import { RelatoriosAlunoComponent } from '../dashboard/aluno/relatorios-aluno/relatorios-aluno.component';
 import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios-professor/relatorios-professor/relatorios-professor.component';
 import { AlunoConteudoListComponent } from '../dashboard/aluno/conteudos/aluno-conteudo-list.component';
+import { ProfessorAlunosListComponent } from '../dashboard/professor/professor-alunos-list/professor-alunos-list.component';
 
 
 
@@ -135,6 +136,13 @@ export const routes: Routes = [
   component: AlunoConteudoListComponent,
   canActivate: [AuthGuard], // se você usar guards de autenticação
 },
+
+  {
+    path: 'professor/alunos',
+    component: ProfessorAlunosListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'PROFESSOR' }
+  },
 
 
   // Rotas de avisos

@@ -1,0 +1,57 @@
+<app-navbar2></app-navbar2>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header-actions">
+    <h1>Lista de Alunos</h1>
+  </div>
+
+  <!-- Estados -->
+  <div *ngIf="loading" class="alert alert-info">Carregando...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <!-- Conteúdo -->
+  <div class="row" *ngIf="!loading && !error">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Alunos e Responsáveis</h5>
+
+          <!-- Filtro -->
+          <input
+            type="text"
+            class="form-control mb-3"
+            placeholder="Filtrar por nome ou email"
+            [(ngModel)]="filtro"
+          />
+
+          <!-- Tabela rolável -->
+          <div class="table-wrap">
+            <table class="table table-striped align-middle">
+              <thead>
+                <tr>
+                  <th>Aluno</th>
+                  <th>Email do aluno</th>
+                  <th>Responsável</th>
+                  <th>Email do responsável</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let a of alunosFiltrados; trackBy: trackById">
+                  <td>{{ a.name }}</td>
+                  <td>{{ a.email }}</td>
+                  <td>{{ a.responsavel?.name || '—' }}</td>
+                  <td>{{ a.responsavel?.email || '—' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p *ngIf="alunos && !alunosFiltrados.length">
+            Nenhum aluno encontrado.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

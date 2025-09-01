@@ -41,4 +41,8 @@ export class UserService {
   getFilhosByResponsavelId(responsavelId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/responsaveis/${responsavelId}/filhos`);
   }
+
+    getAlunosForProfessor(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/professores/alunos`);
+  }
 }
