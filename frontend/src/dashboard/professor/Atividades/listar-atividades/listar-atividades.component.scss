@@ -1,158 +1,131 @@
-/* ===== Fundo e container com “respiro” lateral ===== */
-html, body { height: 100%; }
-body{
-  margin: 0;
-  font-family: 'Inter', sans-serif;
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; overflow: hidden; }
+body { font-family: 'Inter', sans-serif; }
+
+
+.page-shell{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
+
+/* Navbar ocupa só o necessário */
+app-navbar2, app-navbar2 * { max-width: 100%; }
+app-navbar2 { flex: 0 0 auto; }
+
+/* ===== Conteúdo principal ===== */
 .container.container--full{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
   max-width: 100%;
-  min-height: 100vh;
-  margin: 0 auto;
   padding: 20px;
-  background: transparent;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e6ebf3 100%);
   border: 0;
   box-shadow: none;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* ===== Header igual ao dos relatórios ===== */
+/* ===== Header ===== */
 .header-actions{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  margin-bottom:20px;
-  padding:25px;
-  border-radius:10px;
+  flex: 0 0 auto;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:25px; border-radius:12px;
   background: linear-gradient(135deg, #02285d, #4fc3f7);
-  box-shadow: 0 8px 25px rgb(138 136 136);
+  box-shadow: 0 8px 25px rgba(0,0,0,.2);
 }
-.header-actions h2{
-  margin:0;
-  font-size:2.2rem;
+.header-actions h2{ margin:0; font-size:2rem; font-weight:700; color:#fff; }
+
+/* ===== Busca e alertas ===== */
+.form-group, .alert { flex: 0 0 auto; }
+
+/* ===== Área rolável da tabela ===== */
+.table-wrap{
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  background: #fff;
+  position: relative;
+}
+
+/* ===== Tabela ===== */
+.table{ width:100%; border-collapse:collapse; margin:0; }
+.table th, .table td{ padding:12px 16px; text-align:left; }
+
+/* Cabeçalho neutro */
+.table thead th{
+  position: sticky; top: 0; z-index: 2;
+  background: #f0f2f5;
+  color:#333333;
+  text-transform: uppercase;
+  letter-spacing:.5px;
+  font-size:.95rem;
   font-weight:700;
-  color:#fff;
+  border-bottom: 2px solid #dee2e6;
 }
-.header-actions .btn.btn-secondary{
-  background-color:#6c757d;
-  color:#fff;
-  padding:12px 24px;
-  font-size:1rem;
-  font-weight:600;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  transition: background-color .3s ease, transform .2s ease, box-shadow .2s ease;
-}
-.header-actions .btn.btn-secondary:hover{ background:#5a6268; transform:translateY(-2px); }
-.header-actions .btn.btn-secondary:focus{ outline:none; box-shadow:0 0 0 2px rgba(0,141,229,.25); }
+.table thead th:first-child{ border-top-left-radius:12px; }
+.table thead th:last-child{ border-top-right-radius:12px; }
 
-/* ===== Campo de busca ===== */
-.form-group{ margin-bottom:20px; }
-input.form-control{
-  width:100%;
-  padding:12px 15px;
-  font-size:1em;
-  border-radius:10px;
-  border:1px solid #ced4da;
-  background:#ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,.06);
-  transition: border-color .3s, box-shadow .3s, background-color .3s;
-}
-input.form-control:focus{
-  outline:none;
-  border-color:#0095e5;
-  box-shadow:0 0 0 4px rgba(0,141,229,.20);
-  background:#fff;
-}
+.table-hover tbody tr:hover{ background:#f8faff; }
+.table-bordered{ border:1px solid #dde3ea; }
+.table td{ font-size:.95rem; color:#3e4a59; border-top:1px solid #edf1f5; }
 
-/* ===== Tabela em card com head fixo ===== */
-.table-responsive{
-  overflow:auto;
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-.table{ width:100%; border-collapse:collapse; }
-.table th, .table td{ padding:12px 15px; text-align:left; }
-.thead-light th{
-  background: linear-gradient(135deg, #02285d, #4fc3f7);
-  color:#fff;
-}
-.table thead th{ position:sticky; top:0; z-index:2; }
-.table-bordered{ border:1px solid #ddd; }
-.table-hover tbody tr:hover{ background:#eef5ff; }
-.table td{ font-size:1em; color:#495057; }
+/* ===== Coluna de ações ===== */
+.table thead th:last-child,
+.table tbody td:last-child{ width: 240px; }
 
-/* ===== Badges de status ===== */
+/* ===== Badges ===== */
 .badge{
-  display:inline-block;
-  padding:.35rem .6rem;
-  font-size:.78rem;
-  line-height:1;
-  border-radius:999px;
-  font-weight:600;
-  border:1px solid transparent;
+  display:inline-block; padding:.38rem .65rem; font-size:.78rem;
+  border-radius:999px; font-weight:700;
 }
-.badge-success{ background:#e6f4ea; color:#1e7e34; border-color:#cde9d6; }
-.badge-secondary{ background:#f1f3f5; color:#495057; border-color:#e9ecef; }
+.badge-success{ background:#e8f7ef; color:#1f7a3a; }
+.badge-secondary{ background:#eef1f5; color:#4e5968; }
 
-/* ===== Botões ===== */
+/* ===== Botões — paleta moderna ===== */
 .btn-sm{
-  padding:8px 14px;
-  font-size:.9em;
-  border-radius:8px;
-  cursor:pointer;
-  transition: transform .2s ease, background-color .3s ease;
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  padding:8px 14px; font-size:.9em; border-radius:8px; cursor:pointer;
+  transition: transform .2s, background-color .3s; border:0;
+  font-weight:600;
 }
 .btn-sm:hover{ transform:translateY(-1px); }
-.btn-info{ background:#17a2b8; color:#fff; }
-.btn-info:hover{ background:#138496; }
-.btn-warning{ background:#ffc107; color:#fff; }
-.btn-warning:hover{ background:#e0a800; }
-.btn-danger{ background:#dc3545; color:#fff; }
-.btn-danger:hover{ background:#c82333; }
-.btn-success{ background:#28a745; color:#fff; }
-.btn-success:hover{ background:#218838; }
-.btn-secondary{ background:#6c757d; color:#fff; }
-.btn-secondary:hover{ background:#5a6268; }
 
-/* ===== Alert ===== */
+/* Azul */
+.btn-info{ background:#51a5dd; color:#fff; }
+.btn-info:hover{ background:#2d83bd; }
+
+/* Amarelo */
+.btn-warning{ background:#2d6d79; color:#fff; }
+.btn-warning:hover{ background:#45816d;; }
+
+/* Vermelho */
+.btn-danger{ background:#ca4e40; color:#fff; }
+.btn-danger:hover{ background:#c4483a; }
+
+
+
+/* ===== Alertas ===== */
 .alert-info{
-  background:#d1ecf1;
-  color:#0c5460;
-  border:1px solid #bee5eb;
-  padding:10px 15px;
-  border-radius:8px;
-  font-size:1em;
+  background:#d1ecf1; color:#0c5460; border:1px solid #bee5eb;
+  padding:10px 15px; border-radius:10px; font-size:1em;
 }
 
-/* ===== Respostas / Avaliação ===== */
-.resposta-section{
-  background:#f8f9fa;
-  padding:16px;
-  border-radius:10px;
-  margin-top:20px;
-}
+/* ===== Respostas ===== */
+.resposta-section{ background:#f8f9fa; padding:16px; border-radius:10px; margin-top:20px; }
 
-/* ===== Responsivo ===== */
-@media (max-width:768px){
-  .header-actions{ padding:18px; }
-  .header-actions h2{ font-size:1.6rem; }
-  .table-responsive{ -webkit-overflow-scrolling:touch; }
-}
-
-/* mantém os botões na coluna Ações sem quebrar a linha no desktop */
+/* ===== Ações ===== */
 .cell-actions{ white-space: nowrap; }
+@media (max-width: 576px){ .cell-actions{ white-space: normal; } }
 
-/* no mobile pode quebrar para caber melhor */
-@media (max-width: 576px){
-  .cell-actions{ white-space: normal; }
-}
-
-
-.table thead th:last-child,
-.table tbody td:last-child{
-  width: 260px; 
-}
+/* ===== Scrollbar (WebKit) ===== */
+.table-wrap::-webkit-scrollbar { width: 10px; height: 10px; }
+.table-wrap::-webkit-scrollbar-track { background: #eef1f5; border-radius: 8px; }
+.table-wrap::-webkit-scrollbar-thumb { background: #b7c1d1; border-radius: 8px; }
+.table-wrap::-webkit-scrollbar-thumb:hover { background: #98a6bb; }
