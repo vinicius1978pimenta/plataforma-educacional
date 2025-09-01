@@ -26,6 +26,7 @@ import { MuralAvisosComponent } from './avisos/mural-avisos/mural-avisos.compone
 import { CriarConteudoComponent } from '../dashboard/professor/conteudo/criar-conteudo/criar-conteudo.component';
 import { RelatoriosAlunoComponent } from '../dashboard/aluno/relatorios-aluno/relatorios-aluno.component';
 import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios-professor/relatorios-professor/relatorios-professor.component';
+import { AlunoConteudoListComponent } from '../dashboard/aluno/conteudos/aluno-conteudo-list.component';
 
 
 
@@ -128,6 +129,13 @@ export const routes: Routes = [
   canActivate: [AuthGuard, RoleGuard],
   data: { role: 'ALUNO' }
   },
+
+ {
+  path: 'aluno/materiais/:materialId/conteudos',
+  component: AlunoConteudoListComponent,
+  canActivate: [AuthGuard], // se você usar guards de autenticação
+},
+
 
   // Rotas de avisos
   {

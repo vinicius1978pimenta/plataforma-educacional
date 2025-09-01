@@ -7,9 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AtividadeService {
-  listarMaterias() {
-    throw new Error('Method not implemented.');
-  }
+
  
   private apiUrl = 'http://localhost:3000/atividades';
  
