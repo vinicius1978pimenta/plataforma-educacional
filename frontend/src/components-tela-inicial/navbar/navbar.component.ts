@@ -31,17 +31,10 @@ botoes: any;
 }
 
 scrollToFooter() {
-  const footer = document.getElementById('footer');
-  if (footer) {
-    const navbar = document.querySelector('.navbar') as HTMLElement | null;
-    const offset = navbar?.offsetHeight ?? 0;
-
-    const top = footer.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({
-      top,
-      behavior: 'smooth'
-    });
-  }
+  window.scrollTo({
+    top: document.documentElement.scrollHeight,
+    behavior: 'smooth'
+  });
 }
 
 }

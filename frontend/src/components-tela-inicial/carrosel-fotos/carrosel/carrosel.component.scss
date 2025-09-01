@@ -18,4 +18,6 @@
 .carousel-image {
   object-fit: cover;
   border-radius: 15px; /* garante arredondamento na imagem também */
+  height: 400px; /* mesma altura da segunda imagem */
+  object-position: top;
 }
