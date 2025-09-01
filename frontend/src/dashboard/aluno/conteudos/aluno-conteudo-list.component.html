@@ -1,89 +1,138 @@
-<div class="container mx-auto p-6 max-w-6xl">
-  <!-- Header simples -->
-  <div class="mb-6">
-    <button 
-       (click)="voltarParaMateriais()"
-       class="text-blue-600 hover:text-blue-800 mb-4">
-      ← Voltar aos Materiais
-    </button>
-
-    <div *ngIf="material" class="bg-white rounded-lg shadow p-4 mb-6">
-      <h1 class="text-2xl font-bold text-gray-800">
-        {{ material.titulo }}
-      </h1>
-      <p class="text-gray-600">{{ material.conteudo }}</p>
-    </div>
-  </div>
-
-  <!-- Lista de Conteúdos -->
-  <div *ngIf="conteudos.length > 0; else semConteudo">
-    <div *ngFor="let c of conteudos" class="conteudo-card bg-white rounded-lg shadow p-4 mb-4 cursor-pointer hover:shadow-md transition-shadow" (click)="abrirModalConteudo(c)">
-      <div class="flex items-start justify-between">
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-xl">{{ getIconeConteudo(c.tipo) }}</span>
-            <span class="px-2 py-1 rounded text-xs font-medium" [ngClass]="getCorTipo(c.tipo)">
-              {{ c.tipo }}
-            </span>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ c.titulo }}</h3>
-          <p class="text-gray-600 mb-2">{{ c.descricao }}</p>
-          <small class="text-gray-500">Professor: {{ c.professor?.nome }}</small>
-          <div class="text-xs text-gray-400 mt-1">{{ formatarData(c.createdAt) }}</div>
-        </div>
-        <div class="ml-4">
-          <button class="text-gray-400 hover:text-gray-600">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+<div class="container">
+    <!-- Header -->
+    <div class="header fade-in">
+        <button 
+            (click)="voltarParaMateriais()"
+            class="btn-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
-          </button>
+            Voltar aos Materiais
+        </button>
+
+        <div *ngIf="material" class="material-card slide-up">
+            <h1 class="material-title">{{ material.titulo }}</h1>
+            <p class="material-content">{{ material.conteudo }}</p>
         </div>
-      </div>
     </div>
-  </div>
 
-  <ng-template #semConteudo>
-    <div class="text-center py-8">
-      <p class="text-gray-500 text-lg">Nenhum conteúdo disponível.</p>
+    <!-- Lista de Conteúdos -->
+    <div *ngIf="conteudos.length > 0; else semConteudo">
+        <div class="content-grid">
+            <div 
+                *ngFor="let c of conteudos; let i = index" 
+                class="content-card slide-up"
+                [class]="'slide-up-delay-' + (i % 3 + 1)"
+                (click)="abrirModalConteudo(c)"
+                tabindex="0"
+                (keydown.enter)="abrirModalConteudo(c)">
+                
+                <div class="card-header">
+                    <div class="type-info">
+                        <div class="type-icon">{{ getIconeConteudo(c.tipo) }}</div>
+                        <span class="type-badge badge-{{c.tipo?.toLowerCase()}}">
+                            {{ c.tipo }}
+                        </span>
+                    </div>
+                    <div class="card-arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <h3 class="card-title">{{ c.titulo }}</h3>
+                <p class="card-description">{{ c.descricao }}</p>
+
+                <div class="card-meta">
+                    <span class="professor-info">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 4px;">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        {{ c.professor?.nome }}
+                    </span>
+                    <span class="date-info">{{ formatarData(c.createdAt) }}</span>
+                </div>
+            </div>
+        </div>
     </div>
-  </ng-template>
 
-  <!-- Modal simples -->
-  <div 
-     *ngIf="showModal"
-     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-     (click)="fecharModal()">
+    <!-- Estado Vazio -->
+    <ng-template #semConteudo>
+        <div class="empty-state fade-in">
+            <div class="empty-icon">📚</div>
+            <p class="empty-text">Nenhum conteúdo disponível</p>
+        </div>
+    </ng-template>
 
-    <div
-       class="bg-white rounded-lg max-w-md w-full mx-4"
-       (click)="$event.stopPropagation()">
-
-      <div class="p-6">
-        <h3 class="text-lg font-semibold mb-4">{{ conteudoSelecionado?.titulo }}</h3>
+    <!-- Modal -->
+    <div 
+        *ngIf="showModal"
+        class="modal-overlay"
+        (click)="fecharModal()">
         
-        <button 
-           *ngIf="conteudoSelecionado?.tipo !== 'PDF'"
-           (click)="visualizarConteudo()"
-           class="w-full mb-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          <span *ngIf="conteudoSelecionado?.tipo === 'LINK'">Abrir Link</span>
-          <span *ngIf="conteudoSelecionado?.tipo === 'TEXTO'">Ler Conteúdo</span>
-        </button>
+        <div 
+            class="modal-content"
+            (click)="$event.stopPropagation()">
+            
+            <div class="modal-header">
+                <h3 class="modal-title">{{ conteudoSelecionado?.titulo }}</h3>
+            </div>
 
-        <button 
-           *ngIf="conteudoSelecionado?.tipo === 'PDF'"
-           (click)="downloadPdf()"
-           class="w-full mb-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-           [disabled]="loading">
-          <span *ngIf="!loading">Baixar PDF</span>
-          <span *ngIf="loading">Baixando...</span>
-        </button>
+            <div class="modal-body">
+                <!-- Conteúdo de Texto -->
+                <div *ngIf="conteudoSelecionado?.texto && conteudoSelecionado?.tipo === 'TEXTO'" class="modal-content-text">
+                    <strong class="content-label">Conteúdo:</strong>
+                    <div class="content-text">{{ conteudoSelecionado?.descricao }}</div>
+                </div>
 
-        <button 
-           (click)="fecharModal()"
-           class="w-full px-4 py-2 border text-gray-700 rounded hover:bg-gray-50">
-          Fechar
-        </button>
-      </div>
+                <!-- Ações do Modal -->
+                <div class="modal-actions">
+                    <button 
+                        *ngIf="conteudoSelecionado?.tipo === 'LINK'"
+                        (click)="visualizarConteudo(conteudoSelecionado)"
+                        class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15,3 21,3 21,9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                        Abrir Link
+                    </button>
+
+                    <button 
+                        *ngIf="conteudoSelecionado?.tipo === 'TEXTO' && !conteudoSelecionado?.texto"
+                        (click)="visualizarConteudo(conteudoSelecionado)"
+                        class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        Carregar Texto
+                    </button>
+
+                    <button 
+                        *ngIf="conteudoSelecionado?.tipo === 'PDF'"
+                        (click)="downloadPdf()"
+                        class="btn btn-danger"
+                        [disabled]="loading">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; margin-right: 8px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        <span *ngIf="!loading">Baixar PDF</span>
+                        <span *ngIf="loading">Baixando...</span>
+                    </button>
+
+                    <button 
+                        (click)="fecharModal()"
+                        class="btn btn-secondary">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

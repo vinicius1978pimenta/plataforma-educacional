@@ -177,7 +177,7 @@ async findAllByProfessor(professorId: string, materialId?: string) {
     // Verificar permissões
     const temPermissao = 
       userRole === Role.PROFESSOR && conteudo.professorId === userId ||
-      userRole === Role.ALUNO && conteudo.alunos.some(aluno => aluno.id === userId);
+      userRole === Role.ALUNO;
 
     if (!temPermissao) {
       throw new BadRequestException('Você não tem permissão para acessar este conteúdo');

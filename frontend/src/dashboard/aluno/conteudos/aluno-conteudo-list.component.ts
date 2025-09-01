@@ -81,19 +81,24 @@ export class AlunoConteudoListComponent implements OnInit {
   }
 
   // Visualizar conteúdo (texto ou link)
-  visualizarConteudo() {
-    if (this.conteudoSelecionado) {
-      if (this.conteudoSelecionado.tipo === 'LINK' && this.conteudoSelecionado.url) {
-        // Abre link em nova aba
-        window.open(this.conteudoSelecionado.url, '_blank');
-      } else {
-        // Para conteúdo texto, pode navegar para uma página de visualização
-        // ou mostrar em um modal maior
-        this.router.navigate(['/aluno/conteudo', this.conteudoSelecionado.id]);
-      }
-      this.fecharModal();
-    }
+  // Método atualizado para visualizar conteúdo
+// Método atualizado para visualizar conteúdo
+visualizarConteudo(conteudo: any) {
+  if (conteudo.tipo === 'LINK' && conteudo.url) {
+    // Abre link em nova aba
+    window.open(conteudo.url, '_blank');
+    this.fecharModal();
+  } else if (conteudo.tipo === 'TEXTO') {
+    // Se já tem o texto, mantém o modal aberto para mostrar
+    // Se não tem, pode fazer uma requisição para buscar o texto
+    this.conteudoSelecionado = conteudo;
+    
+    // Se você precisar buscar o texto do backend:
+    // this.conteudoService.obterTexto(conteudo.id).subscribe(texto => {
+    //   this.conteudoSelecionado.texto = texto;
+    // });
   }
+}
 
   // Download de PDF
   downloadPdf() {
