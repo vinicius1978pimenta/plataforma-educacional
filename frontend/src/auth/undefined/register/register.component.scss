@@ -23,12 +23,14 @@ box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
 margin: 0 auto;
 box-sizing: border-box;
 overflow-x: hidden; /* Previne overflow dentro do próprio wrapper */
+height: 100vh;
+
 }
 
 .hero-section {
 background: linear-gradient(135deg, #02285e 0%, #6c85a7 100%);
 display: flex;
-align-items: center;
+align-items: flex-start;;
 justify-content: center;
 padding: 60px;
 position: relative;
@@ -37,13 +39,17 @@ order: 1;
 }
 
 .login-form-section {
-padding: 10px 40px 15px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-background: #fff;
-position: relative;
-order: 2;
+  padding: 20px 40px ;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #fff;
+  position: relative;
+  order: 2;
+  overflow: hidden;
+  overflow-y: auto;       /* adiciona scroll vertical */
+  max-height: 100vh;      /* não ultrapassa a altura da tela */
+  box-sizing: border-box; /* garante padding no cálculo */
 }
 
 .logo-sistema {

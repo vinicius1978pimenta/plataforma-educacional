@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { VocabularioService } from '../../../services/vocabulario.service';
 import { AtividadeService } from '../../../services/atividade.service';
+import { Aviso, AvisosService } from '../../../services/avisos.service';
 
 
 @Component({
@@ -12,6 +13,9 @@ import { AtividadeService } from '../../../services/atividade.service';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
+  totalAvisos: number | undefined;
+
+  constructor(private avisosService: AvisosService) {}
 
   private vocabularioService = inject(VocabularioService);
   private atividadeService = inject(AtividadeService);
@@ -35,7 +39,17 @@ export class CardComponent implements OnInit {
       this.totalMateria = _materias.length
     }
     )
-    
+    this.loadAvisos();
    
+  }
+  loadAvisos() {
+    this.avisosService.getAllAvisos().subscribe({
+      next: (avisos: Aviso[]) => {
+        this.totalAvisos = avisos.length; // pega só a quantidade
+      },
+      error: (err) => {
+        console.error('Erro ao buscar avisos', err);
+      }
+    });
   }
 }
