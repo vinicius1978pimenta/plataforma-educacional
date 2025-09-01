@@ -249,13 +249,7 @@ transform: translateY(-2px);
 box-shadow: 0 6px 20px rgba(2, 40, 95, 0.3);
 }
 
-.btn-login {
-/* Herda estilos de .nav-button-base */
-}
 
-.btn-home {
-/* Herda estilos de .nav-button-base */
-}
 
 .login-link-section {
 text-align: center;
@@ -458,4 +452,65 @@ cursor: pointer;
 padding: 8px;
 color: #666;
 z-index: 2;
+}
+.navigation-section {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 25px 0;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Botão Início - branco normal, muda no hover */
+.btn-home {
+  background-color: #ffffff;
+  color: #082c55; /* texto escuro */
+  border: 2px solid #082c55;
+}
+
+.btn-home:hover {
+  background: linear-gradient(135deg, #082c55 0%, #8b5cf6 100%);
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+}
+
+/* Botão Login - verde estilo success */
+.btn-login {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: #fff;
+}
+
+.btn-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+/* Responsivo para mobile */
+@media (max-width: 480px) {
+  .nav-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .nav-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
