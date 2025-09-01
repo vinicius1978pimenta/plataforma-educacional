@@ -106,12 +106,6 @@ export class ProfessorService {
     return aluno;
   }
 
-  async findAllAlunos() {
-    return await this.prismaService.user.findMany({
-      where: { role: 'ALUNO' },
-    });
-  }
-
   async removeAluno(alunoId: string, user: any) {
     const aluno = await this.prismaService.user.findUnique({
       where: {
@@ -127,4 +121,26 @@ export class ProfessorService {
       where: { id: alunoId },
     });
   }
+
+
+ async findAllAlunos() {
+    return this.prismaService.user.findMany({
+      where: { role: 'ALUNO' },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        responsavel: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: { name: 'asc' },
+    });
+  }
+
 }
+
