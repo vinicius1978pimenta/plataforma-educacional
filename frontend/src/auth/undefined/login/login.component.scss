@@ -12,7 +12,7 @@ body {
 
         .login-wrapper {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1990px;
             height: 100vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -34,7 +34,7 @@ body {
         }
 
         .login-form-section {
-            padding: 10px 40px 15px;
+            padding: 5% 8%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -505,4 +505,4 @@ body {
               .password-toggle-btn:hover {
                 color: #02285f;
               }
-              
+                
