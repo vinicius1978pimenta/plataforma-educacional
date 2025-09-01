@@ -1,98 +1,139 @@
 <app-navbar2></app-navbar2>
+
+
 <div class="container-atividades">
- 
+  <!-- Header do Dashboard -->
+  <div class="dashboard-header">
+    <h2 class="dashboard-title">📚 Atividades do Material</h2>
+    <p class="dashboard-subtitle">Gerencie suas atividades e envie suas respostas</p>
+  </div>
+
   <!-- Loading -->
-  <div *ngIf="loading" class="alert-custom alert-loading">
+  <div *ngIf="loading" class="alert-loading">
     <div class="spinner"></div>
     Carregando atividades...
   </div>
 
   <!-- Sem atividades -->
-   
-  <div *ngIf="!loading && atividades.length === 0" class="alert-custom alert-warning">
+  <div *ngIf="!loading && atividades.length === 0" class="alert-warning">
     📋 Nenhuma atividade vinculada a este material.
   </div>
 
-  <!-- Grid de atividades -->
-  <div *ngIf="!loading && atividades.length > 0" class="atividades-grid">
-    <div *ngFor="let atividade of atividades" class="atividade-card">
+  <!-- Lista de atividades -->
+  <div *ngIf="!loading && atividades.length > 0" class="atividades-lista">
+    <div class="lista-header">
+      📋 Lista de Atividades ({{ atividades.length }} {{ atividades.length === 1 ? 'atividade' : 'atividades' }})
+    </div>
+    
+    <div *ngFor="let atividade of atividades; let i = index" 
+         class="atividade-item"
+         [class.expandida]="atividade.expandida">
       
-      <div class="card-header">
-        <h5 class="card-titulo">{{ atividade.titulo }}</h5>
-        <p class="card-descricao">{{ atividade.descricao }}</p>
-      </div>
-      
-      <div class="card-info">
-        <div class="info-item">
-          <div class="info-label">Matéria</div>
-          <div class="info-value">{{ atividade.materia }}</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Tipo</div>
-          <div class="info-value">{{ atividade.tipo }}</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Pontuação</div>
-          <div class="info-value">{{ atividade.pontuacao }}</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Vencimento</div>
-          <div class="info-value">{{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</div>
-        </div>
-      </div>
-
-      <div class="conteudo-box">
-        {{ atividade.conteudo }}
-      </div>
-
-      <!-- Tradução -->
-      <div class="traducao-buttons">
-        <button class="btn-traducao btn-ingles"
-                (click)="traduzirAtividade(atividade, 'en')"
-                [disabled]="atividade.traduzindo">
-          <span *ngIf="atividade.traduzindo" class="spinner"></span>
-          {{ atividade.traduzindo ? 'Traduzindo...' : 'EN' }}
-        </button>
-        <button class="btn-traducao btn-espanhol"
-                (click)="traduzirAtividade(atividade, 'es')"
-                [disabled]="atividade.traduzindo">
-          <span *ngIf="atividade.traduzindo" class="spinner"></span>
-          {{ atividade.traduzindo ? 'Traduzindo...' : 'ES' }}
-        </button>
-      </div>
-
-      <div *ngIf="atividade.traducaoIngles" class="traducao-resultado">
-        <strong>EN:</strong> {{ atividade.traducaoIngles }}
-      </div>
-      <div *ngIf="atividade.traducaoEspanhol" class="traducao-resultado">
-        <strong>ES:</strong> {{ atividade.traducaoEspanhol }}
-      </div>
-
-      <!-- Resposta OU Status -->
-      <ng-container *ngIf="atividade.status !== 'ENVIADA' && atividade.status !== 'CORRIGIDA'; else statusTpl">
-        <div class="resposta-section">
-          <label for="resposta-{{ atividade.id }}" style="font-weight: 600; margin-bottom: 8px; display: block;">
-            Sua resposta:
-          </label>
-          <textarea id="resposta-{{ atividade.id }}"
-                    [(ngModel)]="atividade.resposta"
-                    class="resposta-textarea"
-                    placeholder="Digite sua resposta..."></textarea>
-          <button class="btn-enviar" (click)="enviarResposta(atividade)">
-            Enviar Resposta
-          </button>
-        </div>
-      </ng-container>
-
-      <ng-template #statusTpl>
-        <div class="status-enviado">
-          <div>✅ <strong>Resposta enviada</strong></div>
-          <div *ngIf="atividade.status === 'CORRIGIDA'" class="feedback-section">
-            <div><strong>Nota:</strong> {{ atividade.nota }}</div>
-            <div><strong>Feedback:</strong> {{ atividade.feedback || '—' }}</div>
+      <!-- Conteúdo principal -->
+      <div class="item-principal" (click)="toggleExpansao(atividade)">
+        <div class="item-info">
+          <div class="info-titulo">
+            <div class="titulo-atividade">{{ atividade.titulo }}</div>
+            <div class="descricao-atividade">{{ atividade.descricao }}</div>
+          </div>
+          
+          <div class="info-materia">
+            <div class="info-label">Matéria</div>
+            <div class="info-value">{{ atividade.materia }}</div>
+          </div>
+          
+          <div class="info-tipo">
+            <div class="info-label">Tipo</div>
+            <div class="info-value">{{ atividade.tipo }}</div>
+          </div>
+          
+          <div class="info-pontos">
+            <div class="info-label">Pontos</div>
+            <div class="info-value">{{ atividade.pontuacao }}</div>
+          </div>
+          
+          <div class="info-vencimento">
+            <div class="info-label">Vencimento</div>
+            <div class="info-value">{{ atividade.dataVencimento | date:'dd/MM/yyyy' }}</div>
           </div>
         </div>
-      </ng-template>
+        
+        <div class="status-indicator">
+          <div class="status-badge" 
+               [class.status-pendente]="atividade.status !== 'ENVIADA' && atividade.status !== 'CORRIGIDA'"
+               [class.status-enviada]="atividade.status === 'ENVIADA'"
+               [class.status-corrigida]="atividade.status === 'CORRIGIDA'">
+            {{ atividade.status === 'CORRIGIDA' ? 'Corrigida' : 
+               atividade.status === 'ENVIADA' ? 'Enviada' : 'Pendente' }}
+          </div>
+          
+          <button class="btn-expandir">
+            <span class="icone-expandir">{{ atividade.expandida ? '▲' : '▼' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Conteúdo expandido -->
+      <div *ngIf="atividade.expandida" class="item-expandido" (click)="$event.stopPropagation()">
+        
+        <!-- Conteúdo da atividade -->
+        <div class="conteudo-completo">
+          <strong>Conteúdo da Atividade:</strong><br>
+          {{ atividade.conteudo }}
+        </div>
+
+        <!-- Seção de tradução -->
+        <div class="traducao-section">
+          <div class="traducao-buttons">
+            <button class="btn-traducao btn-ingles"
+                    (click)="traduzirAtividade(atividade, 'en')"
+                    [disabled]="atividade.traduzindo">
+              <span *ngIf="atividade.traduzindo" class="spinner"></span>
+              {{ atividade.traduzindo ? 'Traduzindo...' : '🇺🇸 Traduzir para Inglês' }}
+            </button>
+            <button class="btn-traducao btn-espanhol"
+                    (click)="traduzirAtividade(atividade, 'es')"
+                    [disabled]="atividade.traduzindo">
+              <span *ngIf="atividade.traduzindo" class="spinner"></span>
+              {{ atividade.traduzindo ? 'Traduzindo...' : '🇪🇸 Traduzir para Espanhol' }}
+            </button>
+          </div>
+
+          <div *ngIf="atividade.traducaoIngles" class="traducao-resultado">
+            <strong>🇺🇸 Inglês:</strong> {{ atividade.traducaoIngles }}
+          </div>
+          <div *ngIf="atividade.traducaoEspanhol" class="traducao-resultado">
+            <strong>🇪🇸 Espanhol:</strong> {{ atividade.traducaoEspanhol }}
+          </div>
+        </div>
+
+        <!-- Resposta OU Status -->
+        <ng-container *ngIf="atividade.status !== 'ENVIADA' && atividade.status !== 'CORRIGIDA'; else statusTpl">
+          <div class="resposta-section">
+            <label for="resposta-{{ atividade.id }}">
+              ✏️ Sua resposta:
+            </label>
+            <textarea id="resposta-{{ atividade.id }}"
+                      [(ngModel)]="atividade.resposta"
+                      class="resposta-textarea"
+                      placeholder="Digite sua resposta aqui..."></textarea>
+            <button class="btn-enviar" (click)="enviarResposta(atividade)">
+              📤 Enviar Resposta
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-template #statusTpl>
+          <div class="status-enviado">
+            <div>✅ <strong>Resposta enviada com sucesso!</strong></div>
+            <div *ngIf="atividade.status === 'CORRIGIDA'" class="feedback-section">
+              <div><strong>📊 Nota:</strong> {{ atividade.nota }}</div>
+              <div><strong>💬 Feedback:</strong> {{ atividade.feedback || 'Nenhum feedback disponível' }}</div>
+            </div>
+          </div>
+        </ng-template>
+        
+      </div>
     </div>
   </div>
 </div>

@@ -109,5 +109,7 @@ voltar(): void {
   });
 }
 
-  
+  toggleExpansao(atividade: any) {
+  atividade.expandida = !atividade.expandida;
+}
 }
