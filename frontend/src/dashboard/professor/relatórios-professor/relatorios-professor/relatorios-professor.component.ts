@@ -215,7 +215,7 @@ export class RelatoriosProfessorComponent implements OnInit, OnDestroy {
         labels: ['Sem respostas', 'Aguardando correção', 'Corrigidas'],
         datasets: [{
           data: [this.semRespostas, this.aguardandoCorrecao, this.corrigidas],
-          backgroundColor: ['#9ca3af', '#f59e0b', '#16a34a'],
+          backgroundColor: ['#9ca3af', '#FDDB51', '#3AAE96'],
           borderWidth: 0,
         }],
       },

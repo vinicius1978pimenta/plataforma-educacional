@@ -257,7 +257,7 @@ export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
         labels: ['A fazer', 'Aguardando correção', 'Corrigidas'],
         datasets: [{
           data: [this.pendentes, this.aguardandoCorrecao, this.corrigidas],
-          backgroundColor: ['#8a73beff', '#def50bff', '#17c958ff'],
+          backgroundColor: ['#FDDB51', '#008BC9', '#3AAE96'],
           borderWidth: 0,
         }],
       },
@@ -326,7 +326,7 @@ export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
     // ---------------- Barras: Notas por matéria (ÚNICO, com números nas barras) ----------------
     const LIMITE_AZUL  = 30;
     const LIMITE_VERDE = 60;
-    const colorFor = (v: number) => (v >= LIMITE_VERDE ? '#16a34a' : v >= LIMITE_AZUL ? '#3b82f6' : '#ef4444');
+    const colorFor = (v: number) => (v >= LIMITE_VERDE ? '#3AAE96' : v >= LIMITE_AZUL ? '#3b82f6' : '#ef4444');
 
     this.chartMaterias = new Chart(this.chartMateriasRef.nativeElement, {
       type: 'bar',
