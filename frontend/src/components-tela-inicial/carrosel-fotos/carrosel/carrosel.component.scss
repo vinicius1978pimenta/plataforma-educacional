@@ -11,13 +11,23 @@
   }
 }
 .carousel-inner {
-  border-radius: 15px; /* arredonda todo o bloco do carousel */
+  border-radius: 10px; /* arredonda todo o bloco do carousel */
   overflow: hidden; /* mantém a imagem dentro do raio */
+  width: 100%;
 }
 
 .carousel-image {
-  object-fit: cover;
-  border-radius: 15px; /* garante arredondamento na imagem também */
-  height: 400px; /* mesma altura da segunda imagem */
-  object-position: top;
+  width: 100%;                  /* ocupa toda a largura disponível */
+  height: auto;                 /* altura proporcional à largura */
+  aspect-ratio: 16 / 9;         /* mantém proporção widescreen */
+  object-fit: cover;            /* cobre o container sem distorcer */
+  object-position: center 10%;  /* centraliza e puxa um pouco pra baixo */
+  border-radius: 15px;
+  margin: 0 auto;
+  max-height: 75vh;             /* limita altura máxima em telas grandes */
+  min-height: 380px;            /* mantém um tamanho mínimo em telas pequenas */
+}
+
+.carousel-image {
+  object-position: center 10%; /* centraliza e puxa um pouco pra baixo */
 }

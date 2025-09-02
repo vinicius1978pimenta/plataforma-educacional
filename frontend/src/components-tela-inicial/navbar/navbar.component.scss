@@ -1,113 +1,294 @@
 .logo{
-  color: rgb(66, 63, 63);
+  color: #003A79;
 }
 .logo-img {
-  width: 70px; /* aumenta o tamanho */
+  width: 40px; /* aumenta o tamanho */
   height: auto; /* mantém a proporção */
   border-radius: 10px;
+}
+
+.navbar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 // 🌐 Seletores de Idioma Compactos
 
 // === VERSÃO PRINCIPAL ===
 .lang-selector {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            overflow: hidden;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hover Brasil - Verde */
+        .lang-btn:nth-child(1):hover {
+            border-color: #009639;
+            background: linear-gradient(135deg, #009639 0%, #00b347 100%);
+        }
+
+        /* Hover EUA - Azul */
+        .lang-btn:nth-child(2):hover {
+            border-color: #3C3B6E;
+            background: linear-gradient(135deg, #3C3B6E 0%, #B22234 100%);
+        }
+
+        /* Hover Espanha - Vermelho */
+        .lang-btn:nth-child(3):hover {
+            border-color: #AA151B;
+            background: linear-gradient(135deg, #AA151B 0%, #F1BF00 100%);
+        }
+
+        /* Active Brasil - Verde */
+        .lang-btn:nth-child(1).active {
+            border-color: #009639;
+            background: linear-gradient(135deg, #009639 0%, #00b347 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 150, 57, 0.4);
+        }
+
+        /* Active EUA - Azul */
+        .lang-btn:nth-child(2).active {
+            border-color: #3C3B6E;
+            background: linear-gradient(135deg, #3C3B6E 0%, #B22234 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(60, 59, 110, 0.4);
+        }
+
+        /* Active Espanha - Vermelho */
+        .lang-btn:nth-child(3).active {
+            border-color: #AA151B;
+            background: linear-gradient(135deg, #AA151B 0%, #F1BF00 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(170, 21, 27, 0.4);
+        }
+
+        .flag-icon {
+            width: 18px;
+            height: 12px;
+            border-radius: 2px;
+            margin-bottom: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-btn.active .flag-icon {
+            filter: brightness(1.1);
+        }
+
+        .lang-text {
+            font-size: 8px;
+            font-weight: 600;
+            color: #666;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        .lang-btn:hover .lang-text {
+            color: white;
+            font-weight: 700;
+        }
+
+        .lang-btn.active .lang-text {
+            color: white;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .lang-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .flag-icon {
+                width: 16px;
+                height: 11px;
+            }
+            
+            .lang-text {
+                font-size: 7px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lang-selector {
+                gap: 2px;
+            }
+            
+            .lang-btn {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .flag-icon {
+                width: 14px;
+                height: 10px;
+            }
+            
+            .lang-text {
+                font-size: 6px;
+            }
+        }
+
+
+/* Sombra sutil no Navbar */
+.navbar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Botões FGV - Navbar */
+.btn-fgv {
+  background: rgba(0, 139, 201, 0.1);
+  border: 1px solid rgba(0, 139, 201, 0.3);
+  color: #003A79;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.284);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
-  padding: 6px 10px;
-  backdrop-filter: blur(15px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.422);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-}
-
-.lang-btn {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 6px 10px;
-  border-radius: 18px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
+  backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
-  min-width: 40px;
-  display: flex;
+  width: auto;
+}
+
+.btn-fgv::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-fgv:hover::before {
+  left: 100%;
+}
+
+.btn-fgv:hover {
+  background: rgba(0, 139, 201, 0.15);
+  border-color: rgba(0, 139, 201, 0.5);
+  color: #006a9b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 139, 201, 0.15);
+}
+
+.btn-fgv:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 139, 201, 0.1);
+}
+
+/* Botão Entrar - Destaque Principal */
+.btn-entrar {
+  background: linear-gradient(135deg, #003A79 0%, #002d5f 100%);
+  border: 1px solid #003A79;
+  color: white !important;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 58, 121, 0.2);
+  position: relative;
+  overflow: hidden;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 18px;
+.btn-entrar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-entrar:hover::before {
+  left: 100%;
+}
+
+.btn-entrar:hover {
+  background: linear-gradient(135deg, #0c63aa 0%, #0a5490 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(12, 99, 170, 0.3);
+  color: white !important;
+}
+
+.btn-entrar:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(12, 99, 170, 0.25);
+}
+
+/* Navbar Container */
+.navbar-nav {
+  gap: 12px !important;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .btn-fgv, .btn-entrar {
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 6px;
   }
-
-  &:hover {
-    color: white;
-    transform: translateY(-1px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-
-    &::before {
-      opacity: 1;
-    }
-  }
-
-  &.active {
-    background: linear-gradient(135deg, #4a90e2, #357abd);
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
-    transform: translateY(-1px);
-
-    &::before {
-      opacity: 0;
-    }
-  }
-
-  &:active {
-    transform: translateY(0) scale(0.98);
+  
+  .navbar-nav {
+    gap: 8px !important;
   }
 }
 
-.flag-icon {
-  font-size: 1rem;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+/* Estados de Focus para Acessibilidade */
+.btn-fgv:focus,
+.btn-entrar:focus {
+  outline: 2px solid #003A79;
+  outline-offset: 2px;
 }
 
-.lang-circle {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  flex-shrink: 0;
-
-  &.brasil { background: linear-gradient(45deg, #009639, #fedf00); }
-  &.usa { background: linear-gradient(45deg, #B22234, #3C3B6E); }
-  &.spain { background: linear-gradient(45deg, #AA151B, #F1BF00); }
+/* Animações Sutis */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
-.flag-icon {
-  width: 16px;
-  height: 12px;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  flex-shrink: 0;
+.btn-entrar:focus {
+  animation: pulse 2s infinite;
 }
