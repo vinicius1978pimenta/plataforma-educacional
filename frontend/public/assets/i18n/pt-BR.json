@@ -81,8 +81,28 @@
   "login-15" : "Ambiente Acadêmico Seguro",
   "login-16" : "Plataforma educacional integrada com os mais altos padrões de segurança e usabilidade para a comunidade.",
   "login-17" : "usuario",
-  "login-18" : "Digite sua senha"
+  "login-18" : "Digite sua senha",
 
+
+
+
+  "registrar-1" : "Criar Nova Conta",
+  "registrar-2" : "Preencha os dados para se cadastrar",
+  "registrar-3" : "Nome:",
+  "registrar-4" : "Nome é obrigatório",
+  "registrar-5" : "Email:",
+  "registrar-6" : "Email é obrigatório",
+  "registrar-7" : "Senha:",
+  "registrar-8" : "Senha é obrigatória",
+  "registrar-9" : "Senha deve ter pelo menos 6 caracteres",
+  "registrar-10" : "Confirmar Senha:",
+  "registrar-11" : "As senhas não coincidem",
+  "registrar-12" : "Tipo de usuário:",
+  "registrar-13" : "Email do responsável é obrigatório para alunos",
+  "registrar-14" : "Login",
+  "registrar-15" : "Cadastro Seguro",
+  "registrar-16" : "Crie sua conta com total segurança e comece a usar nossa plataforma educacional.",
+  "registrar-17" : "Email do Responsável:"
 
 
 }
