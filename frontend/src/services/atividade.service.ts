@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -120,6 +120,28 @@ export class AtividadeService {
     return this.http.get<any>(`${this.apiUrl}/${atividadeId}/minha-resposta`, { headers: this.getAuthHeaders() });
   }
 
+  getPendentes() {
+  return this.getAtividades().pipe(
+    switchMap((atividades) => {
+      if (!atividades?.length) return of(0);
+
+      // chama getMinhaResposta para cada atividade e conta pendentes
+      const chamadas = atividades.map(a =>
+        this.getMinhaResposta(a.id).pipe(
+          map((r: any) => (r?.status ? r.status : null)) // 'ENVIADA' | 'CORRIGIDA' | null
+        )
+      );
+
+      return forkJoin(chamadas).pipe(
+        map(statuses => {
+          // pendente = não ENVIADA e não CORRIGIDA
+          const pend = statuses.filter(st => st !== 'ENVIADA' && st !== 'CORRIGIDA').length;
+          return pend;
+        })
+      );
+    })
+  );
+}
 
 }
 

@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: 78%;"></div>
+          <div class="progress-fill" style="width: 92%;"></div>
         </div>
         <button class="card-button" routerLink="/aluno/materiais">
           <i class="fas fa-arrow-right"></i>
@@ -91,17 +91,18 @@
         <p class="card-description">{{ 'dashaluno-15' | transloco }}</p>
         <div class="card-stats">
           <div class="stat-item">
-            <span class="stat-number">7</span>
-            <span class="stat-label">Dias</span>
+            <span class="stat-number">{{quantidadeAtividades}}</span>
+            <span class="stat-label">Total</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">4.2h</span>
-            <span class="stat-label">Estudos</span>
+            <span class="stat-number">{{pendentes}}</span>
+            <span class="stat-label">Pendentes</span>
           </div>
         </div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: 65%;"></div>
+          <div class="progress-fill" [style.width]="porcentagemConcluidas + '%'"></div>
         </div>
+       
         <button class="card-button" routerLink="/aluno/relatorios">
           <i class="fas fa-arrow-right"></i>
           {{ 'dashaluno-16' | transloco }}
