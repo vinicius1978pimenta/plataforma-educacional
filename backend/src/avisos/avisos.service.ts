@@ -45,6 +45,62 @@ export class AvisosService {
     return aviso;
   }
 
+
+    
+async findByResponsavel(responsavelId: string) {
+  if (!responsavelId) {
+    throw new ForbiddenException('Responsável ID é obrigatório');
+  }
+
+  // pega o responsável com TODOS os filhos e as turmas de cada filho
+  const responsavel = await this.prisma.user.findUnique({
+    where: { id: responsavelId },
+    include: {
+      filhos: {
+        include: { turmas: true },
+      },
+    },
+  });
+
+  if (!responsavel) {
+    throw new NotFoundException('Responsável não encontrado');
+  }
+
+  // junta os IDs de turmas de todos os filhos
+  const turmaIds = Array.from(
+    new Set(
+      (responsavel.filhos ?? [])
+        .flatMap(f => f.turmas ?? [])
+        .map(t => t.id),
+    ),
+  );
+
+  // mesma lógica do aluno: avisos gerais OU das turmas dos filhos, e não expirados
+  return this.prisma.aviso.findMany({
+    where: {
+      ativo: true,
+      AND: [
+        {
+          OR: [
+            { turmas: { none: {} } },                         // gerais
+            turmaIds.length ? { turmas: { some: { id: { in: turmaIds } } } } : { id: { not: '' } },
+          ],
+        },
+        { OR: [{ dataExpiracao: null }, { dataExpiracao: { gte: new Date() } }] },
+      ],
+    },
+    include: {
+      professor: { select: { id: true, name: true, email: true } },
+      turmas: { select: { id: true, nome: true } },
+    },
+    orderBy: [{ prioridade: 'desc' }, { createdAt: 'desc' }],
+  });
+}
+
+
+
+
+
   async findAll() {
     return this.prisma.aviso.findMany({
       where: { ativo: true },

@@ -82,4 +82,14 @@ export class AvisosController {
     const professorId = req.user?.id || req.user?.sub;
     return this.avisosService.remove(id, professorId);
   }
+
+  @Get('responsavel/meus')
+@UseGuards(RolesGuard)
+@Roles('RESPONSAVEL')
+findByResponsavel(@Request() req) {
+  const responsavelId = req.user?.id || req.user?.sub;
+  return this.avisosService.findByResponsavel(responsavelId);
+}
+
+
 }
