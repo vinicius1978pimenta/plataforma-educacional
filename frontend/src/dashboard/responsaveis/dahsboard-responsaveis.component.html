@@ -6,6 +6,89 @@
     
     <div class="content-area">
       <div class="dashboard-content">
+          <!-- Mural de Avisos Central - Carrossel -->
+        <div class="mural-central" *ngIf="ultimosAvisos.length > 0"
+             (mouseenter)="onCarouselMouseEnter()"
+             (mouseleave)="onCarouselMouseLeave()">
+          <div class="mural-header">
+            <h2>
+              <i class="fas fa-bullhorn"></i>
+              {{ 'mural-1' | transloco }}
+            </h2>
+            <a routerLink="/mural-avisos" class="btn-ver-todos">
+              {{ 'mural-2' | transloco }}
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          
+          <div class="carousel-container">
+            <!-- Controles de navegação -->
+            <button class="carousel-btn carousel-btn-prev" 
+                    (click)="prevSlide()" 
+                    *ngIf="ultimosAvisos.length > 1"
+                    [disabled]="ultimosAvisos.length <= 1">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <button class="carousel-btn carousel-btn-next" 
+                    (click)="nextSlide()" 
+                    *ngIf="ultimosAvisos.length > 1"
+                    [disabled]="ultimosAvisos.length <= 1">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Slides do carrossel -->
+            <div class="carousel-slides">
+              <div class="carousel-slide" 
+                   *ngFor="let aviso of ultimosAvisos; let i = index"
+                   [class.active]="i === currentSlide">
+                <div class="aviso-preview-card" 
+                     [class]="getPrioridadeClass(aviso.prioridade)">
+                  <div class="aviso-preview-header">
+                    <div class="tipo-badge">
+                      <i [class]="getTipoIcon(aviso.tipo)"></i>
+                      <span>{{ getTipoLabel(aviso.tipo) }}</span>
+                    </div>
+                    <span class="prioridade-indicator" [class]="getPrioridadeClass(aviso.prioridade)">
+                      {{ getPrioridadeLabel(aviso.prioridade) }}
+                    </span>
+                  </div>
+                  
+                  <h3 class="aviso-preview-titulo">{{ aviso.titulo }}</h3>
+                  
+                  <div class="aviso-preview-conteudo">
+                   <textarea class="aviso-conteudo-leitura" rows="1"  readonly>{{ aviso.conteudo}}
+                   </textarea>
+                  </div>
+                  
+        
+                  
+                  <div class="aviso-preview-footer">
+                    <div class="professor-info">
+                      <i class="fas fa-user-tie"></i>
+                      <span>{{ aviso.professor.name }}</span>
+                    </div>
+                    <div class="data-info">
+                      <i class="fas fa-clock"></i>
+                      <span>{{ formatarDataRelativa(aviso.createdAt) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+            <!-- Indicadores de posição -->
+            <div class="carousel-indicators" *ngIf="ultimosAvisos.length > 1">
+              <button *ngFor="let aviso of ultimosAvisos; let i = index"
+                      class="indicator"
+                      [class.active]="i === currentSlide"
+                      (click)="goToSlide(i)">
+              </button>
+            </div>
+          </div>
+        </div>
+        
         <app-card></app-card>
       </div>
     </div>

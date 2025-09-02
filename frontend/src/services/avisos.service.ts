@@ -87,4 +87,9 @@ export class AvisosService {
   deleteAviso(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
+
+    getAvisosResponsavel(): Observable<Aviso[]> {
+    return this.http.get<Aviso[]>(`${this.apiUrl}/responsavel/meus`, { headers: this.getHeaders() });
+  }
+
 }
