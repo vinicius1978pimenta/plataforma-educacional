@@ -1,23 +1,35 @@
-<section class="d-flex align-items-center" style="background: linear-gradient(135deg, #000000 0%, #02315f 100%); min-height: 600px; padding: 3rem 0;">
-  <div class="container">
-    <div class="row align-items-center gy-4">
-      <!-- Imagem  -->
-      <div class="col-md-6 text-center">
-        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80"
-             alt="imagm-mulher" class="animated-image shadow-lg" style="max-height: 350px; width: auto;">
-      </div>
-      
-      <!-- Texto -->
-      <div class="col-md-6 text-white">
-        <h2 class="fw-bold animated-text" style="font-size: 3.5rem;">
-          {{ 'conteudo2--a' | transloco }}<br>
-          <small class="text-info" style="font-size: 1.5rem;">{{ 'conteudo2--b' | transloco }}</small><br>
-          <span style="font-size: 1.75rem;">{{ 'conteudo2--c' | transloco }}</span>
-        </h2>
-        <p class="animated-text mt-4">
-          {{ 'conteudo2--d' | transloco }}
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+<body>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Seção da Imagem -->
+                <div class="image-section">
+                    <div class="image-decoration">
+                        <div class="decoration-circle"></div>
+                        <div class="decoration-circle"></div>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=800&q=80" 
+                             alt="Mulher profissional" 
+                             class="animated-image">
+                    </div>
+                </div>
+                
+                <!-- Seção do Texto -->
+                <div class="text-section">
+                    <div class="text-decoration"></div>
+                    <h2 class="main-title animated-text">
+                        {{ 'conteudo2--a' | transloco }}
+                        <br>
+                        <small class="subtitle">{{ 'conteudo2--b' | transloco }}</small>
+                        <br>
+                        <span class="secondary-title">{{ 'conteudo2--c' | transloco }}</span>
+                    </h2>
+                    <p class="description animated-text">
+                        {{ 'conteudo2--d' | transloco }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

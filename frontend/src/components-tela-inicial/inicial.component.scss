@@ -2,7 +2,12 @@
   opacity: 0;
   transform: translateY(20px); /* começa 20px abaixo */
   animation: fadeUp 0.8s ease forwards;
+  color: #003A79;
+  font-weight: 700
+  
 }
+
+
 
 @keyframes fadeUp {
   to {
@@ -11,6 +16,7 @@
   }
 }
 
+.mb-0 fade-up
 
 
 
@@ -19,6 +25,7 @@
   background: linear-gradient(135deg, #02285d 0%, #f8f8f8 100%);
   position: relative;
   overflow: hidden;
+  
 }
 
 .bg-fgv::before {
