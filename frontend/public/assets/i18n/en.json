@@ -83,7 +83,30 @@
     "login-15" : "Safe Academic Environment",
     "login-16" : "Integrated educational platform with the highest standards of security and usability for the community.",
     "login-17" : "user",
-    "login-18" : "Enter your password"
+    "login-18" : "Enter your password",
+
+
+
+
+    "registrar-1" : "Create New Account",
+    "registrar-2" : "Fill in the details to register",
+    "registrar-3" : "Name:",
+    "registrar-4" : "Name is required",
+    "registrar-5" : "Email:",
+    "registrar-6" : "Email address is required.",
+    "registrar-7" : "Password:",
+    "registrar-8" : "Password is required",
+    "registrar-9" : "Password must be at least 6 characters long",
+    "registrar-10" : "Confirm Password:",
+    "registrar-11" : "The passwords do not match",
+    "registrar-12" : "User type:",
+    "registrar-13" : "The email address of the person responsible is mandatory for students.",
+    "registrar-14" : "Login",
+    "registrar-15" : "Secure Registration",
+    "registrar-16" : "Create your account with complete security and start using our educational platform.",
+    "registrar-17" : "Email of the person in charge:"
+
+    
 
 
 

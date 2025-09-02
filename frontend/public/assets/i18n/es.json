@@ -81,7 +81,28 @@
     "login-15" : "Entorno académico seguro",
     "login-16" : "Plataforma educativa integrada con los más altos estándares de seguridad y usabilidad para la comunidad.",
     "login-17" : "usuario",
-    "login-18" : "Introduzca su contraseña"
+    "login-18" : "Introduzca su contraseña",
+
+
+
+    "registrar-1" : "Crear nueva cuenta",
+    "registrar-2" : "Rellene los datos para registrarse",
+    "registrar-3" : "Nombre:",
+    "registrar-4" : "El nombre es obligatorio.",
+    "registrar-5" : "correo electrónico:",
+    "registrar-6" : "El correo electrónico es obligatorio.",
+    "registrar-7" : "Contraseña:",
+    "registrar-8" : "La contraseña es obligatoria.",
+    "registrar-9" : "La contraseña debe tener al menos 6 caracteres.",
+    "registrar-10" : "Confirmar contraseña:",
+    "registrar-11" : "Las contraseñas no coinciden.",
+    "registrar-12" : "Tipo de usuario:",
+    "registrar-13" : "El correo electrónico del responsable es obligatorio para los alumnos",
+    "registrar-14" : "Iniciar Sesión",
+    "registrar-15" : "Registro seguro",
+    "registrar-16" : "Crea tu cuenta con total seguridad y comienza a utilizar nuestra plataforma educativa.",
+    "registrar-17" : "Correo electrónico del responsable:"
+
 
     
     

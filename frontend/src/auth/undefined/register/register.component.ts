@@ -3,12 +3,17 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
+import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
 
 
 @Component({
   standalone : true,
   selector: 'app-register',
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule,
+            FormsModule,
+            RouterModule,
+            TranslocoModule,
+            TranslocoPipe,],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -29,12 +34,20 @@ export class RegisterComponent {
   loading = false;
   showPassword = false;
   showConfirmPassword = false;
+  translocoService: any;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private transloco : TranslocoService
   ) {}
+  changeLanguage(lang: string) {
+    this.transloco.setActiveLang(lang);
+  }
 
+  getCurrentLang() {
+    return this.transloco.getActiveLang();
+  }
 
   toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;

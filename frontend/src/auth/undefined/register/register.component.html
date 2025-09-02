@@ -7,13 +7,13 @@
         </div>
 
         <div class="welcome-section">
-            <h2>Criar Nova Conta</h2>
-            <p>Preencha os dados para se cadastrar</p>
+            <h2>{{ 'registrar-1' | transloco }}</h2>
+            <p>{{ 'registrar-2' | transloco }}</p>
         </div>
 
         <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="login-form">
             <div class="form-group">
-                <label for="name">Nome:</label>
+                <label for="name">{{ 'registrar-3' | transloco }}</label>
                 <input 
                     type="text" 
                     id="name" 
@@ -22,12 +22,12 @@
                     required 
                     #name="ngModel">
                 <div *ngIf="name.invalid && name.touched" class="error">
-                    Nome é obrigatório
+                    {{ 'registrar-4' | transloco }}
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">{{ 'registrar-5' | transloco }}</label>
                 <input 
                     type="email" 
                     id="email" 
@@ -36,12 +36,12 @@
                     required 
                     #email="ngModel">
                 <div *ngIf="email.invalid && email.touched" class="error">
-                    Email é obrigatório
+                    {{ 'registrar-6' | transloco }}
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="password">Senha:</label>
+                <label for="password">{{ 'registrar-7' | transloco }}</label>
                 <div class="password-input-container">
                 <input 
                     [type]="showPassword ? 'text' : 'password'" 
@@ -59,13 +59,13 @@
                     </button>
                 </div>
                 <div *ngIf="password.invalid && password.touched" class="error">
-                    <div *ngIf="password.errors?.['required']">Senha é obrigatória</div>
-                    <div *ngIf="password.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</div>
+                    <div *ngIf="password.errors?.['required']">{{ 'registrar-8' | transloco }}</div>
+                    <div *ngIf="password.errors?.['minlength']">{{ 'registrar-9' | transloco }}</div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="confirmPassword">Confirmar Senha:</label>
+                <label for="confirmPassword">{{ 'registrar-10' | transloco }}</label>
                 <div class="password-input-container">
                   <input 
                     [type]="showConfirmPassword ? 'text' : 'password'" 
@@ -83,36 +83,36 @@
                 </div>
                 <!-- Validação -->
                 <div *ngIf="confirmPassword.touched && registerData.confirmPassword !== registerData.password" class="error">
-                  As senhas não coincidem
+                  {{ 'registrar-11' | transloco }}
                 </div>
               </div>
 
             <div class="role-selection">
-                <label>Tipo de usuário:</label>
+                <label>{{ 'registrar-12' | transloco }}</label>
                 <div class="role-buttons">
                     <button 
                         type="button" 
                         [class.active]="registerData.role === 'ALUNO'" 
                         (click)="selectRole('ALUNO')">
-                        Aluno
+                        {{ 'login-8' | transloco }}
                     </button>
                     <button 
                         type="button" 
                         [class.active]="registerData.role === 'PROFESSOR'" 
                         (click)="selectRole('PROFESSOR')">
-                        Professor
+                        {{ 'login-9' | transloco }}
                     </button>
                     <button 
                         type="button" 
                         [class.active]="registerData.role === 'RESPONSAVEL'" 
                         (click)="selectRole('RESPONSAVEL')">
-                        Responsável
+                        {{ 'login-10' | transloco }}
                     </button>
                 </div>
             </div>
 
             <div *ngIf="registerData.role === 'ALUNO'" class="form-group">
-                <label for="responsavelEmail">Email do Responsável:</label>
+                <label for="responsavelEmail">{{ 'registrar-17' | transloco }}</label>
                 <input 
                     type="email" 
                     id="responsavelEmail" 
@@ -121,7 +121,7 @@
                     required 
                     #responsavelEmail="ngModel">
                 <div *ngIf="responsavelEmail.invalid && responsavelEmail.touched" class="error">
-                    Email do responsável é obrigatório para alunos
+                    {{ 'registrar-13' | transloco }}
                 </div>
             </div>
 
@@ -137,17 +137,17 @@
                 type="submit" 
                 [disabled]="registerForm.invalid || !registerData.role || loading" 
                 class="submit-btn">
-                {{ loading ? 'Autenticando...' : 'Login' }}
+                {{ loading ? 'Autenticando...' : 'Cadastrar-se' }}
             </button>
         </form>
 
         <div class="navigation-section">
             <div class="nav-buttons">
                 <a href="/home" class="nav-btn btn-home">
-                            🏠 Início
+                            {{ 'login-12' | transloco }}
                         </a>
                 <a href="/login" class="nav-btn btn-login">
-                            Login
+                            {{ 'registrar-14' | transloco }}
                         </a>
 
             </div>
@@ -181,8 +181,8 @@
                 </div>
             </div>
             <div class="hero-text">
-                <h3>Cadastro Seguro</h3>
-                <p>Crie sua conta com total segurança e comece a usar nossa plataforma educacional.</p>
+                <h3>{{ 'registrar-15' | transloco }}</h3>
+                <p>{{ 'registrar-16' | transloco }}</p>
             </div>
         </div>
     </div>
