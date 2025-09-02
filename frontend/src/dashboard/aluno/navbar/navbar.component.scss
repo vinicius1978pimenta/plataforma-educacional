@@ -151,3 +151,141 @@
   vertical-align: middle; 
   border-radius: 10px;
 }
+
+/*bandeiras*/
+    
+.lang-selector {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            overflow: hidden;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hover Brasil - Verde */
+        .lang-btn:nth-child(1):hover {
+            border-color: #009639;
+            background: linear-gradient(135deg, #009639 0%, #00b347 100%);
+        }
+
+        /* Hover EUA - Azul */
+        .lang-btn:nth-child(2):hover {
+            border-color: #3C3B6E;
+            background: linear-gradient(135deg, #3C3B6E 0%, #B22234 100%);
+        }
+
+        /* Hover Espanha - Vermelho */
+        .lang-btn:nth-child(3):hover {
+            border-color: #AA151B;
+            background: linear-gradient(135deg, #AA151B 0%, #F1BF00 100%);
+        }
+
+        /* Active Brasil - Verde */
+        .lang-btn:nth-child(1).active {
+            border-color: #009639;
+            background: linear-gradient(135deg, #009639 0%, #00b347 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 150, 57, 0.4);
+        }
+
+        /* Active EUA - Azul */
+        .lang-btn:nth-child(2).active {
+            border-color: #3C3B6E;
+            background: linear-gradient(135deg, #3C3B6E 0%, #B22234 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(60, 59, 110, 0.4);
+        }
+
+        /* Active Espanha - Vermelho */
+        .lang-btn:nth-child(3).active {
+            border-color: #AA151B;
+            background: linear-gradient(135deg, #AA151B 0%, #F1BF00 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(170, 21, 27, 0.4);
+        }
+
+        .flag-icon {
+            width: 18px;
+            height: 12px;
+            border-radius: 2px;
+            margin-bottom: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-btn.active .flag-icon {
+            filter: brightness(1.1);
+        }
+
+        .lang-text {
+            font-size: 8px;
+            font-weight: 600;
+            color: #666;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        .lang-btn:hover .lang-text {
+            color: white;
+            font-weight: 700;
+        }
+
+        .lang-btn.active .lang-text {
+            color: white;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .lang-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .flag-icon {
+                width: 16px;
+                height: 11px;
+            }
+            
+            .lang-text {
+                font-size: 7px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lang-selector {
+                gap: 2px;
+            }
+            
+            .lang-btn {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .flag-icon {
+                width: 14px;
+                height: 10px;
+            }
+            
+            .lang-text {
+                font-size: 6px;
+            }
+        }

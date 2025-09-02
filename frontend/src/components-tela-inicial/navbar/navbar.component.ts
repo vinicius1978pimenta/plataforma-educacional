@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { TranslocoModule,  TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-navbar',

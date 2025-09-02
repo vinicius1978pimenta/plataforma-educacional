@@ -102,7 +102,43 @@
   "registrar-14" : "Login",
   "registrar-15" : "Cadastro Seguro",
   "registrar-16" : "Crie sua conta com total segurança e comece a usar nossa plataforma educacional.",
-  "registrar-17" : "Email do Responsável:"
+  "registrar-17" : "Email do Responsável:",
 
+
+  "dashaluno-1" : "Bem Vindo,",
+  "dashaluno-2" : "Sair",
+  "dashaluno-3" : "Palavras",
+  "dashaluno-4" : "Vocabulário",
+  "dashaluno-5" : "Acesse a lista de vocabulário para estudar e gerenciar termos importantes.",
+  "dashaluno-6" : "Ir para Vocabulário",
+  "dashaluno-7" : "Matérias",
+  "dashaluno-8" : "Gerencie suas matérias, acompanhe o progresso e acesse materiais de estudo.",
+  "dashaluno-9" : "Ativas",
+  "dashaluno-10" : "Ver Matérias",
+  "dashaluno-11" : "Atividades",
+  "dashaluno-12" : "Pratique com exercícios interativos e acompanhe seu desempenho.",
+  "dashaluno-13" : "Fazer Exercícios",
+  "dashaluno-14" : "Progresso",
+  "dashaluno-15" : "Visualize seu progresso de aprendizado e estatísticas detalhadas.",
+  "dashaluno-16" : "Ver Progresso",
+  "dashaluno-17" : "Total de Avisos",
+  "dashaluno-18" : "Avisos",
+  "dashaluno-19" : "Confira os avisos e comunicados importantes dos seus professores.",
+  "dashaluno-20" : "Ver Avisos",
+
+
+
+  "mural-1" : "Mural de Avisos",
+  "mural-2" : "Ver todos",
+
+
+  "sidebar-aluno-1" : "Editar Perfil"
+
+
+
+  
+
+
+  
 
 }

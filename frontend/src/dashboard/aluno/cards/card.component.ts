@@ -3,19 +3,22 @@ import { RouterModule } from '@angular/router';
 import { VocabularioService } from '../../../services/vocabulario.service';
 import { AtividadeService } from '../../../services/atividade.service';
 import { Aviso, AvisosService } from '../../../services/avisos.service';
+import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
 
 
 @Component({
   standalone: true,
   selector: 'app-card',
-  imports: [RouterModule, ],
+  imports: [RouterModule,TranslocoModule,TranslocoPipe ],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
   totalAvisos: number | undefined;
 
-  constructor(private avisosService: AvisosService) {}
+  constructor(private avisosService: AvisosService,
+    private transloco: TranslocoService
+  ) {}
 
   private vocabularioService = inject(VocabularioService);
   private atividadeService = inject(AtividadeService);
@@ -40,8 +43,21 @@ export class CardComponent implements OnInit {
     }
     )
     this.loadAvisos();
+    this.getCurrentLang();
+    this.changeLanguage
    
   }
+
+      changeLanguage(lang: string) {
+        this.transloco.setActiveLang(lang);
+      }
+    
+      getCurrentLang() {
+        return this.transloco.getActiveLang();
+      }
+
+
+
   loadAvisos() {
     this.avisosService.getAllAvisos().subscribe({
       next: (avisos: Aviso[]) => {
