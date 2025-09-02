@@ -3,9 +3,48 @@
       <img src="/logo-inter-azul.png"  alt="">
     <span>Interlinguas</span>
   </div>
+
+  <!--Bnadeiras de idiomas-->
+ <div class="lang-selector">
+    <button class="lang-btn" [class.active]="getCurrentLang() === 'pt-BR'" (click)="changeLanguage('pt-BR')">
+        <svg class="flag-icon" viewBox="0 0 16 12">
+            <!-- Fundo verde -->
+            <rect width="16" height="12" fill="#009639"/>
+            <!-- Losango amarelo -->
+            <polygon points="2,6 8,2 14,6 8,10" fill="#FEDF00"/>
+            <!-- Círculo azul -->
+            <circle cx="8" cy="6" r="2.2" fill="#002776"/>
+            <!-- Faixa branca no círculo -->
+            <ellipse cx="8" cy="6.5" rx="2" ry="0.4" fill="#FFFFFF" opacity="0.9"/>
+        </svg>
+        <span class="lang-text">PT</span>
+    </button>
+    
+    <button class="lang-btn" [class.active]="getCurrentLang() === 'en'" (click)="changeLanguage('en')">
+        <svg class="flag-icon" viewBox="0 0 16 12">
+            <rect width="16" height="12" fill="#B22234"/>
+            <rect y="1" width="16" height="1" fill="white"/>
+            <rect y="3" width="16" height="1" fill="white"/>
+            <rect y="5" width="16" height="1" fill="white"/>
+            <rect y="7" width="16" height="1" fill="white"/>
+            <rect y="9" width="16" height="1" fill="white"/>
+            <rect y="11" width="16" height="1" fill="white"/>
+            <rect width="7" height="6" fill="#3C3B6E"/>
+        </svg>
+        <span class="lang-text">EN</span>
+    </button>
+    
+    <button class="lang-btn" [class.active]="getCurrentLang() === 'es'" (click)="changeLanguage('es')">
+        <svg class="flag-icon" viewBox="0 0 16 12">
+            <rect width="16" height="12" fill="#AA151B"/>
+            <rect y="3" width="16" height="6" fill="#F1BF00"/>
+        </svg>
+        <span class="lang-text">ES</span>
+    </button>
+</div>
   
   <h4 class="welcome-msg">
-    Bem Vindo, <span class="user-name">{{currentUser?.name}}</span>!
+    {{ 'dashaluno-1' | transloco }}  <span class="user-name">{{currentUser?.name}}</span>!
   </h4>
   
   <div class="navbar-actions">
@@ -16,7 +55,7 @@
     
     <button class="logout-btn" (click)="logout()">
       <i class="fas fa-sign-out-alt"></i>
-      <span>Sair</span>
+      <span>{{ 'dashaluno-2' | transloco }} </span>
     </button>
   </div>
 </nav>
