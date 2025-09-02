@@ -6,6 +6,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CardComponent } from './cards/card.component';
 import { AvisosService, Aviso } from '../../services/avisos.service';
+import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-dashboard-aluno',
@@ -13,7 +14,9 @@ import { AvisosService, Aviso } from '../../services/avisos.service';
             RouterModule,
             NavbarComponent,
             SidebarComponent, 
-            CardComponent],
+            CardComponent,
+            TranslocoModule,
+            TranslocoPipe],
 
   templateUrl: './dashboard-aluno.component.html',
   styleUrls: ['./dashboard-aluno.component.scss']
@@ -31,7 +34,8 @@ export class DashboardAlunoComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private avisosService: AvisosService
+    private avisosService: AvisosService,
+    private  transloco: TranslocoService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +46,16 @@ export class DashboardAlunoComponent implements OnInit, OnDestroy {
     
     this.carregarUltimosAvisos();
   }
+
+
+    changeLanguage(lang: string) {
+        this.transloco.setActiveLang(lang);
+      }
+    
+      getCurrentLang() {
+        return this.transloco.getActiveLang();
+      }
+
 
   ngOnDestroy() {
     this.stopCarousel();

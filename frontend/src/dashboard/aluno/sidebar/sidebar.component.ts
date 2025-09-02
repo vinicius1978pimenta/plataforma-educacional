@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
+import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterModule],
+  imports: [RouterModule,TranslocoModule,],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
@@ -14,7 +15,9 @@ export class SidebarComponent implements OnInit {
     currentUser: any;
     
   
-    constructor(private authService: AuthService , private router: Router  ) {}
+    constructor(private authService: AuthService ,
+      private router: Router,
+      private transloco : TranslocoService  ) {}
   
     ngOnInit(): void {
       // Restaurar estado do sidebar
@@ -33,7 +36,17 @@ export class SidebarComponent implements OnInit {
           this.currentUser = JSON.parse(storedUser);
         }
       }
+      this.changeLanguage
+      this.getCurrentLang();
     }
+
+     changeLanguage(lang: string) {
+        this.transloco.setActiveLang(lang);
+      }
+    
+      getCurrentLang() {
+        return this.transloco.getActiveLang();
+      }
   
     toggleSidebar(): void {
       this.isCollapsed = !this.isCollapsed;
