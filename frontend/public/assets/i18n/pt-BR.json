@@ -134,7 +134,20 @@
   "mural-2" : "Ver todos",
 
 
-  "sidebar-aluno-1" : "Editar Perfil"
+  "sidebar-aluno-1" : "Editar Perfil",
+
+
+
+  "sidebar-responsavel-1" : "Acompanhe seu filho",
+  "sidebar-responsavel-2" : "Fale com o professor",
+
+
+
+
+
+  "dashresponsavel-1" : "Acompanhe seu filho",
+  "dashresponsavel-2" : "Acompanhe aqui o desempenho do seu filho.",
+  "dashresponsavel-3" : "Fale aqui com o professor do seu filho."
 
 
 

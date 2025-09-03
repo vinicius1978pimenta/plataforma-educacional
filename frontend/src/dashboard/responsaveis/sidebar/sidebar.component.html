@@ -18,21 +18,21 @@
       <li class="nav-item">
         <a routerLink="/dashboard-responsaveis/acompanhamento-filhos" routerLinkActive="active" class="nav-link" data-tooltip="Matérias">
           <i class="fas fa-book-open"></i>
-          <span class="nav-text">Acompanhe seu filho</span>
+          <span class="nav-text">{{ 'sidebar-responsavel-1' | transloco }}</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a routerLink="/aluno/materiais" routerLinkActive="active" class="nav-link" data-tooltip="Atividades">
           <i class="fas fa-clipboard-list"></i>
-          <span class="nav-text">Fale com o professor</span>
+          <span class="nav-text">{{ 'sidebar-responsavel-2' | transloco }}</span>
         </a>
       </li>
            
       <li class="nav-item">
         <a [routerLink]="['/perfil-responsavel-editar', currentUser?.id]"  routerLinkActive="active" class="nav-link" data-tooltip="Configurações">
           <i class="fas fa-cogs"></i>
-          <span class="nav-text">Editar Perfil</span>
+          <span class="nav-text">{{ 'sidebar-aluno-1' | transloco }}</span>
         </a>
       </li>
     </ul>
