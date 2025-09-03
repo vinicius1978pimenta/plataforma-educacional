@@ -139,7 +139,20 @@
 
 
 
-    "sidebar-aluno-1" : "Editar Perfil"
+    "sidebar-aluno-1" : "Editar Perfil",
+
+
+
+    "sidebar-responsavel-1" : "Acompañe a su hijo",
+    "sidebar-responsavel-2" : "Hable con el profesor.",
+
+
+
+    "dashresponsavel-1" : "Acompañe a su hijo",
+    "dashresponsavel-2" : "Siga aquí el rendimiento de su hijo.",
+    "dashresponsavel-3" : "Hable aquí con el profesor de su hijo."
+
+
 
 
     
