@@ -1,88 +1,86 @@
 <app-navbar2></app-navbar2>
-  <div class="vocabulario-page">
+<div class="vocabulario-page">
 
   <!-- Header da Página -->
   <div class="page-header">
-    <h1>Vocabulário</h1>
+    <h1><i class="fa fa-language" style="margin-right:8px;"></i>Vocabulário</h1>
   </div>
 
-    <div class="vocabulario-container">
+  <div class="vocabulario-container">
 
-      <!-- Coluna do CRUD -->
-      <div class="form-section">
-        <div class="texto-add"><h2> Adicionar Nova Palavra</h2></div>
-        <form [formGroup]="vocabularioForm" (ngSubmit)="adicionarPalavra()" class="vocabulario-form">
-          
-          <div class="form-group">
-            <label for="palavra">Palavra *</label>
-            <input type="text" id="palavra" formControlName="palavra" 
-                  placeholder="Digite a palavra..."
-                  [class.error]="vocabularioForm.get('palavra')?.invalid && vocabularioForm.get('palavra')?.touched" />
-            <div class="error-message" *ngIf="vocabularioForm.get('palavra')?.invalid && vocabularioForm.get('palavra')?.touched">
-              Palavra é obrigatória
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="traducao">Tradução (opcional)</label>
-            <input type="text" id="traducao" formControlName="traducao" placeholder="Deixe vazio para traduzir automaticamente..." />
-            <small class="help-text">Se não informar, será traduzido automaticamente</small>
-          </div>
-
-          <div class="form-group">
-            <label for="idioma">Idioma</label>
-            <select id="idioma" formControlName="idioma">
-              <option value="es">Espanhol</option>
-              <option value="en">Inglês</option>
-              <option value="fr">Francês</option>
-              <option value="de">Alemão</option>
-              <option value="it">Italiano</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary" [disabled]="vocabularioForm.invalid || carregando">
-            <span *ngIf="carregando" class="loading-spinner"></span>
-            {{ carregando ? 'Adicionando...' : 'Adicionar Palavra' }}
-          </button>
-        </form>
+    <!-- Coluna do CRUD -->
+    <div class="form-section">
+      <div class="texto-add">
+        <h2><i class="fa fa-book" style="margin-right:6px;"></i>Adicionar Nova Palavra</h2>
       </div>
+      <form [formGroup]="vocabularioForm" (ngSubmit)="adicionarPalavra()" class="vocabulario-form">
 
-      <!-- Coluna da Lista de Palavras -->
-      <div class="lista-section">
-        <div class="lista-header">
-          <h2>Vocabulário</h2>
-          <span class="contador">{{ (vocabularios$ | async)?.length || 0 }} palavras</span>
-        </div>
-
-        <div *ngIf="carregandoLista" class="loading-container">
-          <div class="loading-spinner"></div>
-          <p>Carregando vocabulários...</p>
-        </div>
-
-        <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length === 0" class="empty-state">
-          <div class="empty-icon"></div>
-          <h3>Nenhuma palavra ainda</h3>
-          <p>Adicione sua primeira palavra para começar a construir seu vocabulário!</p>
-        </div>
-
-        <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length! > 0" class="vocabularios-grid">
-          <div *ngFor="let vocab of vocabularios$ | async; trackBy: trackByVocabulario" class="vocabulario-card">
-            <div class="card-content">
-              <div class="palavra">{{ vocab.palavra }}</div>
-              <div class="traducao">{{ vocab.traducao }}</div>
-              <div class="data">{{ formatarData(vocab.criadoEm) }}</div>
-            </div>
-            <button class="btn-excluir" (click)="excluirPalavra(vocab.id, vocab.palavra)" [disabled]="excluindo === vocab.id" title="Excluir palavra">
-              <span *ngIf="excluindo === vocab.id" class="loading-spinner small"></span>
-              <span *ngIf="excluindo !== vocab.id"></span>
-            </button>
+        <div class="form-group">
+          <label for="palavra">Palavra *</label>
+          <input type="text" id="palavra" formControlName="palavra" 
+                 placeholder="Digite a palavra..."
+                 [class.error]="vocabularioForm.get('palavra')?.invalid && vocabularioForm.get('palavra')?.touched" />
+          <div class="error-message" *ngIf="vocabularioForm.get('palavra')?.invalid && vocabularioForm.get('palavra')?.touched">
+            Palavra é obrigatória
           </div>
         </div>
-      </div>
 
+        <div class="form-group">
+          <label for="traducao">Tradução (opcional)</label>
+          <input type="text" id="traducao" formControlName="traducao" placeholder="Deixe vazio para traduzir automaticamente..." />
+          <small class="help-text"><i class="fa fa-info-circle"></i> Se não informar, será traduzido automaticamente</small>
+        </div>
+
+        <div class="form-group">
+          <label for="idioma">Idioma</label>
+          <select id="idioma" formControlName="idioma">
+            <option value="es">Espanhol</option>
+            <option value="en">Inglês</option>
+            <option value="fr">Francês</option>
+            <option value="de">Alemão</option>
+            <option value="it">Italiano</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="vocabularioForm.invalid || carregando">
+          <i class="fa fa-plus" style="margin-right:6px;"></i>
+          {{ carregando ? 'Adicionando...' : 'Adicionar Palavra' }}
+        </button>
+      </form>
     </div>
 
-    
-    
+    <!-- Coluna da Lista de Palavras -->
+    <div class="lista-section">
+      <div class="lista-header">
+        <h2><i class="fa fa-list" style="margin-right:6px;"></i>Vocabulário</h2>
+        <span class="contador">{{ (vocabularios$ | async)?.length || 0 }} palavras</span>
+      </div>
+
+      <div *ngIf="carregandoLista" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Carregando vocabulários...</p>
+      </div>
+
+      <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length === 0" class="empty-state">
+        <div class="empty-icon"></div>
+        <h3>Nenhuma palavra ainda</h3>
+        <p>Adicione sua primeira palavra para começar a construir seu vocabulário!</p>
+      </div>
+
+      <div *ngIf="!carregandoLista && (vocabularios$ | async)?.length! > 0" class="vocabularios-grid">
+        <div *ngFor="let vocab of vocabularios$ | async; trackBy: trackByVocabulario" class="vocabulario-card">
+          <div class="card-content">
+            <div class="palavra"><i class="fa fa-circle-dot" style="margin-right:5px;"></i>{{ vocab.palavra }}</div>
+            <div class="traducao"><i class="fa fa-arrow-right" style="margin-right:5px;"></i>{{ vocab.traducao }}</div>
+            <div class="data"><i class="fa fa-calendar" style="margin-right:5px;"></i>{{ formatarData(vocab.criadoEm) }}</div>
+          </div>
+          <button class="btn-excluir" (click)="excluirPalavra(vocab.id, vocab.palavra)" [disabled]="excluindo === vocab.id" title="Excluir palavra">
+            <span *ngIf="excluindo === vocab.id" class="loading-spinner small"></span>
+            <i *ngIf="excluindo !== vocab.id" class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
   </div>
+</div>
