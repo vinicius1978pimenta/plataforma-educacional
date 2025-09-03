@@ -22,16 +22,36 @@ body {
             overflow: hidden;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, #02285e 0%, #6c85a7 100%);
+        /* imagem de fundo */
+                .hero-section {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 60px;
-            position: relative;
             overflow: hidden;
             order: 1;
+            color: #fff;
         }
+
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+            filter: blur(6px) brightness(0.6); /* desfoque + escurecimento p/ contraste */
+            z-index: 0;
+        }
+
+
+        .hero-content {
+            position: relative;
+            z-index: 1; /* conteúdo por cima */
+            text-align: center;
+        }
+        /* final da seção */
+
 
         .login-form-section {
             padding: 5% 8%;

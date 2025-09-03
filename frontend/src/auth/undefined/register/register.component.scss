@@ -28,14 +28,30 @@ height: 100vh;
 }
 
 .hero-section {
-background: linear-gradient(135deg, #02285e 0%, #6c85a7 100%);
-display: flex;
-align-items: flex-start;;
-justify-content: center;
-padding: 60px;
-position: relative;
-overflow: hidden;
-order: 1;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px;
+    overflow: hidden;
+    order: 1;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(2, 40, 94, 0.6) 0%, rgba(108, 133, 167, 0.6) 100%);
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    filter: blur(6px) brightness(0.6); /* desfoque + escurecimento para contraste */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1; /* conteúdo por cima do fundo */
+    text-align: center;
 }
 
 .login-form-section {
