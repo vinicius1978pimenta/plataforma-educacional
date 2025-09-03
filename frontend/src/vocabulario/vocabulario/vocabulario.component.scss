@@ -10,7 +10,7 @@
 /* ===== Página do Vocabulário ===== */
 .vocabulario-page {
   margin-top: 0;
-  max-width: 1400px;
+  max-width: 1990px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -245,7 +245,7 @@
   flex-direction: column;
   gap: 15px;
   scrollbar-width: thin;
-  scrollbar-color: #4fc3f7 #e5e7eb;
+  scrollbar-color: #707070 #e5e7eb;
 }
 
 .vocabularios-grid::-webkit-scrollbar {
@@ -336,6 +336,7 @@
 }
 
 /* Botão de excluir */
+
 .btn-excluir {
   width: 36px;
   height: 36px;
@@ -352,16 +353,12 @@
   align-self: flex-end;
 }
 
+
 .btn-excluir:hover {
   background: #ffcdd2;
   transform: scale(1.1);
 }
 
-.btn-excluir::before {
-  content: "\f2ed";
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-}
 
 /* Responsividade */
 @media (max-width: 1200px) {
