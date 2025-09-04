@@ -9,227 +9,174 @@ import { StatusResposta } from '@prisma/client';
 
 @Injectable()
 export class AtividadesService {
-  
   constructor(
     private prisma: PrismaService,
     private translationService: TranslationService,
   ) {}
 
-  
   private normalizeAtividade(atividade: any): AtividadeResponseDto {
     return {
       ...atividade,
       pontuacao: atividade.pontuacao === null ? undefined : atividade.pontuacao,
     };
   }
-
   private normalizeAtividades(atividades: any[]): AtividadeResponseDto[] {
     return atividades.map(a => this.normalizeAtividade(a));
   }
 
+  // --- Vinculação responsável ↔ aluno (ajuste à sua modelagem)
+  private async assertVinculoResponsavelAluno(respId: string, alunoId: string) {
+    const alunoDireto = await this.prisma.user.findFirst({
+      where: { id: alunoId, responsavelId: respId },
+      select: { id: true },
+    });
+    if (alunoDireto) return;
 
+    const vinc = await (this.prisma as any).responsavelAluno?.findFirst?.({
+      where: { responsavelId: respId, alunoId },
+      select: { alunoId: true },
+    });
+    if (vinc) return;
 
-  //traduçao 
+    throw new ForbiddenException('Aluno não vinculado a este responsável');
+  }
+
+  // Tradução
   async translateAtividade(dto: TranslateAtividadeDto, user: any) {
-  const { text, targetLang } = dto;
+    const { text, targetLang } = dto;
+    const traducao = await this.translationService.translate(text, targetLang);
+    return { original: text, traduzido: traducao, idioma: targetLang, por: user.name };
+  }
 
-  const traducao = await this.translationService.translate(text, targetLang);
-
-  return {
-    original: text,
-    traduzido: traducao,
-    idioma: targetLang,
-    por: user.name,
-  };
-}
-
-
-  // Criar atividade (somente professor)
+  // Criar
   async create(createAtividadeDto: CreateAtividadeDto, professorId: string): Promise<AtividadeResponseDto> {
-    console.log('Dados recebidos para criação de atividade:', createAtividadeDto); 
     try {
-      const usuario = await this.prisma.user.findUnique({
-        where: { id: professorId },
-        select: { role: true }
-      });
-
-      if (!usuario || usuario.role !== 'PROFESSOR') {
-        throw new ForbiddenException('Apenas professores podem criar atividades');
-      }
+      const usuario = await this.prisma.user.findUnique({ where: { id: professorId }, select: { role: true } });
+      if (!usuario || usuario.role !== 'PROFESSOR') throw new ForbiddenException('Apenas professores podem criar atividades');
 
       if (createAtividadeDto.turmaId) {
         const turma = await this.prisma.turma.findFirst({
-          where: {
-            id: createAtividadeDto.turmaId,
-            professorId: professorId
-          }
+          where: { id: createAtividadeDto.turmaId, professorId },
         });
-
-        if (!turma) {
-          throw new NotFoundException('Turma não encontrada ou você não tem permissão para acessá-la');
-        }
+        if (!turma) throw new NotFoundException('Turma não encontrada ou sem permissão');
       }
 
       const atividade = await this.prisma.atividade.create({
         data: {
           ...createAtividadeDto,
           professorId,
-          materialId: createAtividadeDto.materialId, // <-- Adicione esta linha
+          materialId: createAtividadeDto.materialId,
           dataVencimento: createAtividadeDto.dataVencimento ? new Date(createAtividadeDto.dataVencimento) : null,
         },
         include: {
-          professor: {
-            select: {
-              id: true,
-              name: true,
-              email: true,
-            }
-          },
-          turma: {
-            select: {
-              id: true,
-              nome: true,
-            }
-          }
-        }
+          professor: { select: { id: true, name: true, email: true } },
+          turma: { select: { id: true, nome: true } },
+        },
       });
 
       return this.normalizeAtividade(atividade);
-    } catch (error) {
-      if (error instanceof ForbiddenException || error instanceof NotFoundException) {
-        throw error;
-      }
+    } catch (error: any) {
+      if (error instanceof ForbiddenException || error instanceof NotFoundException) throw error;
       throw new BadRequestException('Erro ao criar atividade: ' + error.message);
     }
   }
 
-  // Listar atividades
-async findAll(userId: string, userRole: string, materialId?: string): Promise<AtividadeResponseDto[]> {
-  let whereClause: any = {};
+  // Listar (RESPONSAVEL agora pode ver modo geral sem alunoId)
+  async findAll(
+    userId: string,
+    userRole: string,
+    materialId?: string,
+    alunoId?: string,
+  ): Promise<AtividadeResponseDto[]> {
+    let whereClause: any = {};
 
-  if (userRole === 'PROFESSOR') {
-    whereClause = { professorId: userId };
-  } else if (userRole === 'ALUNO') {
-    whereClause = { ativa: true };
-  } else {
-    throw new ForbiddenException('Acesso negado');
-  }
+    if (userRole === 'PROFESSOR') {
+      whereClause = { professorId: userId };
+    } else if (userRole === 'ALUNO') {
+      whereClause = { ativa: true };
+    } else if (userRole === 'RESPONSAVEL') {
+      if (!alunoId) {
+        // MODO GERAL: não exige alunoId; mostra atividades ativas (e pode filtrar por materialId)
+        whereClause = { ativa: true };
+      } else {
+        // MODO FILHO ESPECÍFICO (comportamento antigo)
+        await this.assertVinculoResponsavelAluno(userId, alunoId);
 
-  // Agora filtramos pelo materialId corretamente
-  if (materialId) {
-    whereClause.materialId = materialId;
-  }
+        const turmasDoAluno = await this.prisma.turma.findMany({
+          where: { alunos: { some: { id: alunoId } } },
+          select: { id: true },
+        });
+        const turmaIds = turmasDoAluno.map(t => t.id);
 
-  try {
-    const atividades = await this.prisma.atividade.findMany({
-      where: whereClause,
-      include: {
-        professor: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
+        whereClause = {
+          ativa: true,
+          OR: [{ turmaId: null }, { turmaId: { in: turmaIds } }],
+        };
+      }
+    } else {
+      throw new ForbiddenException('Acesso negado');
+    }
+
+    if (materialId) whereClause.materialId = materialId;
+
+    try {
+      const atividades = await this.prisma.atividade.findMany({
+        where: whereClause,
+        include: {
+          professor: { select: { id: true, name: true, email: true } },
+          turma: { select: { id: true, nome: true } },
         },
-        turma: {
-          select: {
-            id: true,
-            nome: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-
-    console.log('Atividades encontradas:', atividades);
-    return this.normalizeAtividades(atividades);
-  } catch (error) {
-    console.error('Erro ao buscar atividades:', error);
-    throw new Error('Erro ao buscar atividades.');
+        orderBy: { createdAt: 'desc' },
+      });
+      return this.normalizeAtividades(atividades);
+    } catch (error) {
+      throw new Error('Erro ao buscar atividades.');
+    }
   }
-}
 
-
-
-  // Buscar atividade por ID
+  // Buscar por ID (inclui regra para RESPONSAVEL no modo geral)
   async findOne(id: string, userId: string, userRole: string): Promise<AtividadeResponseDto> {
     const atividade = await this.prisma.atividade.findUnique({
       where: { id },
       include: {
-        professor: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          }
-        },
-        turma: {
-          select: {
-            id: true,
-            nome: true,
-          }
-        }
-      }
+        professor: { select: { id: true, name: true, email: true } },
+        turma: { select: { id: true, nome: true } },
+      },
     });
-
-    if (!atividade) {
-      throw new NotFoundException('Atividade não encontrada');
-    }
+    if (!atividade) throw new NotFoundException('Atividade não encontrada');
 
     if (userRole === 'PROFESSOR') {
-      if (atividade.professorId !== userId) {
-        throw new ForbiddenException('Você não tem permissão para acessar esta atividade');
-      }
+      if (atividade.professorId !== userId) throw new ForbiddenException('Sem permissão');
     } else if (userRole === 'ALUNO') {
-      if (!atividade.turmaId) {
-        throw new ForbiddenException('Esta atividade não está disponível para você');
-      }
-
+      if (!atividade.turmaId) throw new ForbiddenException('Indisponível');
       const alunoNaTurma = await this.prisma.user.findFirst({
-        where: {
-          id: userId,
-          turmas: {
-            some: { id: atividade.turmaId }
-          }
-        }
+        where: { id: userId, turmas: { some: { id: atividade.turmaId } } },
       });
-
-      if (!alunoNaTurma || !atividade.ativa) {
-        throw new ForbiddenException('Você não tem permissão para acessar esta atividade');
-      }
+      if (!alunoNaTurma || !atividade.ativa) throw new ForbiddenException('Sem permissão');
+    } else if (userRole === 'RESPONSAVEL') {
+      // MODO GERAL: responsável pode ver atividades ativas (independente de turma)
+      if (!atividade.ativa) throw new ForbiddenException('Indisponível');
+    } else {
+      throw new ForbiddenException('Acesso negado');
     }
 
     return this.normalizeAtividade(atividade);
   }
 
-  // Atualizar atividade
+  // Atualizar
   async update(id: string, updateAtividadeDto: UpdateAtividadeDto, professorId: string): Promise<AtividadeResponseDto> {
     const atividadeExistente = await this.prisma.atividade.findUnique({
       where: { id },
-      select: { professorId: true, turmaId: true }
+      select: { professorId: true, turmaId: true },
     });
-
-    if (!atividadeExistente) {
-      throw new NotFoundException('Atividade não encontrada');
-    }
-
-    if (atividadeExistente.professorId !== professorId) {
-      throw new ForbiddenException('Você não tem permissão para editar esta atividade');
-    }
+    if (!atividadeExistente) throw new NotFoundException('Atividade não encontrada');
+    if (atividadeExistente.professorId !== professorId) throw new ForbiddenException('Sem permissão');
 
     if (updateAtividadeDto.turmaId && updateAtividadeDto.turmaId !== atividadeExistente.turmaId) {
       const turma = await this.prisma.turma.findFirst({
-        where: {
-          id: updateAtividadeDto.turmaId,
-          professorId: professorId
-        }
+        where: { id: updateAtividadeDto.turmaId, professorId },
       });
-
-      if (!turma) {
-        throw new NotFoundException('Turma não encontrada ou você não tem permissão para acessá-la');
-      }
+      if (!turma) throw new NotFoundException('Turma não encontrada ou sem permissão');
     }
 
     const atividade = await this.prisma.atividade.update({
@@ -239,200 +186,168 @@ async findAll(userId: string, userRole: string, materialId?: string): Promise<At
         dataVencimento: updateAtividadeDto.dataVencimento ? new Date(updateAtividadeDto.dataVencimento) : undefined,
       },
       include: {
-        professor: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          }
-        },
-        turma: {
-          select: {
-            id: true,
-            nome: true,
-          }
-        }
-      }
+        professor: { select: { id: true, name: true, email: true } },
+        turma: { select: { id: true, nome: true } },
+      },
     });
-
     return this.normalizeAtividade(atividade);
   }
 
-  // Remover atividade
+  // Remover
   async remove(id: string, professorId: string): Promise<{ message: string }> {
     const atividade = await this.prisma.atividade.findUnique({
       where: { id },
-      select: { professorId: true }
+      select: { professorId: true },
     });
+    if (!atividade) throw new NotFoundException('Atividade não encontrada');
+    if (atividade.professorId !== professorId) throw new ForbiddenException('Sem permissão');
 
-    if (!atividade) {
-      throw new NotFoundException('Atividade não encontrada');
-    }
-
-    if (atividade.professorId !== professorId) {
-      throw new ForbiddenException('Você não tem permissão para excluir esta atividade');
-    }
-
-    await this.prisma.atividade.delete({
-      where: { id }
-    });
-
+    await this.prisma.atividade.delete({ where: { id } });
     return { message: 'Atividade excluída com sucesso' };
   }
 
-  // Listar atividades por turma
+  // Listar por turma
   async findByTurma(turmaId: string, professorId: string): Promise<AtividadeResponseDto[]> {
     const turma = await this.prisma.turma.findFirst({
-      where: {
-        id: turmaId,
-        professorId: professorId
-      }
+      where: { id: turmaId, professorId },
     });
-
-    if (!turma) {
-      throw new NotFoundException('Turma não encontrada ou você não tem permissão para acessá-la');
-    }
+    if (!turma) throw new NotFoundException('Turma não encontrada ou sem permissão');
 
     const atividades = await this.prisma.atividade.findMany({
       where: { turmaId },
       include: {
-        professor: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          }
-        },
-        turma: {
-          select: {
-            id: true,
-            nome: true,
-          }
-        }
+        professor: { select: { id: true, name: true, email: true } },
+        turma: { select: { id: true, nome: true } },
       },
-      orderBy: {
-        createdAt: 'desc'
-      }
+      orderBy: { createdAt: 'desc' },
     });
-
     return this.normalizeAtividades(atividades);
   }
 
- 
-
-
-
-async registrarAvaliacao(respostaId: string, avaliacaoDto: any, professorId: string) {
-  // valida que a resposta existe e pertence a uma atividade do professor
-  const respostaExistente = await this.prisma.respostaAtividade.findUnique({
-    where: { id: respostaId },
-    include: { atividade: { select: { professorId: true } } }
-  });
-
-  if (!respostaExistente) {
-    throw new NotFoundException('Resposta não encontrada');
-  }
-  if (respostaExistente.atividade.professorId !== professorId) {
-    throw new ForbiddenException('Você não tem permissão para avaliar esta resposta');
-  }
-
-  // atualiza e já marca como corrigida com dataCorrecao
-  const resposta = await this.prisma.respostaAtividade.update({
-    where: { id: respostaId },
-    data: {
-      nota: avaliacaoDto.nota,
-      feedback: avaliacaoDto.feedback,
-      status: StatusResposta.CORRIGIDA,
-      dataCorrecao: new Date(),
-    },
-    include: {
-      aluno: { select: { id: true, name: true, email: true } },
-      atividade: { select: { id: true, titulo: true } },
-    },
-  });
-
-  return resposta;
-}
-
-//teste
-async listarRespostas(atividadeId: string, professorId: string) {
-  const atividade = await this.prisma.atividade.findUnique({
-    where: { id: atividadeId },
-    select: { professorId: true },
-  });
-
-  if (!atividade) {
-    throw new NotFoundException('Atividade não encontrada');
-  }
-  if (atividade.professorId !== professorId) {
-    throw new ForbiddenException('Você não tem permissão para ver as respostas desta atividade');
-  }
-
-  return this.prisma.respostaAtividade.findMany({
-    where: { atividadeId },
-    include: {
-      aluno: { select: { id: true, name: true, email: true } },
-    },
-    orderBy: { dataEnvio: 'desc' },
-  });
-}
-
-async obterMinhaResposta(atividadeId: string, alunoId: string) {
-  const resposta = await this.prisma.respostaAtividade.findUnique({
-    where: { atividadeId_alunoId: { atividadeId, alunoId } },
-    select: {
-      id: true,
-      status: true,
-      nota: true,
-      feedback: true,
-      dataEnvio: true,
-      dataCorrecao: true,
-    },
-  });
-  return resposta ?? null;
-}
-async registrarResposta(
-  atividadeId: string,
-  alunoId: string,
-  resposta: string,
-  anexos: string[] = [],
-) {
-  // valida existência da atividade
-  const atividade = await this.prisma.atividade.findUnique({ where: { id: atividadeId } });
-  if (!atividade) {
-    throw new NotFoundException('Atividade não encontrada');
-  }
-
-  // valida se o aluno pertence à turma da atividade
-  if (atividade.turmaId) {
-    const alunoNaTurma = await this.prisma.turma.findFirst({
-      where: { id: atividade.turmaId, alunos: { some: { id: alunoId } } },
-      select: { id: true },
+  async registrarAvaliacao(respostaId: string, avaliacaoDto: any, professorId: string) {
+    const respostaExistente = await this.prisma.respostaAtividade.findUnique({
+      where: { id: respostaId },
+      include: { atividade: { select: { professorId: true } } },
     });
-    if (!alunoNaTurma) {
-      throw new ForbiddenException('Você não pertence à turma desta atividade');
-    }
+    if (!respostaExistente) throw new NotFoundException('Resposta não encontrada');
+    if (respostaExistente.atividade.professorId !== professorId) throw new ForbiddenException('Sem permissão');
+
+    const resposta = await this.prisma.respostaAtividade.update({
+      where: { id: respostaId },
+      data: {
+        nota: avaliacaoDto.nota,
+        feedback: avaliacaoDto.feedback,
+        status: StatusResposta.CORRIGIDA,
+        dataCorrecao: new Date(),
+      },
+      include: {
+        aluno: { select: { id: true, name: true, email: true } },
+        atividade: { select: { id: true, titulo: true } },
+      },
+    });
+    return resposta;
   }
 
-  //cria ou atualiza (permite reenvio)
-  const respostaCriada = await this.prisma.respostaAtividade.upsert({
-    where: { atividadeId_alunoId: { atividadeId, alunoId } }, // pela @@unique do schema
-    create: {
-      atividadeId,
-      alunoId,
-      resposta,
-      anexos,
-      status: StatusResposta.ENVIADA,
-    },
-    update: {
-      resposta,
-      anexos,
-      status: StatusResposta.ENVIADA,
-      dataEnvio: new Date(),
-    },
-  });
+  async listarRespostas(atividadeId: string, professorId: string) {
+    const atividade = await this.prisma.atividade.findUnique({
+      where: { id: atividadeId },
+      select: { professorId: true },
+    });
+    if (!atividade) throw new NotFoundException('Atividade não encontrada');
+    if (atividade.professorId !== professorId) throw new ForbiddenException('Sem permissão');
 
-  return respostaCriada;
+    return this.prisma.respostaAtividade.findMany({
+      where: { atividadeId },
+      include: { aluno: { select: { id: true, name: true, email: true } } },
+      orderBy: { dataEnvio: 'desc' },
+    });
+  }
 
-}
+  async obterMinhaResposta(atividadeId: string, alunoId: string) {
+    const resposta = await this.prisma.respostaAtividade.findUnique({
+      where: { atividadeId_alunoId: { atividadeId, alunoId } },
+      select: {
+        id: true,
+        status: true,
+        nota: true,
+        feedback: true,
+        dataEnvio: true,
+        dataCorrecao: true,
+      },
+    });
+    return resposta ?? null;
+  }
+
+  // --- Mesma rota para ALUNO e RESPONSAVEL (modo geral permite ausência de alunoId)
+  async obterRespostaParaContexto(
+    atividadeId: string,
+    reqUserId: string,
+    reqRole: string,
+    alunoId?: string,
+  ) {
+    let alvoId = reqUserId;
+
+    if (reqRole === 'ALUNO') {
+      alvoId = reqUserId;
+    } else if (reqRole === 'RESPONSAVEL') {
+      if (!alunoId) {
+        // MODO GERAL: não há resposta individual; devolve null
+        // (ainda validamos a existência e disponibilidade da atividade)
+        const atividade = await this.prisma.atividade.findUnique({
+          where: { id: atividadeId },
+          select: { ativa: true },
+        });
+        if (!atividade || !atividade.ativa) throw new ForbiddenException('Atividade indisponível');
+        return null;
+      }
+      // MODO FILHO ESPECÍFICO
+      await this.assertVinculoResponsavelAluno(reqUserId, alunoId);
+      alvoId = alunoId;
+    } else {
+      throw new ForbiddenException('Apenas ALUNO ou RESPONSAVEL');
+    }
+
+    // valida visibilidade da atividade para o alvo quando há alvoId concreto
+    const atividade = await this.prisma.atividade.findUnique({
+      where: { id: atividadeId },
+      select: { ativa: true, turmaId: true },
+    });
+    if (!atividade || !atividade.ativa) throw new ForbiddenException('Atividade indisponível');
+
+    if (atividade.turmaId) {
+      const alunoNaTurma = await this.prisma.turma.findFirst({
+        where: { id: atividade.turmaId, alunos: { some: { id: alvoId } } },
+        select: { id: true },
+      });
+      if (!alunoNaTurma) throw new ForbiddenException('Aluno fora da turma');
+    }
+
+    return this.obterMinhaResposta(atividadeId, alvoId);
+  }
+
+  async registrarResposta(
+    atividadeId: string,
+    alunoId: string,
+    resposta: string,
+    anexos: string[] = [],
+  ) {
+    const atividade = await this.prisma.atividade.findUnique({ where: { id: atividadeId } });
+    if (!atividade) throw new NotFoundException('Atividade não encontrada');
+
+    if (atividade.turmaId) {
+      const alunoNaTurma = await this.prisma.turma.findFirst({
+        where: { id: atividade.turmaId, alunos: { some: { id: alunoId } } },
+        select: { id: true },
+      });
+      if (!alunoNaTurma) throw new ForbiddenException('Você não pertence à turma desta atividade');
+    }
+
+    const respostaCriada = await this.prisma.respostaAtividade.upsert({
+      where: { atividadeId_alunoId: { atividadeId, alunoId } },
+      create: { atividadeId, alunoId, resposta, anexos, status: StatusResposta.ENVIADA },
+      update: { resposta, anexos, status: StatusResposta.ENVIADA, dataEnvio: new Date() },
+    });
+
+    return respostaCriada;
+  }
 }

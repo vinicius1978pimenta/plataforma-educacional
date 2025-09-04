@@ -9,7 +9,7 @@ import { lastValueFrom } from 'rxjs';
 import { AtividadeService } from '../../../services/atividade.service';
 import { AuthService } from '../../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Navbar2Component } from "../../../navbar2/navbar2.component";
+
 
 // ---------- NITIDEZ ----------
 const DPR = Math.min(3, Math.ceil(window.devicePixelRatio || 1));
@@ -111,13 +111,13 @@ type RespostaAluno = {
 };
 
 @Component({
-  selector: 'app-relatorios-aluno',
+  selector: 'app-relatorios-responsavel',
   standalone: true,
-  imports: [CommonModule, Navbar2Component],
-  templateUrl: './relatorios-aluno.component.html',
-  styleUrls: ['./relatorios-aluno.component.scss'],
+  imports: [CommonModule],
+  templateUrl: './relatoriosresponsavel.component.html',
+  styleUrls: ['./relatoriosresponsavel.component.scss'],
 })
-export class RelatoriosAlunoComponent implements OnInit, OnDestroy {
+export class RelatoriosResponsavelComponent implements OnInit, OnDestroy {
   @Input() alunoId?: string | number;
 
   @ViewChild('chartStatus')    chartStatusRef!: ElementRef<HTMLCanvasElement>;
