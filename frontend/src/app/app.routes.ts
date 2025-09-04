@@ -28,6 +28,7 @@ import { RelatoriosAlunoComponent } from '../dashboard/aluno/relatorios-aluno/re
 import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios-professor/relatorios-professor/relatorios-professor.component';
 import { AlunoConteudoListComponent } from '../dashboard/aluno/conteudos/aluno-conteudo-list.component';
 import { ProfessorAlunosListComponent } from '../dashboard/professor/professor-alunos-list/professor-alunos-list.component';
+import { RelatoriosResponsavelComponent } from '../dashboard/responsaveis/relatoriosresponsavel/relatoriosresponsavel.component';
 
 
 
@@ -165,10 +166,28 @@ export const routes: Routes = [
     data: { role: 'RESPONSAVEL' }
   },
 
-{ path: 'aluno/relatorios', component: RelatoriosAlunoComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'ALUNO' } },
+  
+{ path: 'aluno/relatorios', component: RelatoriosAlunoComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'ALUNO' }},
 
 { path: 'professor/relatorios', component: RelatoriosProfessorComponent,
   canActivate: [AuthGuard, RoleGuard], data: { role: 'PROFESSOR' } },
+
+
+// Relatório do responsável (GERAL, sem alunoId)
+{
+  path: 'responsavel/relatorios',
+  component: RelatoriosResponsavelComponent, // standalone
+  canActivate: [AuthGuard, RoleGuard],
+  data: { role: 'RESPONSAVEL' }
+},
+
+// Relatório do responsável (POR FILHO, com alunoId)
+{
+  path: 'responsavel/relatorios/:alunoId',
+  component: RelatoriosResponsavelComponent, // standalone
+  canActivate: [AuthGuard, RoleGuard],
+  data: { role: 'RESPONSAVEL' }
+},
 
   // Rota fallback
   { path: '**', redirectTo: '/login' },

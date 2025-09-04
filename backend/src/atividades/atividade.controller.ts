@@ -25,20 +25,13 @@ import { CreateRespostaDto } from './dto/create-resposta.dto';
 export class AtividadesController {
   constructor(private readonly atividadesService: AtividadesService) {}
 
+  // --------- PROFESSOR ---------
   @Post()
   @UseGuards(RolesGuard)
   @Roles('PROFESSOR')
-  async create(@Body() createAtividadeDto: CreateAtividadeDto, @Request() req) {
-    return this.atividadesService.create(createAtividadeDto, req.user.id);
+  async create(@Body() dto: CreateAtividadeDto, @Request() req) {
+    return this.atividadesService.create(dto, req.user.id);
   }
-
-@Get()
-async findAll(
-  @Request() req,
-  @Query('materialId') materialId: string,
-) {
-  return this.atividadesService.findAll(req.user.id, req.user.role, materialId);
-}
 
   @Get('turma/:turmaId')
   @UseGuards(RolesGuard)
@@ -47,27 +40,15 @@ async findAll(
     return this.atividadesService.findByTurma(turmaId, req.user.id);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string, @Request() req) {
-    return this.atividadesService.findOne(id, req.user.id, req.user.role);
-  }
-
-  @Get(':id/respostas')
-@UseGuards(RolesGuard)
-@Roles('PROFESSOR')
-async listarRespostas(@Param('id') id: string, @Request() req) {
-  return this.atividadesService.listarRespostas(id, req.user.id);
-}
-
   @Patch(':id')
   @UseGuards(RolesGuard)
   @Roles('PROFESSOR')
   async update(
     @Param('id') id: string,
-    @Body() updateAtividadeDto: UpdateAtividadeDto,
+    @Body() dto: UpdateAtividadeDto,
     @Request() req,
   ) {
-    return this.atividadesService.update(id, updateAtividadeDto, req.user.id);
+    return this.atividadesService.update(id, dto, req.user.id);
   }
 
   @Delete(':id')
@@ -77,35 +58,85 @@ async listarRespostas(@Param('id') id: string, @Request() req) {
     return this.atividadesService.remove(id, req.user.id);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @Get(':id/respostas')
+  @UseGuards(RolesGuard)
+  @Roles('PROFESSOR')
+  async listarRespostas(@Param('id') id: string, @Request() req) {
+    return this.atividadesService.listarRespostas(id, req.user.id);
+  }
+
+ 
+  @Get()
+  async findAll(
+    @Request() req,
+    @Query('materialId') materialId?: string,
+    @Query('alunoId') alunoId?: string, // opcional para RESPONSAVEL (relatório geral)
+  ) {
+    return this.atividadesService.findAll(
+      req.user.id,
+      req.user.role,
+      materialId,
+      alunoId,
+    );
+  }
+
+  // Detalhe de atividade respeitando visibilidade por role
+  @Get(':id')
+  async findOne(@Param('id') id: string, @Request() req) {
+    return this.atividadesService.findOne(id, req.user.id, req.user.role);
+  }
+
+  // Tradução utilitária (mantido)
   @Post('translate')
   translateAtividade(
     @Body() dto: TranslateAtividadeDto,
-    @CurrentUser() user: any, 
+    @CurrentUser() user: any,
   ) {
     return this.atividadesService.translateAtividade(dto, user);
   }
 
-  
-@Patch('resposta/:id')
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('PROFESSOR')
-async registrarAvaliacao(@Param('id') id: string, @Body() avaliacaoDto: any, @Request() req) {
-  return this.atividadesService.registrarAvaliacao(id, avaliacaoDto, req.user.id);
-}
+  // --------- PROFESSOR avalia resposta ---------
+  @Patch('resposta/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('PROFESSOR')
+  async registrarAvaliacao(
+    @Param('id') id: string,
+    @Body() avaliacaoDto: any,
+    @Request() req,
+  ) {
+    return this.atividadesService.registrarAvaliacao(
+      id,
+      avaliacaoDto,
+      req.user.id,
+    );
+  }
 
-@Post('respostas')
-@UseGuards(JwtAuthGuard)
-async criarResposta(
-  @Body() dto: CreateRespostaDto,
-  @CurrentUser() user: any,
-) {
-  return this.atividadesService.registrarResposta(dto.atividadeId, user.id, dto.resposta, dto.anexos ?? []);
-}
+  // --------- ALUNO/RESPONSAVEL envia resposta ---------
+  @Post('respostas')
+  async criarResposta(
+    @Body() dto: CreateRespostaDto,
+    @CurrentUser() user: any,
+  ) {
+    return this.atividadesService.registrarResposta(
+      dto.atividadeId,
+      user.id,
+      dto.resposta,
+      dto.anexos ?? [],
+    );
+  }
 
-@Get(':id/minha-resposta')
-@UseGuards(JwtAuthGuard)
-async minhaResposta(@Param('id') id: string, @CurrentUser() user: any) {
-  return this.atividadesService.obterMinhaResposta(id, user.id);
-}
+
+  @Get(':id/minha-resposta')
+  async minhaResposta(
+    @Param('id') id: string,
+    @Request() req,
+    @Query('alunoId') alunoId?: string, // opcional para RESPONSAVEL (relatório geral)
+  ) {
+    return this.atividadesService.obterRespostaParaContexto(
+      id,            // atividadeId
+      req.user.id,   // quem está autenticado
+      req.user.role, // role do token
+      alunoId,       // opcional no modo geral do responsável
+    );
+  }
 }
