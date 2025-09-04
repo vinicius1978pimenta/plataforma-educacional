@@ -35,6 +35,7 @@ export class PerfilAlunoComponent implements OnInit {
   ngOnInit(): void {
     this.alunoId = this.route.snapshot.paramMap.get('id')!;
     this.carregarPerfil();
+    
   }
 
   carregarPerfil() {
@@ -59,7 +60,7 @@ salvarAlteracoes() {
   }
 
   if (this.aluno.email && this.aluno.email.trim() !== '') {
-  alunoAtualizado.email = this.aluno.email;
+    alunoAtualizado.email = this.aluno.email;
   } else {
     console.error('E-mail inválido ou vazio');
   }
@@ -69,6 +70,13 @@ salvarAlteracoes() {
   this.userService.updateUser(this.alunoId, 'ALUNO', alunoAtualizado).subscribe({
     next: () => {
       alert('Perfil atualizado com sucesso!');
+
+      // 🔹 Atualiza o usuário no AuthService/localStorage
+      this.authService.updateCurrentUser({
+        name: this.aluno.name,
+        email: this.aluno.email
+      });
+
       this.router.navigate(['/dashboard-aluno']);
     },
     error: (err: any) => {
@@ -77,6 +85,7 @@ salvarAlteracoes() {
     }
   });
 }
+
 
   salvarAlteracaoSenha() {
     const senhaAtualizada = {
