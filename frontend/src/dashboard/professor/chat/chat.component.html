@@ -1,0 +1,90 @@
+<div class="navbar-fake">
+  <div class="navbar-title">Chat</div>
+  <button [routerLink]="'/dashboard-professor'" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Voltar
+  </button>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="chat-container">
+  <!-- Seleção de Usuário -->
+  <div class="user-selection" *ngIf="!currentUser">
+    <div class="user-card">
+      <h2>Selecione seu perfil:</h2>
+      <div class="user-buttons">
+        <button class="user-btn professor" (click)="selectUser('professor')">
+          <i class="fas fa-chalkboard-teacher"></i> Professor
+        </button>
+        <button class="user-btn aluno" (click)="selectUser('aluno')">
+          <i class="fas fa-user-graduate"></i> Aluno
+        </button>
+        <button class="user-btn responsavel" (click)="selectUser('responsavel')">
+          <i class="fas fa-users"></i> Responsável
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interface do Chat -->
+  <div class="chat-interface" *ngIf="currentUser">
+    <!-- Header do Chat -->
+    <div class="chat-header">
+      <div class="user-info">
+        <span class="user-avatar">{{ getUserAvatar(currentUser.type) }}</span>
+        <div>
+          <strong>{{ currentUser.name }}</strong>
+          <small>({{ getUserTypeLabel(currentUser.type) }})</small>
+        </div>
+      </div>
+      <div class="channel-info">
+        <select class="channel-select" [(ngModel)]="selectedChannel" (change)="onChannelChange()">
+          <option value="">Selecionar conversa...</option>
+          <option *ngFor="let channel of getAvailableChannels()" [value]="channel.id">
+            {{ channel.name }}
+          </option>
+        </select>
+      </div>
+      <button class="logout-btn" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </button>
+    </div>
+
+    <!-- Área de Mensagens -->
+    <div class="messages-container" #messagesContainer>
+      <div class="message-info" *ngIf="!selectedChannel">
+        <p>Selecione uma conversa para começar</p>
+      </div>
+      
+      <div class="message" 
+           *ngFor="let message of messages" 
+           [class.own-message]="message.senderId === currentUser.id"
+           [class.other-message]="message.senderId !== currentUser.id">
+        <div class="message-header">
+          <span class="sender-avatar">{{ getUserAvatar(message.senderType) }}</span>
+          <span class="sender-name">{{ message.senderName }}</span>
+          <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+        </div>
+        <div class="message-content">{{ message.content }}</div>
+      </div>
+    </div>
+
+    <!-- Input de Mensagem -->
+    <div class="message-input-container" *ngIf="selectedChannel">
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          class="message-input"
+          [(ngModel)]="newMessage"
+          (keyup.enter)="sendMessage()"
+          placeholder="Digite sua mensagem..."
+          maxlength="500"
+        >
+        <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
