@@ -31,54 +31,95 @@ body, html {
 /* ===== Card de Seleção de Usuário ===== */
 .user-selection {
   width: 100%;
-  max-width: 600px;
-  background: #ffffff10;
+  max-width: 400px; /* deixa um tamanho bom em desktop e mobile */
+  background: rgba(255,255,255,0.1);
   backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.4);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.user-selection h2 {
-  margin-bottom: 30px;
+.user-selection:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* ===== Conteúdo interno do card ===== */
+.user-card {
+  width: 100%;
+}
+
+.user-card h2 {
   font-size: 2rem;
+  margin-bottom: 10px;
+  color: #002D4D;
+}
+
+.user-card p {
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  color: #333;
+  line-height: 1.5;
 }
 
 .user-buttons {
   display: flex;
-  justify-content: space-around;
-  gap: 20px;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .user-btn {
   flex: 1;
-  padding: 15px;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #00539C; /* azul FGV */
   cursor: pointer;
   transition: all 0.3s ease;
-  color: #fff;
-}
-
-.user-btn i {
-  margin-right: 10px;
-}
-
-.user-btn.professor {
-  background: #0078D7;
-}
-.user-btn.aluno {
-  background: #28a745;
-}
-.user-btn.responsavel {
-  background: #ff9800;
 }
 
 .user-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  background-color: #0073E6;
+  transform: translateY(-2px);
+}
+
+.user-helper {
+  text-align: left;
+  font-size: 0.9rem;
+  color: #002D4D;
+}
+
+.user-helper p {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.user-helper ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.user-helper ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 8px;
+}
+
+.user-helper ul li::before {
+  content: "📌";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1rem;
 }
 
 /* ===== Interface do Chat ===== */

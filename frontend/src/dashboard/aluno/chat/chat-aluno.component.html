@@ -1,10 +1,11 @@
 <div class="navbar-fake">
-  <div class="navbar-title">Chat</div>
+  <div class="navbar-title">
+    <i class="fas fa-comments navbar-icon"></i> Chat
+  </div>
   <button [routerLink]="'/dashboard-professor'" class="back-btn">
     <i class="fas fa-arrow-left"></i> Voltar
   </button>
 </div>
-
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -12,17 +13,20 @@
   <!-- Seleção de Usuário -->
   <div class="user-selection" *ngIf="!currentUser">
     <div class="user-card">
-      <h2>Selecione seu perfil:</h2>
+      <h2>Bem-vindo ao Chat!</h2>
+      <p>Converse com professores e tire dúvidas diretamente pelo Sistema.</p>
       <div class="user-buttons">
-        <button class="user-btn professor" (click)="selectUser('professor')">
-          <i class="fas fa-chalkboard-teacher"></i> Professor
-        </button>
         <button class="user-btn aluno" (click)="selectUser('aluno')">
           <i class="fas fa-user-graduate"></i> Aluno
         </button>
-        <button class="user-btn responsavel" (click)="selectUser('responsavel')">
-          <i class="fas fa-users"></i> Responsável
-        </button>
+      </div>
+      <div class="user-helper">
+        <p>📚 Aqui você poderá:</p>
+        <ul>
+          <li>Receber mensagens de professores</li>
+          <li>Participar de discussões da turma</li>
+          <li>Acompanhar notificações importantes</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -55,6 +59,7 @@
     <div class="messages-container" #messagesContainer>
       <div class="message-info" *ngIf="!selectedChannel">
         <p>Selecione uma conversa para começar</p>
+        <i class="fas fa-comment-dots empty-chat-icon"></i>
       </div>
       
       <div class="message" 
@@ -88,4 +93,3 @@
     </div>
   </div>
 </div>
-
