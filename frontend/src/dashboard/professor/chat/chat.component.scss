@@ -4,9 +4,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-app-navbar2 {
-  flex-shrink: 0; /* navbar não cresce nem encolhe */
-}
 
 body, html {
   width: 100%;
@@ -29,57 +26,92 @@ body, html {
 }
 
 /* ===== Card de Seleção de Usuário ===== */
+/* ===== Seleção de Usuário - Estilo FGV ===== */
 .user-selection {
   width: 100%;
-  max-width: 600px;
-  background: #ffffff10;
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  max-width: 480px;
+  margin: 70px auto;
   text-align: center;
 }
 
-.user-selection h2 {
-  margin-bottom: 30px;
+.user-card {
+  background: #ffffff15; /* transparente com leve blur */
+  backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.user-card h2 {
   font-size: 2rem;
+  color: #002D4D; /* azul escuro FGV */
+  margin-bottom: 12px;
+}
+
+.user-card p {
+  font-size: 1rem;
+  color: #004A77; /* azul médio FGV */
+  margin-bottom: 25px;
 }
 
 .user-buttons {
   display: flex;
-  justify-content: space-around;
-  gap: 20px;
-}
-
-.user-btn {
-  flex: 1;
-  padding: 15px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #fff;
-}
-
-.user-btn i {
-  margin-right: 10px;
+  justify-content: center;
 }
 
 .user-btn.professor {
-  background: #0078D7;
-}
-.user-btn.aluno {
-  background: #28a745;
-}
-.user-btn.responsavel {
-  background: #ff9800;
+  background: #003A79; /* azul FGV */
+  color: #ffffff; /* azul escuro para contraste */
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.user-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+.user-btn.professor:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
+
+.user-helper {
+  margin-top: 25px;
+  background: #002D4D; /* azul escuro FGV */
+  padding: 15px 20px;
+  border-radius: 12px;
+  color: #ffffff; /* amarelo FGV */
+  font-size: 0.95rem;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.user-helper ul {
+  margin: 8px 0 0 20px;
+  list-style-type: disc;
+}
+
+.user-helper p {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+/* Ícones */
+.user-btn i {
+  font-size: 1.2rem;
+}
+
 
 /* ===== Interface do Chat ===== */
 .chat-interface {
@@ -274,17 +306,19 @@ body, html {
   left: 0;
   width: 100%;
   height: 70px;      /* altura do navbar */
-  background: #00395f;
+  background: linear-gradient(135deg,#a5c7ec 0%, #02285d  100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
   color: #fff;
   z-index: 1000;    /* garante que fique acima do chat */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* sombra leve na parte inferior */
 }
 
+
 .navbar-fake .back-btn {
-  background: #0078D7;
+  background: #011a35;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -299,4 +333,9 @@ body, html {
 
 .navbar-fake .back-btn:hover {
   background: #005fa3;
+}
+.navbar-icon {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  color: #ffffff; 
 }
