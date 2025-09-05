@@ -7,39 +7,36 @@
   </button>
 </div>
 
-
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <div class="chat-container">
   <!-- Seleção de Usuário -->
-<div class="user-selection" *ngIf="!currentUser">
-  <div class="user-card">
-    <h2>Bem-vindo ao Chat!</h2>
-    <p>Converse com alunos e acompanhe as atividades de forma rápida e prática.</p>
-    <div class="user-buttons">
-      <button class="user-btn professor" (click)="selectUser('professor')">
-        <i class="fas fa-chalkboard-teacher"></i> Professor
-      </button>
-    </div>
-    <div class="user-helper">
-      <p>📌 Você pode:</p>
-      <ul>
-        <li>Enviar mensagens para alunos e Responsável!</li>
-        <li>Responder dúvidas em Tempo Real</li>
-        <li>Conversar com o Responsável</li>
-      </ul>
+  <div class="user-selection" *ngIf="!currentUser">
+    <div class="user-card">
+      <h2><i class="fas fa-user-astronaut"></i> Bem-vindo ao Chat!</h2>
+      <p>Converse com alunos e acompanhe as atividades de forma rápida e prática.</p>
+      <div class="user-buttons">
+        <button class="user-btn professor" (click)="selectUser('professor')">
+          <i class="fas fa-user-astronaut"></i> Professor
+        </button>
+      </div>
+      <div class="user-helper">
+        <p>📌 Você pode:</p>
+        <ul>
+          <li><i class="fas fa-robot"></i> Enviar mensagens para alunos e Responsável!</li>
+          <li><i class="fas fa-user-astronaut"></i> Responder dúvidas em Tempo Real</li>
+          <li><i class="fas fa-robot"></i> Conversar com o Responsável</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- Interface do Chat -->
   <div class="chat-interface" *ngIf="currentUser">
     <!-- Header do Chat -->
     <div class="chat-header">
       <div class="user-info">
-        <span class="user-avatar">{{ getUserAvatar(currentUser.type) }}</span>
+        <span class="user-avatar"><i class="fas fa-user-astronaut"></i></span>
         <div>
           <strong>{{ currentUser.name }}</strong>
           <small>({{ getUserTypeLabel(currentUser.type) }})</small>
@@ -61,7 +58,7 @@
     <!-- Área de Mensagens -->
     <div class="messages-container" #messagesContainer>
       <div class="message-info" *ngIf="!selectedChannel">
-        <p>Selecione uma conversa para começar</p>
+        <p><i class="fas fa-info-circle"></i> Selecione uma conversa para começar</p>
       </div>
       
       <div class="message" 
@@ -69,11 +66,15 @@
            [class.own-message]="message.senderId === currentUser.id"
            [class.other-message]="message.senderId !== currentUser.id">
         <div class="message-header">
-          <span class="sender-avatar">{{ getUserAvatar(message.senderType) }}</span>
+          <span class="sender-avatar">
+            <i class="fas" [ngClass]="message.senderId === currentUser.id ? 'fa-user-astronaut' : 'fa-user-circle'"></i>
+          </span>
           <span class="sender-name">{{ message.senderName }}</span>
-          <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+          <span class="message-time"><i class="far fa-clock"></i> {{ formatTime(message.timestamp) }}</span>
         </div>
-        <div class="message-content">{{ message.content }}</div>
+        <div class="message-content">
+          <i class="fas fa-comment-dots"></i> {{ message.content }}
+        </div>
       </div>
     </div>
 
@@ -89,7 +90,7 @@
           maxlength="500"
         >
         <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
-          <i class="fas fa-paper-plane"></i>
+          <i class="fas fa-paper-plane"></i> Enviar
         </button>
       </div>
     </div>
