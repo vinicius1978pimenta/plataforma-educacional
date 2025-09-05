@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <div class="navbar-fake">
   <div class="navbar-title">
     <i class="fas fa-comments navbar-icon"></i> Chat
@@ -6,54 +8,67 @@
     <i class="fas fa-arrow-left"></i> Voltar
   </button>
 </div>
+
 <div class="chat-container">
+
   <!-- Seleção de Usuário -->
   <div class="user-selection" *ngIf="!currentUser">
     <div class="user-card">
-      <h2>Bem-vindo(a) ao Chat!</h2>
+      <h2><i class="fas fa-handshake"></i> Bem-vindo(a) ao Chat!</h2>
       <p>Converse diretamente com o professor responsável pelo seu filho(a).</p>
       <div class="user-buttons">
         <button 
           class="user-btn responsavel" 
           (click)="selectUser('responsavel')"
         >
-          👨‍👩‍👧‍👦 Entrar como Responsável
+          <i class="fas fa-user-friends"></i> Entrar como Responsável
         </button>
       </div>
       <div class="welcome-emoji">
-        
+        <i class="fas fa-smile-beam fa-2x"></i>
       </div>
     </div>
   </div>
 
   <!-- Interface do Chat -->
   <div class="chat-interface" *ngIf="currentUser">
+    
     <!-- Header do Chat -->
     <div class="chat-header">
       <div class="user-info">
-        <span class="user-avatar">{{ getUserAvatar(currentUser.type) }}</span>
+        <!-- Avatar com ícone direto -->
+        <span class="user-avatar">
+          <i *ngIf="currentUser.type === 'responsavel'" class="fas fa-user-friends"></i>
+          <i *ngIf="currentUser.type === 'professor'" class="fas fa-chalkboard-teacher"></i>
+          <i *ngIf="currentUser.type !== 'responsavel' && currentUser.type !== 'professor'" class="fas fa-user"></i>
+        </span>
         <div>
           <strong>{{ currentUser.name }}</strong>
           <small>({{ getUserTypeLabel(currentUser.type) }})</small>
         </div>
       </div>
+
       <div class="channel-info">
         <select class="channel-select" [(ngModel)]="selectedChannel" (change)="onChannelChange()">
-          <option value="">Selecionar conversa...</option>
+          <option value=""><i class="fas fa-comments"></i> Selecionar conversa...</option>
           <option 
             *ngFor="let channel of getAvailableChannels()" 
             [value]="channel.id"
           >
-            {{ channel.name }}
+            <i class="fas fa-user"></i> {{ channel.name }}
           </option>
         </select>
       </div>
-      <button class="logout-btn" (click)="logout()">Sair</button>
+
+      <button class="logout-btn" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </button>
     </div>
 
     <!-- Área de Mensagens -->
     <div class="messages-container" #messagesContainer>
       <div class="message-info" *ngIf="!selectedChannel">
+        <i class="fas fa-envelope-open-text fa-2x"></i>
         <p>Selecione uma conversa para começar 📩</p>
       </div>
       
@@ -62,9 +77,14 @@
            [class.own-message]="message.senderId === currentUser.id"
            [class.other-message]="message.senderId !== currentUser.id">
         <div class="message-header">
-          <span class="sender-avatar">{{ getUserAvatar(message.senderType) }}</span>
+          <!-- Avatar do remetente com ícone -->
+          <span class="sender-avatar">
+            <i *ngIf="message.senderType === 'responsavel'" class="fas fa-user-friends"></i>
+            <i *ngIf="message.senderType === 'professor'" class="fas fa-chalkboard-teacher"></i>
+            <i *ngIf="message.senderType !== 'responsavel' && message.senderType !== 'professor'" class="fas fa-user"></i>
+          </span>
           <span class="sender-name">{{ message.senderName }}</span>
-          <span class="message-time">{{ formatTime(message.timestamp) }}</span>
+          <span class="message-time"><i class="far fa-clock"></i> {{ formatTime(message.timestamp) }}</span>
         </div>
         <div class="message-content">{{ message.content }}</div>
       </div>
@@ -86,9 +106,10 @@
           (click)="sendMessage()"
           [disabled]="!newMessage.trim()"
         >
-          ➤
+          <i class="fas fa-paper-plane"></i>
         </button>
       </div>
     </div>
+
   </div>
 </div>

@@ -13,6 +13,48 @@ body, html {
   color: #fff;
 }
 
+/* ===== Navbar Fake ===== */
+.navbar-fake {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: #fff;
+  z-index: 1000;
+}
+
+.navbar-fake .back-btn {
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-fake .back-btn:hover {
+  background: #005fa3;
+}
+
 /* ===== Container Principal ===== */
 .chat-container {
   display: flex;
@@ -22,117 +64,127 @@ body, html {
   width: 100%;
   padding: 20px;
   padding-top: 230px;
-  box-sizing: border-box;
 }
 
 /* ===== Card de Seleção de Usuário ===== */
-/* ===== Seleção de Usuário - Estilo FGV ===== */
 .user-selection {
   width: 100%;
-  max-width: 480px;
-  margin: 70px auto;
-  text-align: center;
-}
-
-.user-card {
-  background: #ffffff15; /* transparente com leve blur */
-  backdrop-filter: blur(15px);
-  padding: 40px 30px;
+  max-width: 1400px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
   border-radius: 20px;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 390px;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.user-card:hover {
+.user-selection:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
 }
 
 .user-card h2 {
   font-size: 2rem;
-  color: #002D4D; /* azul escuro FGV */
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  color: #002D4D;
 }
 
 .user-card p {
-  font-size: 1rem;
-  color: #004A77; /* azul médio FGV */
+  font-size: 0.95rem;
   margin-bottom: 25px;
+  color: #333;
+  line-height: 1.5;
 }
 
 .user-buttons {
   display: flex;
   justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
-.user-btn.professor {
-  background: #003A79; /* azul FGV */
-  color: #ffffff; /* azul escuro para contraste */
-  padding: 15px 35px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 12px;
-  cursor: pointer;
-  display: inline-flex;
+.user-btn {
+  flex: 1;
+  display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.user-btn.professor:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+.user-btn:hover {
+  background-color: #0073E6;
+  transform: translateY(-2px);
 }
 
 .user-helper {
-  margin-top: 25px;
-  background: #002D4D; /* azul escuro FGV */
-  padding: 15px 20px;
-  border-radius: 12px;
-  color: #ffffff; /* amarelo FGV */
-  font-size: 0.95rem;
   text-align: left;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.user-helper ul {
-  margin: 8px 0 0 20px;
-  list-style-type: disc;
+  font-size: 0.9rem;
+  color: #002D4D;
 }
 
 .user-helper p {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 26px;
 }
 
-/* Ícones */
-.user-btn i {
-  font-size: 1.2rem;
+.user-helper ul {
+  list-style: none;
+  padding-left: 0;
 }
 
+.user-helper ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 8px;
+}
 
 /* ===== Interface do Chat ===== */
 .chat-interface {
   display: flex;
   flex-direction: column;
-  background: #ffffff10;
-  backdrop-filter: blur(15px);
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,240,240,0.9) 100%),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80") no-repeat center center;
+  background-size: cover;
+  backdrop-filter: blur(8px);
   width: 100%;
   max-width: 1400px;
   height: 90vh;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-/* ===== Header ===== */
+/* ===== Header do Chat ===== */
 .chat-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #00395f;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
   padding: 20px;
   font-size: 1.1rem;
 }
@@ -143,16 +195,55 @@ body, html {
   gap: 15px;
 }
 
-.user-avatar {
-  width: 45px;
-  height: 45px;
-  background: #0078D7;
+/* ===== Avatares dos usuários ===== */
+.user-avatar,
+.sender-avatar {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  font-size: 1.2rem;
+  color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.3);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: transform 0.2s ease;
 }
+
+.user-avatar:hover,
+.sender-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* ===== Avatares com ícones do Font Awesome ===== */
+.user-avatar i,
+.sender-avatar i {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+/* Exemplo de cores diferentes por tipo de usuário */
+.user-avatar.professor {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+}
+
+.user-avatar.aluno {
+  background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+}
+
+.sender-avatar.professor {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+}
+
+.sender-avatar.aluno {
+  background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+}
+
 
 .channel-info {
   flex: 1;
@@ -241,7 +332,11 @@ body, html {
 
 /* ===== Input de Mensagem ===== */
 .message-input-container {
-  background: #00395f;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
   padding: 15px 20px;
 }
 
@@ -278,6 +373,7 @@ body, html {
 .messages-container::-webkit-scrollbar {
   width: 8px;
 }
+
 .messages-container::-webkit-scrollbar-thumb {
   background: #0078D7;
   border-radius: 8px;
@@ -288,54 +384,14 @@ body, html {
   from {opacity: 0; transform: translateY(10px);}
   to {opacity: 1; transform: translateY(0);}
 }
-/* ===== Header do Chat - Ajuste do Texto ===== */
+
+/* ===== Header do Chat - Texto ===== */
 .chat-header .user-info strong {
-  color: #ffffff; /* Nome do usuário sempre branco */
+  color: #ffffff;
   font-size: 1.2rem;
 }
 
 .chat-header .user-info small {
-  color: #d1d5db; /* Tipo de usuário em cinza claro */
+  color: #d1d5db;
   font-size: 0.9rem;
-}
-
-
-.navbar-fake {
-  position: fixed;   /* fixa no topo */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;      /* altura do navbar */
-  background: linear-gradient(135deg,#a5c7ec 0%, #02285d  100%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  color: #fff;
-  z-index: 1000;    /* garante que fique acima do chat */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* sombra leve na parte inferior */
-}
-
-
-.navbar-fake .back-btn {
-  background: #011a35;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.navbar-fake .back-btn:hover {
-  background: #005fa3;
-}
-.navbar-icon {
-  margin-right: 10px;
-  font-size: 1.5rem;
-  color: #ffffff; 
 }

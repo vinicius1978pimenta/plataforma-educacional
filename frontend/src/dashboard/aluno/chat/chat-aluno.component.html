@@ -13,19 +13,21 @@
   <!-- Seleção de Usuário -->
   <div class="user-selection" *ngIf="!currentUser">
     <div class="user-card">
-      <h2>Bem-vindo ao Chat!</h2>
-      <p>Converse com professores e tire dúvidas diretamente pelo Sistema.</p>
+      <h2><i class="fas fa-handshake"></i> Bem-vindo ao Chat!</h2>
+      <p><i class="fas fa-message"></i> Converse com professores e tire dúvidas diretamente pelo Sistema.</p>
+      
       <div class="user-buttons">
         <button class="user-btn aluno" (click)="selectUser('aluno')">
-          <i class="fas fa-user-graduate"></i> Aluno
+          <i class="fas fa-user-astronaut"></i> Aluno
         </button>
       </div>
+      
       <div class="user-helper">
-        <p>📚 Aqui você poderá:</p>
+        <p>Aqui você poderá:</p>
         <ul>
-          <li>Receber mensagens de professores</li>
-          <li>Participar de discussões da turma</li>
-          <li>Acompanhar notificações importantes</li>
+          <li><i class="fas fa-envelope-open-text"></i> Receber mensagens de professores</li>
+          <li><i class="fas fa-users"></i> Participar de discussões da turma</li>
+          <li><i class="fas fa-bell"></i> Acompanhar notificações importantes</li>
         </ul>
       </div>
     </div>
@@ -36,7 +38,7 @@
     <!-- Header do Chat -->
     <div class="chat-header">
       <div class="user-info">
-        <span class="user-avatar">{{ getUserAvatar(currentUser.type) }}</span>
+        <span class="user-avatar"><i class="fas fa-user-astronaut"></i></span>
         <div>
           <strong>{{ currentUser.name }}</strong>
           <small>({{ getUserTypeLabel(currentUser.type) }})</small>
@@ -67,7 +69,9 @@
            [class.own-message]="message.senderId === currentUser.id"
            [class.other-message]="message.senderId !== currentUser.id">
         <div class="message-header">
-          <span class="sender-avatar">{{ getUserAvatar(message.senderType) }}</span>
+          <span class="sender-avatar">
+            <i class="fas" [ngClass]="message.senderId === currentUser.id ? 'fa-user-astronaut' : 'fa-user'"></i>
+          </span>
           <span class="sender-name">{{ message.senderName }}</span>
           <span class="message-time">{{ formatTime(message.timestamp) }}</span>
         </div>
