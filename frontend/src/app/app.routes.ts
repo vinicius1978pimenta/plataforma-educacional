@@ -30,6 +30,7 @@ import { AlunoConteudoListComponent } from '../dashboard/aluno/conteudos/aluno-c
 import { ProfessorAlunosListComponent } from '../dashboard/professor/professor-alunos-list/professor-alunos-list.component';
 import { RelatoriosResponsavelComponent } from '../dashboard/responsaveis/relatoriosresponsavel/relatoriosresponsavel.component';
 import { ChatComponent } from '../dashboard/professor/chat/chat.component';
+import { ChatAlunoComponent } from '../dashboard/aluno/chat/chat-aluno.component';
 
 
 
@@ -42,6 +43,7 @@ export const routes: Routes = [
   {path: 'home', component : InicialComponent },
   {path: 'sobre', component : SobreNosComponent },
   {path: 'chat-professor', component: ChatComponent},
+  {path: 'chat-aluno', component: ChatAlunoComponent},
 
   
   // Dashboards protegidos por autenticação e role específico
