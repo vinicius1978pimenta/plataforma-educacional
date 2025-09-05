@@ -1,0 +1,341 @@
+.navbar-fake {
+  position: fixed;   /* fixa no topo */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;      /* altura do navbar */
+  background: linear-gradient(135deg,#a5c7ec 0%, #02285d  100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: #fff;
+  z-index: 1000;    /* garante que fique acima do chat */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* sombra leve na parte inferior */
+}
+
+
+.navbar-fake .back-btn {
+  background: #011a35;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-fake .back-btn:hover {
+  background: #005fa3;
+}
+.navbar-icon {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  color: #ffffff; 
+}
+
+/* ===== Reset Básico ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #002D4D 0%, #004A77 100%);
+  color: #fff;
+}
+
+/* ===== Container Principal ===== */
+.chat-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 90px);
+  width: 100%;
+  padding: 20px;
+  padding-top: 230px;
+  box-sizing: border-box;
+}
+
+/* ===== Card de Seleção de Usuário ===== */
+.user-selection {
+  width: 100%;
+  max-width: 480px;
+  margin: 70px auto;
+  text-align: center;
+}
+
+.user-card {
+  background: #ffffff15; /* transparente com leve blur */
+  backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.user-card h2 {
+  font-size: 2rem;
+  color: #002D4D;
+  margin-bottom: 12px;
+}
+
+.user-card p {
+  font-size: 1rem;
+  color: #004A77;
+  margin-bottom: 25px;
+}
+
+.user-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.user-btn.responsavel {
+  background: #003A79;
+  color: #ffffff;
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.user-btn.responsavel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.user-helper {
+  margin-top: 25px;
+  background: #002D4D;
+  padding: 15px 20px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.user-helper ul {
+  margin: 8px 0 0 20px;
+  list-style-type: disc;
+}
+
+.user-helper p {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+/* ===== Interface do Chat ===== */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff10;
+  backdrop-filter: blur(15px);
+  width: 100%;
+  max-width: 1400px;
+  height: 90vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* ===== Header ===== */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #00395f;
+  padding: 20px;
+  font-size: 1.1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 45px;
+  height: 45px;
+  background: #0078D7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.channel-info {
+  flex: 1;
+  text-align: center;
+}
+
+.channel-select {
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+}
+
+.logout-btn {
+  background: #ff4757;
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #e84118;
+}
+
+/* ===== Área de Mensagens ===== */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message-info {
+  text-align: center;
+  font-size: 1rem;
+  color: #d1d5db;
+}
+
+/* Mensagens */
+.message {
+  max-width: 70%;
+  padding: 15px 20px;
+  border-radius: 15px;
+  color: #fff;
+  animation: fadeIn 0.3s ease;
+}
+
+.own-message {
+  align-self: flex-end;
+  background: #28a745;
+}
+
+.other-message {
+  align-self: flex-start;
+  background: #004A77;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.sender-avatar {
+  background: #222;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-time {
+  margin-left: auto;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.message-content {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ===== Input de Mensagem ===== */
+.message-input-container {
+  background: #00395f;
+  padding: 15px 20px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message-input {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+}
+
+.send-btn {
+  background: #0078D7;
+  border: none;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.send-btn:hover {
+  background: #005fa3;
+}
+
+/* ===== Scrollbar Custom ===== */
+.messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+.messages-container::-webkit-scrollbar-thumb {
+  background: #0078D7;
+  border-radius: 8px;
+}
+
+/* ===== Animação ===== */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* ===== Header do Chat - Ajuste do Texto ===== */
+.chat-header .user-info strong {
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+.chat-header .user-info small {
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+
