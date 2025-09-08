@@ -29,7 +29,13 @@ import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios
 import { AlunoConteudoListComponent } from '../dashboard/aluno/conteudos/aluno-conteudo-list.component';
 import { ProfessorAlunosListComponent } from '../dashboard/professor/professor-alunos-list/professor-alunos-list.component';
 import { RelatoriosResponsavelComponent } from '../dashboard/responsaveis/relatoriosresponsavel/relatoriosresponsavel.component';
+
 import { CalendarioComponent } from './calenadrio/calendario.component'; 
+
+import { ChatComponent } from '../dashboard/professor/chat/chat.component';
+import { ChatAlunoComponent } from '../dashboard/aluno/chat/chat-aluno.component';
+import { ChatResponsavelComponent } from '../dashboard/responsaveis/chat/chat-responsavel.component';
+
 
 
 
@@ -41,6 +47,9 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'home', component : InicialComponent },
   {path: 'sobre', component : SobreNosComponent },
+  {path: 'chat-professor', component: ChatComponent},
+  {path: 'chat-aluno', component: ChatAlunoComponent},
+  {path: 'chat-responsavel', component: ChatResponsavelComponent},
 
   
   // Dashboards protegidos por autenticação e role específico

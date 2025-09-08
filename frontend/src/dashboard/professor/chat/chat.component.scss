@@ -1,0 +1,397 @@
+/* ===== Reset Básico ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #002D4D 0%, #004A77 100%);
+  color: #fff;
+}
+
+/* ===== Navbar Fake ===== */
+.navbar-fake {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: #fff;
+  z-index: 1000;
+}
+
+.navbar-fake .back-btn {
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.navbar-fake .back-btn:hover {
+  background: #005fa3;
+}
+
+/* ===== Container Principal ===== */
+.chat-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 90px);
+  width: 100%;
+  padding: 20px;
+  padding-top: 230px;
+}
+
+/* ===== Card de Seleção de Usuário ===== */
+.user-selection {
+  width: 100%;
+  max-width: 1400px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 390px;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-selection:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+.user-card h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #002D4D;
+}
+
+.user-card p {
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.user-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.user-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.user-btn:hover {
+  background-color: #0073E6;
+  transform: translateY(-2px);
+}
+
+.user-helper {
+  text-align: left;
+  font-size: 0.9rem;
+  color: #002D4D;
+}
+
+.user-helper p {
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 26px;
+}
+
+.user-helper ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.user-helper ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 8px;
+}
+
+/* ===== Interface do Chat ===== */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  background: 
+    linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,240,240,0.9) 100%),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80") no-repeat center center;
+  background-size: cover;
+  backdrop-filter: blur(8px);
+  width: 100%;
+  max-width: 1400px;
+  height: 90vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+/* ===== Header do Chat ===== */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  padding: 20px;
+  font-size: 1.1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ===== Avatares dos usuários ===== */
+.user-avatar,
+.sender-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,255,255,0.3);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: transform 0.2s ease;
+}
+
+.user-avatar:hover,
+.sender-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* ===== Avatares com ícones do Font Awesome ===== */
+.user-avatar i,
+.sender-avatar i {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+/* Exemplo de cores diferentes por tipo de usuário */
+.user-avatar.professor {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+}
+
+.user-avatar.aluno {
+  background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+}
+
+.sender-avatar.professor {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+}
+
+.sender-avatar.aluno {
+  background: linear-gradient(135deg, #36d1dc 0%, #5b86e5 100%);
+}
+
+
+.channel-info {
+  flex: 1;
+  text-align: center;
+}
+
+.channel-select {
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+}
+
+.logout-btn {
+  background: #ff4757;
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #e84118;
+}
+
+/* ===== Área de Mensagens ===== */
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  max-width: 70%;
+  padding: 15px 20px;
+  border-radius: 15px;
+  background: #0078D7;
+  color: #fff;
+  animation: fadeIn 0.3s ease;
+}
+
+.own-message {
+  align-self: flex-end;
+  background: #28a745;
+}
+
+.other-message {
+  align-self: flex-start;
+  background: #004A77;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.sender-avatar {
+  background: #222;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-time {
+  margin-left: auto;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.message-content {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ===== Input de Mensagem ===== */
+.message-input-container {
+  background: 
+    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
+    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+  background-blend-mode: overlay, normal, normal;
+  padding: 15px 20px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message-input {
+  flex: 1;
+  padding: 12px 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+}
+
+.send-btn {
+  background: #0078D7;
+  border: none;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.send-btn:hover {
+  background: #005fa3;
+}
+
+/* ===== Scrollbar Custom ===== */
+.messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #0078D7;
+  border-radius: 8px;
+}
+
+/* ===== Animação ===== */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* ===== Header do Chat - Texto ===== */
+.chat-header .user-info strong {
+  color: #ffffff;
+  font-size: 1.2rem;
+}
+
+.chat-header .user-info small {
+  color: #d1d5db;
+  font-size: 0.9rem;
+}

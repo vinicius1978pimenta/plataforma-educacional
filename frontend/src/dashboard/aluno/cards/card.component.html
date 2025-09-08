@@ -163,32 +163,33 @@
         </button>
       </div>
 
-      <!-- Card Certificados -->
-      <div class="dashboard-card">
-        <div class="badge">..</div>
-        <div class="card-icon">
-          <i class="fas fa-trophy"></i>
-        </div>
-        <h3 class="card-title">Indefinido</h3>
-        <p class="card-description">Visualize .</p>
-        <div class="card-stats">
-          <div class="stat-item">
-            <span class="stat-number">...</span>
-            <span class="stat-label">...</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">.</span>
-            <span class="stat-label">...</span>
-          </div>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 80%;"></div>
-        </div>
-        <button class="card-button" >
-          <i class="fas fa-arrow-right"></i>
-          Ver 
-        </button>
+    <!-- Card Chat -->
+    <div class="dashboard-card">
+      <div class="badge">{{ 'dashaluno-24' | transloco }}</div>
+      <div class="card-icon">
+        <i class="fas fa-comment-dots"></i> <!-- ícone de chat -->
       </div>
+      <h3 class="card-title">Chat</h3>
+      <p class="card-description">{{ 'dashaluno-23' | transloco }}</p>
+      <div class="card-stats">
+        <div class="stat-item">
+          <span class="stat-number">...</span>
+          <span class="stat-label">{{ 'dashaluno-25' | transloco }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">...</span>
+          <span class="stat-label">{{ 'dashaluno-26' | transloco }} </span>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 60%;"></div>
+      </div>
+      <button class="card-button" routerLink="/chat-aluno">
+        <i class="fas fa-arrow-right"></i>
+        {{ 'dashaluno-27' | transloco }}
+      </button>
+    </div>
+
      
       
     </div>
