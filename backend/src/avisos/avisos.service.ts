@@ -275,4 +275,22 @@ async findByResponsavel(responsavelId: string) {
       },
     });
   }
+  async findByPeriodo(dataInicio: string, dataFim: string) {
+    return this.prisma.aviso.findMany({
+      where: {
+      },
+      orderBy: { dataInicio: 'asc' },
+      
+      include: {
+        professor: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        turmas: true,
+      },
+    });
+}
 }

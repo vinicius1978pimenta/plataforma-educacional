@@ -29,6 +29,7 @@ import { RelatoriosProfessorComponent } from '../dashboard/professor/relatórios
 import { AlunoConteudoListComponent } from '../dashboard/aluno/conteudos/aluno-conteudo-list.component';
 import { ProfessorAlunosListComponent } from '../dashboard/professor/professor-alunos-list/professor-alunos-list.component';
 import { RelatoriosResponsavelComponent } from '../dashboard/responsaveis/relatoriosresponsavel/relatoriosresponsavel.component';
+import { CalendarioComponent } from './calenadrio/calendario.component'; 
 
 
 
@@ -187,6 +188,13 @@ export const routes: Routes = [
   component: RelatoriosResponsavelComponent, // standalone
   canActivate: [AuthGuard, RoleGuard],
   data: { role: 'RESPONSAVEL' }
+},
+
+{
+  path: 'calendario',
+  component: CalendarioComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { role: ['ALUNO', 'PROFESSOR', 'RESPONSAVEL'] }
 },
 
   // Rota fallback
