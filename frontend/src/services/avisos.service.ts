@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 
 export interface Aviso {
   id: string;
@@ -39,6 +39,7 @@ export interface CreateAvisoDto {
 })
 export class AvisosService {
   private apiUrl = 'http://localhost:3000/avisos';
+   public avisosAluno: Aviso[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -68,8 +69,19 @@ export class AvisosService {
     return this.http.get<Aviso[]>(`${this.apiUrl}/professor/meus`, { headers: this.getHeaders() });
   }
 
-  getAvisosAluno(): Observable<Aviso[]> {
-    return this.http.get<Aviso[]>(`${this.apiUrl}/aluno/meus`, { headers: this.getHeaders() });
+ getAvisosAluno(): Observable<Aviso[]> {
+    
+    if (this.avisosAluno.length > 0) {
+      return of(this.avisosAluno); 
+    }
+
+  
+    return this.http.get<Aviso[]>(`${this.apiUrl}/aluno/meus`, { headers: this.getHeaders() }).pipe(
+      tap(avisosDaApi => {
+        console.log('Buscando avisos da API e guardando na gaveta do serviço...');
+        this.avisosAluno = avisosDaApi;
+      })
+    );
   }
 
   getAvisoById(id: string): Observable<Aviso> {

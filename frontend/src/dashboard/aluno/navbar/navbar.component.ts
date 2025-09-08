@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { TranslocoModule, TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+import { AvisosService } from '../../../services/avisos.service';
 
 
 @Component({
@@ -16,8 +17,11 @@ export class NavbarComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private router: Router,
-    private transloco: TranslocoService
+    private transloco: TranslocoService,
+    public avisosService: AvisosService
   ) {}
+
+  
 
   changeLanguage(lang: string) {
     this.transloco.setActiveLang(lang);
@@ -36,6 +40,13 @@ export class NavbarComponent implements OnInit{
 
       this.changeLanguage
       this.getCurrentLang
+
+      this.avisosService.getAvisosAluno().subscribe(avisos => {
+      console.log(`Navbar carregou ${avisos.length} avisos no serviço.`);
+    });
+
+
+
     }
 
 
