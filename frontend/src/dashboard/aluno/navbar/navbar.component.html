@@ -48,9 +48,9 @@
   </h4>
   
   <div class="navbar-actions">
-    <button class="notification-btn">
+    <button class="notification-btn" routerLink="/mural-avisos">
       <i class="fas fa-bell"></i>
-      <span class="notification-badge">3</span>
+      <span class="notification-badge">{{avisosService.avisosAluno.length}}</span>
     </button>
     
     <button class="logout-btn" (click)="logout()">

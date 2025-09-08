@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
+
 
 export interface Aviso {
   id: string;
@@ -39,6 +40,7 @@ export interface CreateAvisoDto {
 } )
 export class AvisosService {
   private apiUrl = 'http://localhost:3000/avisos';
+   public avisosAluno: Aviso[] = [];
 
   constructor(private http: HttpClient ) {}
 
@@ -55,8 +57,19 @@ export class AvisosService {
     return this.http.get<Aviso[]>(`${this.apiUrl}/professor/meus` );
   }
 
-  getAvisosAluno(): Observable<Aviso[]> {
-    return this.http.get<Aviso[]>(`${this.apiUrl}/aluno/meus` );
+
+ getAvisosAluno(): Observable<Aviso[]> {
+    
+    if (this.avisosAluno.length > 0) {
+      return of(this.avisosAluno); 
+    }
+  
+    return this.http.get<Aviso[]>(`${this.apiUrl}/aluno/meus`).pipe(
+      tap(avisosDaApi => {
+        console.log('Buscando avisos...');
+        this.avisosAluno = avisosDaApi;
+      })
+    );
   }
 
   getAvisoById(id: string): Observable<Aviso> {

@@ -21,6 +21,12 @@ export class MuralAvisosComponent implements OnInit {
     this.carregarAvisos();
   }
 
+  qtdAvisos(): number {
+    return this.avisos.length;
+
+    }
+
+
   carregarAvisos(): void {
     this.loading = true;
     this.errorMessage = '';
