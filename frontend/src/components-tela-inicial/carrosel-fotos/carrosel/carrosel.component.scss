@@ -31,3 +31,17 @@
 .carousel-image {
   object-position: center 10%; /* centraliza e puxa um pouco pra baixo */
 }
+
+/* Estilo do título (h5) */
+.carousel-caption h5 {
+  color: #ffffff; /* dourado */
+  font-weight: bolder;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilo do parágrafo (p) */
+.carousel-caption p {
+  color: #ffffff; /* azul claro */
+  font-size: 1.1rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}

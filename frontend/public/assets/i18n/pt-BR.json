@@ -132,7 +132,11 @@
   "dashaluno-25" : "Mensagens",
   "dashaluno-26" : "Conversas",
   "dashaluno-27" : "Abrir Chat",
-
+  "dashaluno-28" : "Cronograma",
+  "dashaluno-29" : "Organize seus estudos com cronogramas personalizados e lembretes.",
+  "dashaluno-30" : "Hoje",
+  "dashaluno-31" : "Semana",
+  "dashaluno-32" : "Ver Cronograma",
 
 
   "mural-1" : "Mural de Avisos",
@@ -145,6 +149,7 @@
 
   "sidebar-responsavel-1" : "Acompanhe seu filho",
   "sidebar-responsavel-2" : "Fale com o professor",
+  
 
 
 
@@ -152,7 +157,8 @@
 
   "dashresponsavel-1" : "Acompanhe seu filho",
   "dashresponsavel-2" : "Acompanhe aqui o desempenho do seu filho.",
-  "dashresponsavel-3" : "Fale aqui com o professor do seu filho."
+  "dashresponsavel-3" : "Fale aqui com o professor do seu filho.",
+  "dashresponsavel-4" : "Acompanhe o cronograma de eventos do seu filho"
 
 
 

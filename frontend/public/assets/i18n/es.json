@@ -135,6 +135,11 @@
     "dashaluno-25" : "Mensajes",
     "dashaluno-26" : "Conversaciones",
     "dashaluno-27" : "Abrir Chat",
+    "dashaluno-28" : "Calendario",
+    "dashaluno-29" : "Organiza tus estudios con horarios personalizados y recordatorios.",
+    "dashaluno-30" : "Hoy",
+    "dashaluno-31" : "Semana",
+    "dashaluno-32" : "Ver calendario",
 
 
 
@@ -156,7 +161,8 @@
 
     "dashresponsavel-1" : "Acompañe a su hijo",
     "dashresponsavel-2" : "Siga aquí el rendimiento de su hijo.",
-    "dashresponsavel-3" : "Hable aquí con el profesor de su hijo."
+    "dashresponsavel-3" : "Hable aquí con el profesor de su hijo.",
+    "dashresponsavel-4" : "Siga el calendario de eventos de su hijo."
 
 
 
