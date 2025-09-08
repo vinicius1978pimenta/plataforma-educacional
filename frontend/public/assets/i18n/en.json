@@ -121,7 +121,7 @@
     "dashaluno-10" : "Go to Subjects",
     "dashaluno-11" : "Activities",
     "dashaluno-12" : "Practice with interactive exercises and track your performance.",
-    "dashaluno-13" : "Exercising",
+    "dashaluno-13" : "Go to Exercising",
     "dashaluno-14" : "Progress",
     "dashaluno-15" : "View your learning progress and detailed statistics.",
     "dashaluno-16" : "Go to Progress",
@@ -136,6 +136,11 @@
     "dashaluno-25" : "Messages",
     "dashaluno-26" : "Conversations",
     "dashaluno-27" : "Open Chat",
+    "dashaluno-28" : "Schedule",
+    "dashaluno-29" : "Organize your studies with personalized schedules and reminders.",
+    "dashaluno-30" : "Today",
+    "dashaluno-31" : "Week",
+    "dashaluno-32" : "Go to Schedule",
 
 
 
@@ -159,7 +164,8 @@
 
     "dashresponsavel-1" : "Keep an eye on your child.",
     "dashresponsavel-2" : "Track your child's performance here.",
-    "dashresponsavel-3" : "Talk to your son's teacher here."
+    "dashresponsavel-3" : "Talk to your son's teacher here.",
+    "dashresponsavel-4" : "Keep track of your child's event schedule"
 
     
     
