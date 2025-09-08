@@ -5,11 +5,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Conteudo } from '../../../services/interfaces/conteudo-create.model';
 import { Material, MaterialService } from '../../../app/material/material.service';
 import { ConteudoService } from '../../../services/conteudo.service';
+import { Navbar2Component } from '../../../navbar2/navbar2.component';
 
 @Component({
   selector: 'app-aluno-conteudo-list',
   standalone: true, 
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule,Navbar2Component],
+  
   templateUrl: './aluno-conteudo-list.component.html',
   styleUrl: './aluno-conteudo-list.component.scss'
 })
@@ -83,7 +85,7 @@ export class AlunoConteudoListComponent implements OnInit {
   // Visualizar conteúdo (texto ou link)
   // Método atualizado para visualizar conteúdo
 // Método atualizado para visualizar conteúdo
-visualizarConteudo(conteudo: any) {
+  visualizarConteudo(conteudo: any) {
   if (conteudo.tipo === 'LINK' && conteudo.url) {
     // Abre link em nova aba
     window.open(conteudo.url, '_blank');
@@ -93,10 +95,7 @@ visualizarConteudo(conteudo: any) {
     // Se não tem, pode fazer uma requisição para buscar o texto
     this.conteudoSelecionado = conteudo;
     
-    // Se você precisar buscar o texto do backend:
-    // this.conteudoService.obterTexto(conteudo.id).subscribe(texto => {
-    //   this.conteudoSelecionado.texto = texto;
-    // });
+    
   }
 }
 
