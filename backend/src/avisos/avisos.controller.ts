@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Request,
+  Query,
+  BadRequestException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/auth.guard';
 import { AvisosService } from './avisos.service';
@@ -29,11 +31,6 @@ export class AvisosController {
     return this.avisosService.create(createAvisoDto, professorId);
   }
 
-  @Get()
-  findAll() {
-    return this.avisosService.findAll();
-  }
-
   @Get('professor/meus')
   @UseGuards(RolesGuard)
   @Roles('PROFESSOR')
@@ -48,6 +45,32 @@ export class AvisosController {
   findByAluno(@Request() req) {
     const alunoId = req.user?.id || req.user?.sub;
     return this.avisosService.findByAluno(alunoId);
+  }
+
+  @Get('responsavel/meus')
+  @UseGuards(RolesGuard)
+  @Roles('RESPONSAVEL')
+  findByResponsavel(@Request() req) {
+    const responsavelId = req.user?.id || req.user?.sub;
+    return this.avisosService.findByResponsavel(responsavelId);
+  }
+
+  @Get('periodo')
+  @UseGuards(RolesGuard)
+  @Roles('ALUNO', 'PROFESSOR', 'RESPONSAVEL')
+  findByPeriodo(
+    @Query('dataInicio') dataInicio: string,
+    @Query('dataFim') dataFim: string,
+  ) {
+    if (!dataInicio || !dataFim) {
+      throw new BadRequestException('Os parâmetros dataInicio e dataFim são obrigatórios.');
+    }
+    return this.avisosService.findByPeriodo(dataInicio, dataFim);
+  }
+
+  @Get()
+  findAll() {
+    return this.avisosService.findAll();
   }
 
   @Get(':id')
@@ -82,14 +105,4 @@ export class AvisosController {
     const professorId = req.user?.id || req.user?.sub;
     return this.avisosService.remove(id, professorId);
   }
-
-  @Get('responsavel/meus')
-@UseGuards(RolesGuard)
-@Roles('RESPONSAVEL')
-findByResponsavel(@Request() req) {
-  const responsavelId = req.user?.id || req.user?.sub;
-  return this.avisosService.findByResponsavel(responsavelId);
-}
-
-
 }

@@ -1,0 +1,79 @@
+<app-navbar2></app-navbar2>
+
+<div class="calendario-container">
+  <div class="calendario-header">
+    <div class="navegacao-mes">
+      <button (click)="mesAnterior()" aria-label="Mês anterior">&lt;</button>
+      <h2 class="mes-ano">{{ meses[mesAtual.getMonth()] }} de {{ mesAtual.getFullYear() }}</h2>
+      <button (click)="proximoMes()" aria-label="Próximo mês">&gt;</button>
+    </div>
+  </div>
+
+  <div class="calendario-grid">
+    <div *ngFor="let dia of diasSemana" class="dia-semana">{{ dia }}</div>
+
+    <div *ngFor="let dia of diasCalendario"
+         class="dia-calendario"
+         [class.mes-anterior]="!dia.mesAtual"
+         [class.tem-avisos]="dia.temAvisos"
+         (click)="clicouNoDia(dia)">
+
+      <span class="numero-dia">{{ dia.dia }}</span>
+
+      <div *ngIf="dia.temAvisos" class="avisos-dots">
+        <span *ngFor="let aviso of dia.avisos"
+              class="aviso-dot"
+              [ngClass]="getPrioridadeClass(aviso.prioridade)">
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="legenda">
+    <h5>Legenda de Prioridades</h5>
+    <div class="legenda-items">
+      <div class="legenda-item">
+        <div class="cor-indicador prioridade-critica"></div>
+        <span>Crítica</span>
+      </div>
+      <div class="legenda-item">
+        <div class="cor-indicador prioridade-alta"></div>
+        <span>Alta</span>
+      </div>
+      <div class="legenda-item">
+        <div class="cor-indicador prioridade-normal"></div>
+        <span>Normal</span>
+      </div>
+      <div class="legenda-item">
+        <div class="cor-indicador prioridade-baixa"></div>
+        <span>Baixa</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal" [class.show]="modalAberto" (click)="fecharModal()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="dataSelecionada">{{ formatarDataCompleta(dataSelecionada) }}</h5>
+        <button type="button" class="btn-close" (click)="fecharModal()" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let aviso of avisosDoDia" class="aviso-item">
+          <div class="aviso-header">
+            <h6 class="aviso-titulo">{{ aviso.titulo }}</h6>
+            <div class="aviso-badges">
+              <span class="badge" [ngClass]="getPrioridadeClass(aviso.prioridade)">{{ getPrioridadeLabel(aviso.prioridade) }}</span>
+              <span class="badge" [ngClass]="getTipoClass(aviso.tipo)">{{ getTipoLabel(aviso.tipo) }}</span>
+            </div>
+          </div>
+          <div class="aviso-conteudo">
+            <p>{{ aviso.conteudo }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,15 +19,24 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
-    const requiredRole = route.data?.['role'];
+    const requiredRoles = route.data?.['role'];
     
-    if (requiredRole && currentUser.role !== requiredRole) {
-      // Redireciona para o dashboard correto do usuário
-      this.redirectToCorrectDashboard(currentUser.role);
-      return false;
+    if (!requiredRoles) {
+      return true;
     }
 
-    return true;
+    if (Array.isArray(requiredRoles)) {
+      if (requiredRoles.includes(currentUser.role)) {
+        return true;
+      }
+    } else {
+      if (currentUser.role === requiredRoles) {
+        return true;
+      }
+    }
+
+    this.redirectToCorrectDashboard(currentUser.role);
+    return false;
   }
 
   private redirectToCorrectDashboard(role: 'ALUNO' | 'PROFESSOR' | 'RESPONSAVEL') {

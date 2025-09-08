@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError, Observable, of, tap } from 'rxjs';
+
 
 export interface Aviso {
   id: string;
@@ -36,72 +37,88 @@ export interface CreateAvisoDto {
 
 @Injectable({
   providedIn: 'root'
-})
+} )
 export class AvisosService {
   private apiUrl = 'http://localhost:3000/avisos';
    public avisosAluno: Aviso[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient ) {}
 
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('access_token');
-    console.log('Token encontrado no AvisosService:', token); // Debug
-    
-    if (!token) {
-      console.error('Token não encontrado no localStorage');
-    }
-    
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
 
   createAviso(aviso: CreateAvisoDto): Observable<Aviso> {
-    return this.http.post<Aviso>(this.apiUrl, aviso, { headers: this.getHeaders() });
+    return this.http.post<Aviso>(this.apiUrl, aviso );
   }
 
   getAllAvisos(): Observable<Aviso[]> {
-    return this.http.get<Aviso[]>(this.apiUrl, { headers: this.getHeaders() });
+    return this.http.get<Aviso[]>(this.apiUrl );
   }
 
   getMeusAvisos(): Observable<Aviso[]> {
-    return this.http.get<Aviso[]>(`${this.apiUrl}/professor/meus`, { headers: this.getHeaders() });
+    return this.http.get<Aviso[]>(`${this.apiUrl}/professor/meus` );
   }
+
 
  getAvisosAluno(): Observable<Aviso[]> {
     
     if (this.avisosAluno.length > 0) {
       return of(this.avisosAluno); 
     }
-
   
-    return this.http.get<Aviso[]>(`${this.apiUrl}/aluno/meus`, { headers: this.getHeaders() }).pipe(
+    return this.http.get<Aviso[]>(`${this.apiUrl}/aluno/meus`).pipe(
       tap(avisosDaApi => {
-        console.log('Buscando avisos da API e guardando na gaveta do serviço...');
+        console.log('Buscando avisos...');
         this.avisosAluno = avisosDaApi;
       })
     );
   }
 
   getAvisoById(id: string): Observable<Aviso> {
-    return this.http.get<Aviso>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+    return this.http.get<Aviso>(`${this.apiUrl}/${id}` );
   }
 
   updateAviso(id: string, aviso: Partial<CreateAvisoDto>): Observable<Aviso> {
-    return this.http.patch<Aviso>(`${this.apiUrl}/${id}`, aviso, { headers: this.getHeaders() });
+    return this.http.patch<Aviso>(`${this.apiUrl}/${id}`, aviso );
   }
 
   toggleAtivoAviso(id: string): Observable<Aviso> {
-    return this.http.patch<Aviso>(`${this.apiUrl}/${id}/toggle`, {}, { headers: this.getHeaders() });
+    return this.http.patch<Aviso>(`${this.apiUrl}/${id}/toggle`, {} );
   }
 
   deleteAviso(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+    return this.http.delete<void>(`${this.apiUrl}/${id}` );
   }
 
-    getAvisosResponsavel(): Observable<Aviso[]> {
-    return this.http.get<Aviso[]>(`${this.apiUrl}/responsavel/meus`, { headers: this.getHeaders() });
+  getAvisosResponsavel(): Observable<Aviso[]> {
+    return this.http.get<Aviso[]>(`${this.apiUrl}/responsavel/meus` );
   }
 
+  getAvisosAtivos(): Observable<Aviso[]> {
+    return this.http.get<Aviso[]>(`${this.apiUrl}/ativos` ).pipe(
+      catchError(this.handleError<Aviso[]>('getAvisosAtivos', []))
+    );
+  }
+
+  getAvisosPorPeriodo(dataInicio: string, dataFim: string): Observable<Aviso[]> {
+    const params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFim', dataFim);
+
+    return this.http.get<Aviso[]>(`${this.apiUrl}/periodo`, { params: params } )
+      .pipe(
+        catchError(this.handleError<Aviso[]>('getAvisosPorPeriodo', []))
+      );
+  }
+
+  getAvisosPorData(data: string): Observable<Aviso[]> {
+    return this.http.get<Aviso[]>(`${this.apiUrl}/data/${data}` ).pipe(
+      catchError(this.handleError<Aviso[]>('getAvisosPorData', []))
+    );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(`${operation} failed:`, error);
+      return of(result as T);
+    };
+  }
 }
