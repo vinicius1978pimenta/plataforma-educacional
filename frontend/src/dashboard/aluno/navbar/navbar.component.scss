@@ -1,6 +1,6 @@
 .navbar {
   height: 60px;
-  background: linear-gradient(135deg,#89acd2 0%, #02285d  100%);
+  background: #FFFFFF;
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@
 }
 
 .welcome-msg {
-  color: #ffffff;
+  color: #063A79;
   margin: 0;
   font-size: 1.1rem;
   font-weight: 500;
@@ -27,7 +27,7 @@
 }
 
 .user-name {
-  color: #4fc3f7;
+  color: #063A79;
   font-weight: 700;
   text-shadow: 0 1px 3px rgba(79, 195, 247, 0.3);
   
@@ -52,7 +52,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: #ffffff;
+  color: #063A79;
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -72,7 +72,7 @@
   position: relative;
   background: none;
   border: none;
-  color: #f8f8f8;
+  color: #bbbbbb;
   font-size: 1.2rem;
   padding: 0.5rem;
   border-radius: 50%;
@@ -89,7 +89,7 @@
   position: absolute;
   top: -5px;
   right: -5px;
-  background: #f12132;
+  background: #a91522;
   color: white;
   font-size: 0.75rem;
   padding: 0.2rem 0.4rem;
@@ -102,7 +102,7 @@
 }
 
 .logout-btn {
-  background: linear-gradient(45deg, #e30719, #e60b25);
+  background: linear-gradient(45deg, #a91522, #e60b25);
   border: none;
   color: white;
   padding: 0.5rem 1rem;
@@ -151,7 +151,6 @@
   vertical-align: middle; 
   border-radius: 10px;
 }
-
 /*bandeiras*/
     
 .lang-selector {
