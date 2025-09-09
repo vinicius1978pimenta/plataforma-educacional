@@ -72,10 +72,13 @@
 .footer-bottom {
   background: rgba(0,0,0,.06);
   font-size: 0.8rem;
+  list-style-type: none
+
 }
 .footer-bottom a.footer-link {
   color: rgba(255,255,255,.75);
   text-decoration: none;
+ 
 }
 .footer-bottom a.footer-link:hover {
   color: #fff;
@@ -101,3 +104,4 @@
   display: flex; /* Mantém os ícones em linha */
   gap: 1rem; /* Adiciona um espaço entre os ícones (ajuste conforme necessário) */
 }
+
