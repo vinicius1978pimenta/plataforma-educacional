@@ -14,42 +14,7 @@ body, html {
 }
 
 /* ===== Navbar Fake ===== */
-.navbar-fake {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background: 
-    linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #3730a3 75%, #8b5cf6 100%),
-    radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
-  background-blend-mode: overlay, normal, normal;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  z-index: 1000;
-  color: #fff;
-}
 
-.navbar-fake .back-btn {
-  background: inherit;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.navbar-fake .back-btn:hover {
-  background: #005fa3;
-}
 
 /* ===== Container Principal ===== */
 .chat-container {
@@ -59,7 +24,7 @@ body, html {
   height: calc(100vh - 90px);
   width: 100%;
   padding: 20px;
-  padding-top: 230px;
+  padding-top: 110px;
 }
 
 /* ===== Card de Seleção de Usuário ===== */
