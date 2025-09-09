@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AblyService } from '../../../services/ably.service';
 import { Message, User } from '../../professor/chat/chat.component';
+import { Navbar2Component } from '../../../navbar2/navbar2.component';
 
 @Component({
   selector: 'app-chat-responsavel',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule,Navbar2Component],
   templateUrl: './chat-responsavel.component.html',
   styleUrls: ['./chat-responsavel.component.scss']
 })

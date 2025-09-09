@@ -5,10 +5,11 @@ import { RouterModule } from '@angular/router';
 import { Message, User } from '../../professor/chat/chat.component';
 import { Subscription } from 'rxjs';
 import { AblyService } from '../../../services/ably.service';
+import { Navbar2Component } from '../../../navbar2/navbar2.component';
 
 @Component({
   selector: 'app-chat-aluno',
-  imports: [CommonModule,FormsModule,RouterModule],
+  imports: [CommonModule,FormsModule,RouterModule,Navbar2Component],
   templateUrl: './chat-aluno.component.html',
   styleUrl: './chat-aluno.component.scss'
 })

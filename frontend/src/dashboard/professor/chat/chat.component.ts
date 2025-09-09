@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AblyService } from '../../../services/ably.service';
 import { Subscription } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { Navbar2Component } from '../../../navbar2/navbar2.component';
 
 export interface User {
   id: string;
@@ -31,7 +32,7 @@ export interface ChatChannel {
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule,Navbar2Component],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'] // corrigido de styleUrl para styleUrls
 })
