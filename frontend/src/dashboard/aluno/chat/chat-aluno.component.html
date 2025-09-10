@@ -1,20 +1,50 @@
 <app-navbar2></app-navbar2>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <div class="chat-container">
+  <!-- Modal para Nome do Usuário -->
+  <div class="modal-overlay" *ngIf="showNameModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-plus"></i> Digite seu nome</h3>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Digite seu nome como <strong>{{ getUserTypeLabel(selectedUserType) }}</strong>:</p>
+        <input 
+          type="text" 
+          class="name-input" 
+          [(ngModel)]="tempUserName"
+          (keyup.enter)="confirmUserName()"
+          placeholder="Seu nome..."
+          maxlength="50"
+          #nameInput>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-btn" (click)="closeModal()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button class="confirm-btn" (click)="confirmUserName()" [disabled]="!tempUserName.trim()">
+          <i class="fas fa-check"></i> Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Seleção de Usuário -->
   <div class="user-selection" *ngIf="!currentUser">
     <div class="user-card">
       <h2><i class="fas fa-handshake"></i> Bem-vindo ao Chat!</h2>
       <p><i class="fas fa-message"></i> Converse com professores e tire dúvidas diretamente pelo Sistema.</p>
-      
+             
       <div class="user-buttons">
-        <button class="user-btn aluno" (click)="selectUser('aluno')">
+        <button class="user-btn aluno" (click)="openNameModal('aluno')">
           <i class="fas fa-user-astronaut"></i> Aluno
         </button>
       </div>
-      
+             
       <div class="user-helper">
         <p>Aqui você poderá:</p>
         <ul>
@@ -56,9 +86,9 @@
         <p>Selecione uma conversa para começar</p>
         <i class="fas fa-comment-dots empty-chat-icon"></i>
       </div>
-      
-      <div class="message" 
-           *ngFor="let message of messages" 
+             
+      <div class="message"
+           *ngFor="let message of messages"
            [class.own-message]="message.senderId === currentUser.id"
            [class.other-message]="message.senderId !== currentUser.id">
         <div class="message-header">
@@ -76,13 +106,12 @@
     <div class="message-input-container" *ngIf="selectedChannel">
       <div class="input-wrapper">
         <input 
-          type="text" 
+          type="text"
           class="message-input"
           [(ngModel)]="newMessage"
           (keyup.enter)="sendMessage()"
           placeholder="Digite sua mensagem..."
-          maxlength="500"
-        >
+          maxlength="500">
         <button class="send-btn" (click)="sendMessage()" [disabled]="!newMessage.trim()">
           <i class="fas fa-paper-plane"></i>
         </button>
@@ -90,5 +119,3 @@
     </div>
   </div>
 </div>
-
-
