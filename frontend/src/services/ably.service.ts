@@ -89,7 +89,7 @@ export class AblyService {
   
   private updateConnectedUsers(): void {
     // Implementar lógica para atualizar lista de usuários conectados
-    // Por simplicidade, mantemos vazio por enquanto
+    // Por simplicidade, manter vazio por enquanto
     this.connectedUsersSubject.next([]);
   }
   

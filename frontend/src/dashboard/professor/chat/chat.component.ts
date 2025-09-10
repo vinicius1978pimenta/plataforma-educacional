@@ -32,17 +32,23 @@ export interface ChatChannel {
 
 @Component({
   selector: 'app-chat',
-  imports: [CommonModule, FormsModule, RouterModule,Navbar2Component],
+  imports: [CommonModule, FormsModule, RouterModule, Navbar2Component],
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'] // corrigido de styleUrl para styleUrls
+  styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
+  @ViewChild('nameInput') private nameInput!: ElementRef;
 
   currentUser: User | null = null;
   selectedChannel: string = '';
   messages: Message[] = [];
   newMessage: string = '';
+
+  // Propriedades do Modal
+  showNameModal: boolean = false;
+  tempUserName: string = '';
+  selectedUserType: 'professor' | 'aluno' | 'responsavel' = 'professor';
 
   private shouldScrollToBottom = false;
   private messagesSub?: Subscription;
@@ -69,6 +75,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.scrollToBottom();
       this.shouldScrollToBottom = false;
     }
+
+    // Foca no input do modal quando ele é aberto
+    if (this.showNameModal && this.nameInput) {
+      setTimeout(() => {
+        this.nameInput.nativeElement.focus();
+      }, 100);
+    }
   }
 
   ngOnDestroy(): void {
@@ -78,14 +91,28 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.messagesSub?.unsubscribe();
   }
 
-  selectUser(type: 'professor' | 'aluno' | 'responsavel'): void {
-    const name = prompt(`Digite seu nome como ${this.getUserTypeLabel(type)}:`);
-    if (name && name.trim()) {
+  // Método para abrir o modal
+  openNameModal(type: 'professor' | 'aluno' | 'responsavel'): void {
+    this.selectedUserType = type;
+    this.tempUserName = '';
+    this.showNameModal = true;
+  }
+
+  // Método para fechar o modal
+  closeModal(): void {
+    this.showNameModal = false;
+    this.tempUserName = '';
+  }
+
+  // Método para confirmar o nome do usuário
+  confirmUserName(): void {
+    if (this.tempUserName && this.tempUserName.trim()) {
       this.currentUser = {
         id: this.generateUserId(),
-        name: name.trim(),
-        type: type
+        name: this.tempUserName.trim(),
+        type: this.selectedUserType
       };
+      this.closeModal();
     }
   }
 
@@ -108,28 +135,27 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   getAvailableChannels() {
-    if (!this.currentUser) return [];
+  if (!this.currentUser) return [];
 
-    const channels = [];
+  const channels = [];
 
-    if (this.currentUser.type === 'professor') {
-      channels.push(
-        { id: 'professor-aluno', name: '💬 Conversa com Alunos' },
-        { id: 'professor-responsavel', name: '💬 Conversa com Responsáveis' }
-      );
-    } else if (this.currentUser.type === 'aluno') {
-      channels.push(
-        { id: 'professor-aluno', name: '💬 Conversa com Professor' }
-      );
-    } else if (this.currentUser.type === 'responsavel') {
-      channels.push(
-        { id: 'professor-responsavel', name: '💬 Conversa com Professor' }
-      );
-    }
-
-    return channels;
+  if (this.currentUser.type === 'professor') {
+    channels.push(
+      { id: 'professor-aluno', name: '💬 Conversa com Alunos' },
+      { id: 'professor-responsavel', name: '💬 Conversa com Responsáveis' }
+    );
+  } else if (this.currentUser.type === 'aluno') {
+    channels.push(
+      { id: 'professor-aluno', name: '💬 Conversa com Professor' }
+    );
+  } else if (this.currentUser.type === 'responsavel') {
+    channels.push(
+      { id: 'professor-responsavel', name: '💬 Conversa com Professor' }
+    );
   }
 
+  return channels;
+}
   onChannelChange(): void {
     if (this.selectedChannel) {
       this.ablyService.clearMessages();

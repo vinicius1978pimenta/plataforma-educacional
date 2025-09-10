@@ -16,11 +16,17 @@ import { Navbar2Component } from '../../../navbar2/navbar2.component';
 })
 export class ChatResponsavelComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
+  @ViewChild('nameInput') private nameInput!: ElementRef;
 
   currentUser: User | null = null;
   selectedChannel: string = '';
   messages: Message[] = [];
   newMessage: string = '';
+
+  // Propriedades do Modal
+  showNameModal: boolean = false;
+  tempUserName: string = '';
+  selectedUserType: 'professor' | 'aluno' | 'responsavel' = 'responsavel';
 
   private shouldScrollToBottom = false;
   private messagesSub?: Subscription;
@@ -46,6 +52,13 @@ export class ChatResponsavelComponent implements OnInit, OnDestroy, AfterViewChe
       this.scrollToBottom();
       this.shouldScrollToBottom = false;
     }
+
+    // Foca no input do modal quando ele é aberto
+    if (this.showNameModal && this.nameInput) {
+      setTimeout(() => {
+        this.nameInput.nativeElement.focus();
+      }, 100);
+    }
   }
 
   ngOnDestroy(): void {
@@ -55,14 +68,28 @@ export class ChatResponsavelComponent implements OnInit, OnDestroy, AfterViewChe
     this.messagesSub?.unsubscribe();
   }
 
-  selectUser(type: 'professor' | 'aluno' | 'responsavel'): void {
-    const name = prompt(`Digite seu nome como ${this.getUserTypeLabel(type)}:`);
-    if (name && name.trim()) {
+  // Método para abrir o modal
+  openNameModal(type: 'professor' | 'aluno' | 'responsavel'): void {
+    this.selectedUserType = type;
+    this.tempUserName = '';
+    this.showNameModal = true;
+  }
+
+  // Método para fechar o modal
+  closeModal(): void {
+    this.showNameModal = false;
+    this.tempUserName = '';
+  }
+
+  // Método para confirmar o nome do usuário
+  confirmUserName(): void {
+    if (this.tempUserName && this.tempUserName.trim()) {
       this.currentUser = {
         id: this.generateUserId(),
-        name: name.trim(),
-        type: type
+        name: this.tempUserName.trim(),
+        type: this.selectedUserType
       };
+      this.closeModal();
     }
   }
 
