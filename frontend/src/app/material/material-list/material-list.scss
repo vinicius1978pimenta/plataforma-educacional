@@ -1,4 +1,4 @@
-
+@import '../../../dashboard/professor/style-modal/modal.scss';
 
 // Container principal
 .dashboard-container {
@@ -382,7 +382,6 @@
     line-height: 1.6;
     font-size: 14px;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     transition: color 0.3s ease;
@@ -655,9 +654,4 @@ input:focus-visible {
 .material-card:active {
   transform: translateY(-15px) scale(1.02);
   transition-duration: 0.1s;
-}
-
-.modal-header{
- background: linear-gradient(135deg, #02285dbb, #4fc3f7);
- color: white;
 }
