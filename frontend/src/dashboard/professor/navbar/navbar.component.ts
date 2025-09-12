@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +10,11 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent  implements OnInit{
-
+@ViewChild('modalLogout') modalLogout!: TemplateRef<any>;
     constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
   ) {}
   
    currentUser: any;
@@ -24,12 +26,21 @@ export class NavbarComponent  implements OnInit{
     }
 
 
-    logout() {
-      const sair = confirm("deseja realmente sair ?")
-          if(sair){this.authService.logout();
-          this.router.navigate(['/login']); }
+   
 
-    
+  logout() {
+ 
+  this.modalService.open(this.modalLogout, { centered: true }).result.then(
+    (result) => {
+      if (result === 'confirm') {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      }
+    },
+    (reason) => {
+      console.log('Logout cancelado.');
     }
+  );
+}
 
 }

@@ -1,4 +1,6 @@
 
+@import '../../style-modal/modal.scss';
+
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; overflow: hidden; }
 body { font-family: 'Inter', sans-serif; }
@@ -130,10 +132,4 @@ app-navbar2 { flex: 0 0 auto; }
 .table-wrap::-webkit-scrollbar-thumb { background: #b7c1d1; border-radius: 8px; }
 .table-wrap::-webkit-scrollbar-thumb:hover { background: #98a6bb; }
 
-
-.modal-header{
-  background: linear-gradient(135deg, #02285dbb, #4fc3f7);
-  color: white;
-  
-}
 

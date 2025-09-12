@@ -1,3 +1,6 @@
+
+@import '../../../dashboard/professor/style-modal/modal.scss';
+
 /* ===== Container Principal ===== */
 .form-container {
   padding: 20px;
@@ -163,8 +166,3 @@ textarea.form-control {
 }
 
 
-
-.modal-header{
- background: linear-gradient(135deg, #02285dbb, #4fc3f7);
- color: white;
-}
