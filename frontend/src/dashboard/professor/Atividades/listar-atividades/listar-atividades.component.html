@@ -96,3 +96,34 @@
     </div>
   </div>
 </div>
+
+<ng-template #modalExclusao let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirmar Exclusão</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('cancel click')"></button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Você tem certeza que deseja excluir esta atividade?</strong></p>
+    <p class="text-danger">Esta ação não poderá ser desfeita.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('confirm click')">Sim, excluir</button>
+  </div>
+</ng-template>
+
+<ng-template #modalAviso let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">OK</button>
+  </div>
+</ng-template>
+
+<ng-template #modalExclusao let-modal>
+  </ng-template>

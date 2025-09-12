@@ -5,6 +5,12 @@ body{
   font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
+
+// ===== VARIÁVEIS FGV =====
+$primary-blue: #02285d;        
+$secondary-blue: #4fc3f7;      
+
+
 .container.container--full{
   max-width: 100%;
   min-height: 100vh;
@@ -108,3 +114,14 @@ textarea.form-control{ resize: vertical; }
   .form-footer{ flex-direction:column-reverse; }
   .form-footer .btn{ width:100%; min-width:0; }
 }
+
+
+
+
+
+.btn.btn-primary{
+
+  padding: 12px 18px;
+  
+}
+

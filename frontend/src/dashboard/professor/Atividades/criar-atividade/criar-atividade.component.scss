@@ -1,20 +1,20 @@
 @use 'sass:color';
 
 // ===== VARIÁVEIS FGV =====
-$primary-blue: #02285d;        
-$secondary-blue: #4fc3f7;      
-$light-blue: #e3f2fd;         
-$accent-gold: #ffd700;         
-$dark-gray: #2c3e50;           
-$medium-gray: #6c757d;         
-$light-gray: #f8f9fa;         
-$success-green: #28a745;       
-$warning-orange: #fd7e14;      
-$danger-red: #dc3545;          
+$primary-blue: #02285d;
+$secondary-blue: #4fc3f7;
+$light-blue: #e3f2fd;
+$accent-gold: #ffd700;
+$dark-gray: #2c3e50;
+$medium-gray: #6c757d;
+$light-gray: #f8f9fa;
+$success-green: #28a745;
+$warning-orange: #fd7e14;
+$danger-red: #dc3545;
 $white: #ffffff;
 $border-color: #dee2e6;
 $shadow-color: rgba(2, 40, 93, 0.1);
-$card-background: $white; 
+$card-background: $white;
 
 
 // ===== MIXINS =====
@@ -116,7 +116,7 @@ $card-background: $white;
 
     &::after {
       content: '';
-      position: absolute; 
+      position: absolute;
       bottom: -4px;
       left: 0;
       width: clamp(30px, 8vw, 40px);
@@ -221,7 +221,7 @@ form {
 
     &.ng-invalid.ng-touched {
       border-color: $danger-red;
-      
+
       &:focus {
         box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
       }
@@ -229,7 +229,7 @@ form {
 
     &.ng-valid.ng-touched {
       border-color: $success-green;
-      
+
       &:focus {
         box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
       }
@@ -324,8 +324,11 @@ form {
   }
 }
 
-// ===== BOTÕES =====
-.btn {
+
+// =======================================================
+// ==== CORREÇÃO: AGORA SÓ AFETA OS BOTÕES DO FORMULÁRIO ====
+// =======================================================
+.form-actions .btn {
   @include button-base;
 
   &.btn-primary {
@@ -359,6 +362,7 @@ form {
   }
 }
 
+
 // ===== RESPONSIVIDADE AVANÇADA =====
 @media (max-width: 1024px) {
   .container {
@@ -375,13 +379,13 @@ form {
 @media (max-width: 480px) {
   .container h2 {
     text-align: center;
-    
+
     &::after {
       left: 50%;
       transform: translateX(-50%);
     }
   }
-  
+
   .form-section .form-section-title {
     text-align: left;
   }
@@ -391,7 +395,7 @@ form {
   .container {
     padding: 8px;
   }
-  
+
   .form-section {
     padding: clamp(8px, 2vw, 16px);
   }
@@ -407,7 +411,7 @@ form {
     .form-row {
       grid-template-columns: 1fr;
     }
-    
+
     .form-actions {
       flex-direction: column;
     }
@@ -419,7 +423,7 @@ form {
   .container {
     padding: clamp(8px, 1.5vw, 12px);
   }
-  
+
   .form-section {
     padding: clamp(8px, 2vw, 16px);
   }
@@ -499,7 +503,7 @@ form {
   .form-actions {
     display: none;
   }
-  
+
   .form-section {
     page-break-inside: avoid;
   }

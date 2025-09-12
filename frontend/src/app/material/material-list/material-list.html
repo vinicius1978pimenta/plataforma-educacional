@@ -43,10 +43,10 @@
         <strong>Criado em:</strong> {{ formatarData(material.createdAt) }}
       </div>
       <div class="material-actions">
-        <button class="btn-secondary" (click)="editarMaterial(material.id)">
+        <button class="btn-secondary1" (click)="editarMaterial(material.id)">
           Editar
         </button>
-        <button class="btn-danger" (click)="excluirMaterial(material.id)">
+        <button class="btn-danger1" (click)="excluirMaterial(material.id)">
           Excluir
         </button>
       </div>
@@ -59,3 +59,34 @@
     <p>Comece criando sua primeira matéria clicando no botão "Nova Matéria" acima.</p>
   </div>
 </div>
+
+
+
+
+<ng-template #modalAviso let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">OK</button>
+  </div>
+</ng-template>
+
+<ng-template #modalExclusao let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmar Exclusão</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Você tem certeza que deseja excluir este material?</strong></p>
+    <p class="text-danger">Esta ação não poderá ser desfeita.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Sim, excluir</button>
+  </div>
+</ng-template>

@@ -1,4 +1,15 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateMaterialDto } from './create-material.dto';
+import { IsString, IsOptional } from 'class-validator';
 
-export class UpdateMaterialDto extends PartialType(CreateMaterialDto) {}
+export class UpdateMaterialDto {
+  @IsString()
+  @IsOptional()
+  titulo?: string;
+
+  @IsString()
+  @IsOptional()
+  conteudo?: string;
+
+  @IsString()
+  @IsOptional()
+  traducao?: string;
+}

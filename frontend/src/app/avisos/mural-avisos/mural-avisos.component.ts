@@ -11,6 +11,7 @@ import { Navbar2Component } from "../../../navbar2/navbar2.component";
   styleUrl: './mural-avisos.component.scss'
 })
 export class MuralAvisosComponent implements OnInit {
+  
   avisos: Aviso[] = [];
   loading = true;
   errorMessage = '';

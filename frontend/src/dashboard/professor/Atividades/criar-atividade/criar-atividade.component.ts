@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Material, MaterialService } from '../../../../app/material/material.service';
-import { NavbarComponent } from '../../navbar/navbar.component';
 import { Navbar2Component } from "../../../../navbar2/navbar2.component";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface AtividadeForm {
   titulo: string;
@@ -30,6 +30,8 @@ interface AtividadeForm {
   styleUrls: ['./criar-atividade.component.scss']
 })
 export class CriarAtividadeComponent {
+@ViewChild('meuModal') meuModal!: TemplateRef<any>;
+
   atividade: AtividadeForm = {
     titulo: '',
     descricao: '',
@@ -57,11 +59,15 @@ export class CriarAtividadeComponent {
   dificuldades = ['FACIL', 'MEDIO', 'DIFICIL'];
   materiais: Material[] = [];
   loadingMateriais = false;
+  // Variáveis para o conteúdo dinâmico do modal
+  tituloModal: string = '';
+  mensagemModal: string = '';
 
   constructor(
     private atividadeService: AtividadeService,
     private router: Router,
-    private materialService: MaterialService
+    private materialService: MaterialService,
+   	private modalService:  NgbModal,
   ) {}
 
  criarAtividade() {
@@ -75,15 +81,26 @@ export class CriarAtividadeComponent {
 
   this.atividadeService.criarAtividade(atividadeToSend).subscribe({
     next: (response) => {
-      alert('Atividade criada com sucesso!');
-      this.router.navigate(['/atividades']);
+      this.tituloModal = 'Sucesso!';
+      this.mensagemModal = 'Atividade criada com sucesso!';
+       // Abre o modal e espera o resultado (quando o usuário clica em OK)
+      this.modalService.open(this.meuModal).result.then(
+        (result) => {
+          // SÓ EXECUTA DEPOIS que o usuário clica no botão "OK" (modal.close())
+          console.log('Modal fechado com sucesso:', result);
+          this.router.navigate(['/atividades']);
     },
+    )
+  },
     error: (error) => {
-      console.error('Erro ao criar atividade', error);
-      alert('Erro ao criar atividade');
+      this.tituloModal = 'Erro';
+      this.mensagemModal = 'Ocorreu um erro ao criar a atividade. Por favor, tente novamente.';
+      this.modalService.open(this.meuModal); // Aqui, apenas abrimos o modal de erro
     }
   });
 }
+
+
 
   ngOnInit() {
     this.carregarMateriais();

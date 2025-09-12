@@ -99,3 +99,20 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #meuModal let-modal>
+  <div class="modal-header text-white ">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="fs-5" >{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">OK</button>
+  </div>
+</ng-template>
+
+
+

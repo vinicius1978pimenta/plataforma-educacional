@@ -80,13 +80,13 @@
       <div class="form-actions">
         <button 
           type="button" 
-          class="btn-secondary" 
+          class="btn-secondary2" 
           (click)="cancelar()">
           Cancelar
         </button>
         <button 
           type="submit" 
-          class="btn-primary"
+          class="btn-primary2"
           [disabled]="materialForm.invalid || salvando">
           {{ salvando ? 'Salvando...' : (isEditMode ? 'Atualizar' : 'Criar Material') }}
         </button>
@@ -97,3 +97,31 @@
 </div>
 
  
+
+<ng-template #modalAviso let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ tituloModal }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagemModal }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">OK</button>
+  </div>
+</ng-template>
+
+<ng-template #modalCancelamento let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmar Cancelamento</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Você tem certeza que deseja cancelar?</strong></p>
+    <p>As alterações não salvas serão perdidas.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Não</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Sim, cancelar</button>
+  </div>
+</ng-template>

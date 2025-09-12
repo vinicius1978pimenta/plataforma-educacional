@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AvisosService, Aviso } from '../../../services/avisos.service';
 import { Navbar2Component } from "../../../navbar2/navbar2.component";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-criar-aviso',
@@ -13,12 +14,17 @@ import { Navbar2Component } from "../../../navbar2/navbar2.component";
   styleUrl: './criar-aviso.component.scss'
 })
 export class CriarAvisoComponent implements OnInit {
+  @ViewChild('modalAviso') modalAviso!: TemplateRef<any>;
+  @ViewChild('modalExclusao') modalExclusao!: TemplateRef<any>;
+
   avisoForm: FormGroup;
   loading = false;
   successMessage = '';
   errorMessage = '';
   meusAvisos: Aviso[] = [];
   loadingAvisos = false;
+   tituloModal: string = '';
+  mensagemModal: string = '';
 
   tiposAviso = [
     { value: 'GERAL', label: 'Geral' },
@@ -38,7 +44,8 @@ export class CriarAvisoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private avisosService: AvisosService,
-    private router: Router
+    private router: Router,
+    private modalService:  NgbModal,
   ) {
     this.avisoForm = this.fb.group({
       titulo: ['', [Validators.required, Validators.minLength(3)]],
@@ -69,58 +76,40 @@ export class CriarAvisoComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(' INÍCIO DO onSubmit()'); // Debug
-    
-    if (this.avisoForm.invalid) {
-      console.log(' Formulário inválido:', this.avisoForm.errors); // Debug
-      this.markFormGroupTouched();
-      return;
-    }
-
-    console.log(' Formulário válido, iniciando criação...'); // Debug
-    this.loading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
-
-    const formData = this.avisoForm.value;
-    console.log(' Dados do formulário:', formData); // Debug
-
-    console.log(' Chamando AvisosService.createAviso()...'); // Debug
-    this.avisosService.createAviso(formData).subscribe({
-      next: (response) => {
-        console.log(' Aviso criado com sucesso:', response); // Debug
-        this.loading = false;
-        this.successMessage = 'Aviso criado com sucesso!';
-        
-        // Recarregar lista de avisos
-        this.carregarMeusAvisos();
-        
-        // Resetar formulário após 2 segundos
-        setTimeout(() => {
-          this.avisoForm.reset();
-          this.avisoForm.patchValue({
-            tipo: 'GERAL',
-            prioridade: 'NORMAL',
-            ativo: true
-          });
-          this.successMessage = '';
-        }, 2000);
-      },
-      error: (error) => {
-        console.log(' Erro ao criar aviso:', error); // Debug
-        this.loading = false;
-        
-        if (error.status === 401) {
-          console.log(' Erro 401 - redirecionando para login...'); // Debug
-          this.router.navigate(['/login']);
-        } else if (error.status === 403) {
-          this.errorMessage = 'Você não tem permissão para criar avisos.';
-        } else {
-          this.errorMessage = 'Erro ao criar aviso. Tente novamente.';
-        }
-      }
-    });
+  if (this.avisoForm.invalid) {
+    this.markFormGroupTouched();
+    return;
   }
+
+  this.loading = true;
+
+  this.avisosService.createAviso(this.avisoForm.value).subscribe({
+    next: (response) => {
+      this.loading = false;
+      this.tituloModal = 'Sucesso!';
+      this.mensagemModal = 'Aviso criado com sucesso!';
+      
+      this.modalService.open(this.modalAviso, { centered: true }).result.then(() => {
+        this.avisoForm.reset({
+          tipo: 'GERAL',
+          prioridade: 'NORMAL',
+          ativo: true
+        });
+        this.carregarMeusAvisos(); // Recarrega a lista
+      });
+    },
+    error: (error) => {
+      this.loading = false;
+      this.tituloModal = 'Erro';
+      if (error.status === 403) {
+        this.mensagemModal = 'Você não tem permissão para criar avisos.';
+      } else {
+        this.mensagemModal = 'Erro ao criar aviso. Tente novamente.';
+      }
+      this.modalService.open(this.modalAviso, { centered: true });
+    }
+  });
+}
 
   private markFormGroupTouched(): void {
     Object.keys(this.avisoForm.controls).forEach(key => {
@@ -157,18 +146,33 @@ export class CriarAvisoComponent implements OnInit {
     });
   }
 
-  excluirAviso(aviso: Aviso): void {
-    if (confirm(`Tem certeza que deseja excluir o aviso "${aviso.titulo}"?`)) {
-      this.avisosService.deleteAviso(aviso.id).subscribe({
-        next: () => {
-          this.carregarMeusAvisos();
-        },
-        error: (error) => {
-          console.error('Erro ao excluir aviso:', error);
-        }
-      });
+excluirAviso(aviso: Aviso): void {
+ 
+  this.modalService.open(this.modalExclusao, { centered: true }).result.then(
+    (result) => {
+
+      if (result === 'confirm') {
+        this.avisosService.deleteAviso(aviso.id).subscribe({
+          next: () => {
+            this.tituloModal = 'Sucesso';
+            this.mensagemModal = `O aviso "${aviso.titulo}" foi excluído.`;
+            this.modalService.open(this.modalAviso, { centered: true });
+            this.carregarMeusAvisos();
+          },
+          error: (error) => {
+            console.error('Erro ao excluir aviso:', error);
+            this.tituloModal = 'Erro';
+            this.mensagemModal = 'Não foi possível excluir o aviso.';
+            this.modalService.open(this.modalAviso, { centered: true });
+          }
+        });
+      }
+    },
+    (reason) => {
+      console.log('Exclusão cancelada.');
     }
-  }
+  );
+}
 
   formatarData(data: string): string {
     return new Date(data).toLocaleDateString('pt-BR', {
