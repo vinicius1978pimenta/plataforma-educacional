@@ -475,7 +475,7 @@
   }
 }
 
-.btn-secondary {
+.btn-secondary1 {
   background: #edf2f7;
   color: #4a5568;
 
@@ -496,7 +496,7 @@
   }
 }
 
-.btn-danger {
+.btn-danger1 {
   background: linear-gradient(135deg, #fc8181, #f56565);
   color: white;
 
@@ -655,4 +655,9 @@ input:focus-visible {
 .material-card:active {
   transform: translateY(-15px) scale(1.02);
   transition-duration: 0.1s;
+}
+
+.modal-header{
+ background: linear-gradient(135deg, #02285dbb, #4fc3f7);
+ color: white;
 }

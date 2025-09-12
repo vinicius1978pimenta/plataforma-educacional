@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Navbar2Component } from "../../../../navbar2/navbar2.component";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-listar-atividades',
@@ -13,15 +14,21 @@ import { Navbar2Component } from "../../../../navbar2/navbar2.component";
   styleUrls: ['./listar-atividades.component.scss']
 })
 export class ListarAtividadesComponent implements OnInit {
+  @ViewChild('modalExclusao') modalExclusao!: TemplateRef<any>;
+  @ViewChild('modalAviso') modalAviso!: TemplateRef<any>
+
   atividades: any[] = [];
   atividadesFiltradas: any[] = [];
   filtro = '';
   respostasPorAtividade: Record<string, any[]> = {};
 carregandoRespostas: Record<string, boolean> = {};
+  tituloModal: string = '';
+  mensagemModal: string = '';
 
   constructor(
     private atividadeService: AtividadeService,
-    private router: Router
+    private router: Router,
+    private modalService:  NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -52,13 +59,26 @@ carregandoRespostas: Record<string, boolean> = {};
     this.router.navigate(['/atividades/editar', id]);
   }
 
-  excluir(id: string) {
-    if (confirm('Tem certeza que deseja excluir esta atividade?')) {
+
+
+excluir(id: string) {
+
+  this.modalService.open(this.modalExclusao, { centered: true }).result.then(
+  
+    (result) => {
+      console.log('Confirmação recebida:', result);
       this.atividadeService.excluirAtividade(id).subscribe(() => {
-        this.carregarAtividades();
+        console.log('Atividade excluída com sucesso.');
+        this.carregarAtividades(); 
       });
+    },
+   
+    (reason) => {
+      console.log('Exclusão cancelada:', reason);
+   
     }
-  }
+  );
+}
 
 carregarRespostas(atividadeId: string): void {
   console.log('Carregando respostas para atividade:', atividadeId);
@@ -85,14 +105,19 @@ registrarAvaliacao(resposta: any): void {
 
   this.atividadeService.registrarAvaliacao(avaliacao).subscribe({
     next: () => {
-      alert('Avaliação registrada com sucesso!');
-      // opcional: marcar como corrigida localmente
+
+      this.tituloModal = 'Sucesso!';
+      this.mensagemModal = 'Avaliação registrada com sucesso!';
+      this.modalService.open(this.modalAviso, { centered: true });
+
       resposta.status = 'CORRIGIDA';
       resposta.dataCorrecao = new Date().toISOString();
     },
     error: (err) => {
       console.error('Erro ao registrar avaliação:', err);
-      alert('Erro ao registrar avaliação.');
+      this.tituloModal = 'Erro';
+      this.mensagemModal = 'Ocorreu um erro ao registrar a avaliação.';
+      this.modalService.open(this.modalAviso, { centered: true });
     }
   });
 }

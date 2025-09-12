@@ -57,6 +57,7 @@ export class AvisosService {
     return this.http.get<Aviso[]>(`${this.apiUrl}/professor/meus` );
   }
 
+  
 
  getAvisosAluno(): Observable<Aviso[]> {
     

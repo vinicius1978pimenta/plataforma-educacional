@@ -94,7 +94,7 @@ textarea.form-control {
   border-top: 1px solid #eee;
 }
 
-.btn-primary {
+.btn-primary2 {
   background-color: #007bff;
   color: white;
   border: none;
@@ -105,16 +105,16 @@ textarea.form-control {
   transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary2:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
-.btn-primary:disabled {
+.btn-primary2:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
 }
 
-.btn-secondary {
+.btn-secondary2 {
   background-color: #6c757d;
   color: white;
   border: none;
@@ -160,8 +160,11 @@ textarea.form-control {
     flex-direction: column;
   }
 
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
-  }
+}
+
+
+
+.modal-header{
+ background: linear-gradient(135deg, #02285dbb, #4fc3f7);
+ color: white;
 }

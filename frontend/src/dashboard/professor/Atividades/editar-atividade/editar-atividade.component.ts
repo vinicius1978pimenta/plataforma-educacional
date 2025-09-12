@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AtividadeService } from '../../../../services/atividade.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Navbar2Component } from "../../../../navbar2/navbar2.component";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { Navbar2Component } from "../../../../navbar2/navbar2.component";
   styleUrls: ['./editar-atividade.component.scss']
 })
 export class EditarAtividadeComponent implements OnInit {
+   @ViewChild('meuModal') meuModal!: TemplateRef<any>;
+
   atividade: any = {
     titulo: '',
     descricao: '',
@@ -28,11 +31,14 @@ export class EditarAtividadeComponent implements OnInit {
   dificuldades = ['FACIL', 'MEDIO', 'DIFICIL'];
 
   atividadeId: string = '';
+  tituloModal: string = '';
+  mensagemModal: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private atividadeService: AtividadeService,
+    private modalService:  NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +53,9 @@ export class EditarAtividadeComponent implements OnInit {
       },
       error: (err: any) => {
         console.error('Erro ao carregar atividade', err);
-        alert('Erro ao carregar atividade');
+        this.tituloModal = 'Erro';
+        this.mensagemModal = 'Ocorreu um erro ao carregar a atividade. Por favor, tente novamente.';
+        this.modalService.open(this.meuModal);
       }
     });
   }
@@ -68,15 +76,30 @@ export class EditarAtividadeComponent implements OnInit {
   turmaId: this.atividade.turmaId || null
 };
 
-this.atividadeService.atualizarAtividade(this.atividadeId, atividadeAtualizada).subscribe({
-  next: () => {
-    alert('Atividade atualizada com sucesso!');
-    this.router.navigate(['/atividades']);
-  },
-  error: (err) => {
-    console.error('Erro ao atualizar atividade', err);
-    alert('Erro ao atualizar atividade');
-  }
-});
-  }
+ this.atividadeService.atualizarAtividade(this.atividadeId, atividadeAtualizada).subscribe({
+    next: () => {
+      this.tituloModal = 'Sucesso!';
+      this.mensagemModal = 'Atividade atualizada com sucesso!';
+
+      this.modalService.open(this.meuModal,).result.then(
+        (result) => {
+          
+          console.log('Modal fechado com sucesso:', result);
+          this.router.navigate(['/atividades']);
+        },
+        (reason) => {
+           
+           this.router.navigate(['/atividades']);
+        }
+      );
+    },   
+
+    error: (err) => {
+      console.error('Erro ao atualizar atividade', err);
+      this.tituloModal = 'Erro';
+      this.mensagemModal = 'Ocorreu um erro ao salvar as alterações.';
+      this.modalService.open(this.meuModal);
+    }
+  });
+}
 }
