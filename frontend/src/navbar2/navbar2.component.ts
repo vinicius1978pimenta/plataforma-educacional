@@ -29,7 +29,7 @@ export class Navbar2Component {
           dashboardRoute = '/dashboard-aluno';
           break;
         case 'RESPONSAVEL':
-          dashboardRoute = '/dashboard-responsavel';
+          dashboardRoute = '/dashboard-responsaveis';
           break;
         default:
           console.warn('Papel de usuário não reconhecido:', currentUser.role);
